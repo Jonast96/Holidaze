@@ -3,13 +3,14 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Button } from "react-bootstrap";
-
+import logo from ".././assets/media/logo.png";
 function OffcanvasExample() {
   return (
     <header>
       <Navbar bg="dark" expand="xxxl" className="mb-3 p-3">
         <Container>
           <Navbar.Brand className="text-secondary fw-bold fs-3" href="/">
+            <img src={logo} alt="" />
             Holidaze
           </Navbar.Brand>
           <Navbar.Toggle

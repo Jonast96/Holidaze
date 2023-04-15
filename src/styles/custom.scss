@@ -32,3 +32,13 @@ $btn-font-weight: 600;
 .btn {
   color: $light;
 }
+
+// Change the default text decoration
+a {
+  text-decoration: none;
+
+  &:hover {
+    color: $secondary;
+    text-decoration: underline; // or any other desired decoration
+  }
+}

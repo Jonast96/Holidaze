@@ -26,6 +26,7 @@ function App() {
           <Route path="/venue" element={<Venue />} />
           <Route path="/hostProfile" element={<HostProfile />} />
           <Route path="/guestProfile" element={<GuestProfile />} />
+          <Route path="/venue/:id" element={<Venue />} />
         </Routes>
       </Layout>
     </>

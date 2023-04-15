@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 export default function SecondHero() {
   return (
     <section className="secondHero">
-      <div className="info mt-5">
+      <Container className="info mt-5">
         <h2>Explore Our Destinations</h2>
         <p>
           Whether you're dreaming of a serene beach vacation or an exhilarating
@@ -17,7 +17,7 @@ export default function SecondHero() {
           to suit every traveler's taste. Discover some of our top picks and
           start planning your next unforgettable getaway
         </p>
-      </div>
+      </Container>
       <Container className="mt-4">
         <Row>
           <Col className="mb-3" lg={6} sm={12}>

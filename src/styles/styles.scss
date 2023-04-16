@@ -17,3 +17,18 @@ header {
     margin-right: 10px;
   }
 }
+
+.register {
+  img {
+    object-fit: cover;
+    border-radius: 7px 0px 0px 7px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .register {
+    img {
+      border-radius: 10px 10px 0 0;
+    }
+  }
+}

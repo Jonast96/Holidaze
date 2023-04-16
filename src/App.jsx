@@ -7,7 +7,6 @@ import Venue from "./views/venue/Venue";
 import Index from "./views/home/Index";
 import GuestProfile from "./views/guestProfile/GuestProfile";
 import HostProfile from "./views/hostProfile/HostProfile";
-
 function App() {
   function Layout(props) {
     return (

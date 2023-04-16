@@ -4,7 +4,15 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Button } from "react-bootstrap";
 import logo from ".././assets/media/logo.png";
-function OffcanvasExample() {
+import React from "react";
+import Register from "./auth/Register";
+import Login from "./auth/Login";
+import { useState } from "react";
+
+function Header() {
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
   return (
     <header>
       <Navbar bg="dark" expand="xxxl" className="mb-3 p-3">
@@ -32,14 +40,29 @@ function OffcanvasExample() {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3 text-secondary fs-5">
+              <Nav className="justify-content-end flex-grow-1 pe-3 text-light fs-5">
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="#">Browse venue</Nav.Link>
                 <Nav.Link href="venue">Become a host</Nav.Link>
-                <div className="d-flex gap-2 mt-2">
-                  <Button>Login</Button>
-                  <Button>Sign up</Button>
+                <div className=" mt-2  d-flex">
+                  <Button
+                    className="me-2 w-100"
+                    onClick={() => setShowLogin(true)}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    className="w-100"
+                    onClick={() => setShowRegister(true)}
+                  >
+                    Sign up
+                  </Button>
                 </div>
+                <Login show={showLogin} onHide={() => setShowLogin(false)} />
+                <Register
+                  show={showRegister}
+                  onHide={() => setShowRegister(false)}
+                />
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
@@ -49,4 +72,4 @@ function OffcanvasExample() {
   );
 }
 
-export default OffcanvasExample;
+export default Header;

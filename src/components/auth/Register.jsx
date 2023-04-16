@@ -3,38 +3,41 @@ import { Col, Row, Form, Container, Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import image from "../.././assets//media/registerImage.jpg";
 import { registerSchema } from "./validation/registerSchema";
-import Login from "./Login";
-
+import CustomAlert from "../CustomAlert";
+import "./register.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Register(props) {
-  function Test() {
-    return (
-      <div className="popup">
-        <p>Successfully registered</p>
-      </div>
-    );
+  function notify() {
+    return toast(<CustomAlert message={"Successfully registered"} />);
   }
-  const notify = () => toast(<Test />);
 
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
-    picture: "",
+    avatar: "",
     password: "",
+    venueManager: false,
   });
 
   const [formErrors, setFormErrors] = useState({
     name: "",
     email: "",
-    picture: "",
+    avatar: "",
     password: "",
   });
 
+  const [venueManager, setVenueManager] = React.useState(false);
+
   function handleChange(e) {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    const { name, value, type } = e.target;
+
+    if (type === "radio" && name === "registrationType") {
+      setFormValues({ ...formValues, venueManager: JSON.parse(value) });
+    } else {
+      setFormValues({ ...formValues, [name]: value });
+    }
   }
 
   const validateForm = async () => {
@@ -43,8 +46,9 @@ function Register(props) {
       setFormErrors({
         name: "",
         email: "",
-        picture: "",
+        avatar: "",
         password: "",
+        venueManager: "",
       });
       return true;
     } catch (err) {
@@ -67,7 +71,7 @@ function Register(props) {
   function handleSubmit() {
     notify();
     props.onHide();
-    console.log("formValues", formValues);
+    console.log(formValues);
   }
 
   return (
@@ -110,17 +114,17 @@ function Register(props) {
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicImage">
-                  <Form.Label>Profile picture</Form.Label>
+                  <Form.Label>Profile avatar</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter image URL"
-                    name="picture"
-                    value={formValues.picture}
+                    name="avatar"
+                    value={formValues.avatar}
                     onChange={handleChange}
-                    isInvalid={!!formErrors.picture}
+                    isInvalid={!!formErrors.avatar}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {formErrors.picture}
+                    {formErrors.avatar}
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -137,10 +141,48 @@ function Register(props) {
                     {formErrors.password}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="Check me out" />
+                <p className="text-center">Select your account type</p>
+                <Form.Group className="my-4 d-flex">
+                  <div className="radioWrapper w-100">
+                    <Form.Check
+                      onChange={handleChange}
+                      type="radio"
+                      id="guest"
+                      name="registrationType"
+                      label=""
+                      value={false}
+                      onClick={() => setVenueManager(false)}
+                    />
+                    <label
+                      htmlFor="guest"
+                      className={
+                        !venueManager ? "customRadio selected" : "customRadio"
+                      }
+                    >
+                      Guest
+                    </label>
+                  </div>
+                  <div className="radioWrapper w-100">
+                    <Form.Check
+                      onChange={handleChange}
+                      type="radio"
+                      id="host"
+                      name="registrationType"
+                      label=""
+                      onClick={() => setVenueManager(true)}
+                      value={true}
+                    />
+                    <label
+                      htmlFor="host"
+                      className={
+                        venueManager ? "customRadio selected" : "customRadio"
+                      }
+                    >
+                      Host
+                    </label>
+                  </div>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button className="w-100 p-3" variant="primary" type="submit">
                   Register
                 </Button>
               </Form>

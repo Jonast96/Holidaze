@@ -8,14 +8,36 @@ import React from "react";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import { useState } from "react";
+import { useEffect } from "react";
 
 function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [lastScrollPos, setLastScrollPos] = useState(0);
 
+  const handleScroll = () => {
+    const currentScrollPos = window.pageYOffset;
+    setVisible(currentScrollPos < lastScrollPos || currentScrollPos === 0);
+    setLastScrollPos(currentScrollPos);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollPos]);
   return (
     <header>
-      <Navbar bg="dark" expand="xxxl" className="mb-3 p-3">
+      <Navbar
+        bg="dark"
+        expand="xxxl"
+        className={`mb-3 p-3 navbar-transition ${
+          !visible ? "hidden-navbar" : ""
+        }`}
+        fixed="top"
+      >
         <Container>
           <Navbar.Brand className="text-secondary fw-bold fs-3" href="/">
             <img src={logo} alt="" />

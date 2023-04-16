@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+main {
+  padding-top: 5rem;
+}
 .loading-page {
   display: flex;
   justify-content: center;
@@ -12,23 +15,16 @@
 }
 
 header {
+  .navbar-transition {
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .hidden-navbar {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
   img {
     width: 50px;
     margin-right: 10px;
-  }
-}
-
-.register {
-  img {
-    object-fit: cover;
-    border-radius: 7px 0px 0px 7px;
-  }
-}
-
-@media screen and (max-width: 990px) {
-  .register {
-    img {
-      border-radius: 10px 10px 0 0;
-    }
   }
 }

@@ -9,8 +9,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Register(props) {
-  function notify() {
-    return toast(<CustomAlert message={"Successfully registered"} />);
+  function notify(message) {
+    return toast(<CustomAlert message={message} />);
   }
 
   const [formValues, setFormValues] = useState({
@@ -68,10 +68,33 @@ function Register(props) {
     }
   };
 
-  function handleSubmit() {
-    notify();
-    props.onHide();
-    console.log(formValues);
+  async function handleSubmit() {
+    try {
+      console.log(formValues);
+      const response = await fetch(
+        "https://api.noroff.dev/api/v1/holidaze/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
+
+      if (!response.ok) {
+        console.log(response);
+        throw new Error("API call failed");
+      }
+
+      const json = await response.json();
+      console.log(json);
+      notify(`Hello ${json.name}! You have been registered.`);
+
+      props.onHide();
+    } catch (error) {
+      console.error("Error while making API call:", error);
+    }
   }
 
   return (

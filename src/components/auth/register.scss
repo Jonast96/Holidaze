@@ -11,14 +11,14 @@
     justify-content: center;
     width: 100%;
     height: 50px;
-    border: 1px solid $primary;
+    border: 1px solid $secondary;
     background-color: #fff;
     cursor: pointer;
     user-select: none;
   }
 
   .customRadio:hover {
-    background-color: $primary;
+    background-color: $secondary;
     color: #fff;
   }
 
@@ -27,7 +27,7 @@
   }
 
   .selected {
-    background-color: $primary;
+    background-color: $secondary;
     color: #fff;
   }
 

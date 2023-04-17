@@ -1,13 +1,29 @@
+/**
+
+@file
+This file defines the Register component, which is responsible for rendering the registration form, handling user input, and submitting the form data to the server.
+*/
+// External dependencies
 import React, { useState } from "react";
 import { Col, Row, Form, Container, Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Internal dependencies
 import image from "../.././assets//media/registerImage.jpg";
 import { registerSchema } from "./validation/registerSchema";
 import CustomAlert from "../CustomAlert";
 import "./register.scss";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
+/**
+ * `Register` is a functional React component that displays the registration form and handles form submission.
+ *
+ * @param {object} props - The properties passed to the component.
+ * @param {boolean} props.show - Indicates whether the modal should be shown or hidden. Pass `true` to show the modal, and `false` to hide it.
+ * @param {function} props.onHide - A function that is called when the modal needs to be hidden. Typically, this function should update the parent component's state to change the `show` prop value to `false`.
+ * @returns {ReactElement} The rendered `Register` component.
+ */
 function Register(props) {
   function notify(message) {
     return toast(<CustomAlert message={message} />);
@@ -40,6 +56,11 @@ function Register(props) {
     }
   }
 
+  /**
+   * Validates the form data against the `registerSchema` validation schema.
+   *
+   * @returns {Promise<boolean>} A promise that resolves to a boolean indicating whether the form data is valid.
+   */
   const validateForm = async () => {
     try {
       await registerSchema.validate(formValues, { abortEarly: false });
@@ -61,6 +82,11 @@ function Register(props) {
     }
   };
 
+  /**
+   * Handles form submission by validating the form data and, if valid, calling `handleSubmit`.
+   *
+   * @param {object} e - The form submit event.
+   */
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (await validateForm()) {
@@ -68,6 +94,10 @@ function Register(props) {
     }
   };
 
+  /**
+   * Submits the form data to the server and displays a notification upon successful registration.
+   * If an error occurs during the API call, logs the error.
+   */
   async function handleSubmit() {
     try {
       console.log(formValues);
@@ -97,6 +127,7 @@ function Register(props) {
     }
   }
 
+  // Return statement for rendering the `Register` component
   return (
     <Container>
       <Modal size="lg" centered show={props.show} onHide={props.onHide}>

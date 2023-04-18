@@ -1,0 +1,46 @@
+@import "../../styles//variables.scss";
+
+.register {
+  .radioWrapper {
+    align-items: center;
+  }
+
+  .customRadio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    border: 1px solid $secondary;
+    background-color: #fff;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .customRadio:hover {
+    background-color: $secondary;
+    color: #fff;
+  }
+
+  .form-check {
+    display: none;
+  }
+
+  .selected {
+    background-color: $secondary;
+    color: #fff;
+  }
+
+  img {
+    object-fit: cover;
+    border-radius: 7px 0px 0px 7px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .register {
+    img {
+      border-radius: 10px 10px 0 0;
+    }
+  }
+}

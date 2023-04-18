@@ -5,7 +5,7 @@ This file defines the Register component, which is responsible for rendering the
 */
 // External dependencies
 import React, { useState } from "react";
-import { Col, Row, Form, Container, Button } from "react-bootstrap";
+import { Col, Row, Form, Container, Button, Alert } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,6 +25,7 @@ import "./register.scss";
  * @returns {ReactElement} The rendered `Register` component.
  */
 function Register(props) {
+  const [errorMessage, setErrorMessage] = useState("");
   function notify(message) {
     return toast(<CustomAlert message={message} />);
   }
@@ -111,16 +112,15 @@ function Register(props) {
           body: JSON.stringify(formValues),
         }
       );
+      const json = await response.json();
 
       if (!response.ok) {
-        console.log(response);
+        console.log(json.errors[0].message);
+        setErrorMessage(json.errors[0].message);
         throw new Error("API call failed");
       }
-
-      const json = await response.json();
       console.log(json);
       notify(`Hello ${json.name}! You have been registered.`);
-
       props.onHide();
     } catch (error) {
       console.error("Error while making API call:", error);
@@ -137,8 +137,14 @@ function Register(props) {
           </Col>
           <Col lg={6}>
             <Modal.Title className="text-center">Register</Modal.Title>
+
             <Modal.Body>
               <Form onSubmit={handleFormSubmit}>
+                {errorMessage && (
+                  <Alert className="border-danger bg-light">
+                    {errorMessage}
+                  </Alert>
+                )}
                 <Form.Group className="mb-3" controlId="formBasicName">
                   <Form.Label>Name</Form.Label>
                   <Form.Control

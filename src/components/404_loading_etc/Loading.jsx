@@ -1,6 +1,6 @@
 import React from "react";
 import { Puff } from "react-loader-spinner";
-import "./Loading.scss";
+import "./loading.scss";
 
 const LoadingPage = () => {
   return (

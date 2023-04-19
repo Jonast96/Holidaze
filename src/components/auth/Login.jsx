@@ -65,6 +65,14 @@ function Login(props) {
         }
       );
       const json = await response.json();
+      console.log(json);
+      const user = {
+        name: json.name,
+        email: json.email,
+        isVenueManager: json.venueManager,
+        avatar: json.avatar,
+      };
+      localStorage.setItem("user", JSON.stringify(user));
 
       if (!response.ok) {
         setErrorMessage(json.errors[0].message);
@@ -84,7 +92,7 @@ function Login(props) {
           <Col lg={6}>
             <img className="img-fluid h-100" src={image} alt="" />
           </Col>
-          <Col lg={6}>
+          <Col lg={6} className="p-3">
             <Modal.Title className="text-center">Login</Modal.Title>
 
             <Modal.Body>

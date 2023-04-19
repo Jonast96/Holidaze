@@ -15,10 +15,18 @@ export default function VenueCard(props) {
     setIndex(selectedIndex);
   };
 
+  const [mouseOver, setMouseOver] = useState(false);
+  console.log(mouseOver ? "Mouse over" : "Mouse not over");
+
   return (
     <Col className="mb-4" md={6} xl={4}>
-      <Card as="div" className="shadow-sm h-100 ">
-        <div className="imgContainer">
+      <Card
+        onMouseOver={() => setMouseOver(true)}
+        onMouseLeave={() => setMouseOver(false)}
+        as="div"
+        className="shadow-sm h-100"
+      >
+        <div className="imgContainer ">
           {props.img.length > 1 ? (
             <Carousel
               activeIndex={index}
@@ -34,17 +42,25 @@ export default function VenueCard(props) {
               ))}
             </Carousel>
           ) : (
-            <div className="imgContainer">
-              <Card.Img
-                onError={handleImageError}
-                variant="top"
-                src={props.img}
-              />
-            </div>
+            <Link to={`/venue/${props.id}`}>
+              <div className="imgContainer">
+                <Card.Img
+                  onError={handleImageError}
+                  variant="top"
+                  src={props.img}
+                />
+              </div>
+            </Link>
           )}
         </div>
         <Link to={`/venue/${props.id}`}>
-          <div className="link-dark cardInfo p-2">
+          <div
+            className={
+              mouseOver
+                ? "link-dark cardInfo p-2 text-decoration-underline"
+                : "link-dark cardInfo p-2"
+            }
+          >
             <Card.Title>{props.name}</Card.Title>
             <Card.Text>City, Country</Card.Text>
             <Card.Body className="p-0">

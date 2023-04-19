@@ -135,7 +135,7 @@ function Register(props) {
           <Col lg={6}>
             <img className="img-fluid h-100" src={image} alt="" />
           </Col>
-          <Col lg={6}>
+          <Col lg={6} className="p-3">
             <Modal.Title className="text-center">Register</Modal.Title>
 
             <Modal.Body>

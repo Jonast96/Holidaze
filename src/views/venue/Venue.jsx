@@ -1,7 +1,7 @@
+import PageNotFound from "../..//components//404_loading_etc//PageNotFound";
 import { useParams } from "react-router-dom";
 import useApiCall from "../../hooks/useApiCall";
-import LoadingPage from "../../components/Loading";
-import PageNotFound from "../../components/PageNotFound";
+import LoadingPage from "../../components/404_loading_etc/Loading";
 
 export default function Venue() {
   const params = useParams();

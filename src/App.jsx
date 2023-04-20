@@ -3,8 +3,9 @@ import "./styles/custom.scss";
 import "./styles/styles.scss";
 import Header from "./components/header/Header";
 import { Route, Routes } from "react-router-dom";
-import Venue from "./views/venue/Venue";
-import Index from "./views/home/Index";
+import Venue from "./components/venue/Venue";
+import Index from "./components/home/Index";
+
 import Profile from "./components/profile/Profile";
 function App() {
   function Layout(props) {

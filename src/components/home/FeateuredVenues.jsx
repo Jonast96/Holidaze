@@ -2,8 +2,8 @@ import Row from "react-bootstrap/Row";
 
 import Container from "react-bootstrap/Container";
 
-import useApiCall from "../..//hooks/useApiCall";
-import VenueCard from "../../components/VenueCard";
+import useApiCall from "../../hooks/useApiCall";
+import VenueCard from "../VenueCard";
 
 import noImg from "../../assets/media/no-photo.png";
 export default function FeaturedVenues() {

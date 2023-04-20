@@ -1,18 +1,24 @@
-import PageNotFound from "../..//components//404_loading_etc//PageNotFound";
+import PageNotFound from "../../components/404_loading_etc/PageNotFound";
 import { useParams } from "react-router-dom";
 import useApiCall from "../../hooks/useApiCall";
 import LoadingPage from "../../components/404_loading_etc/Loading";
+import Container from "react-bootstrap/Container";
+import "./venue.scss";
+import Images from "./Images";
 
 export default function Venue() {
   const params = useParams();
   console.log(params.id);
 
-  // Modify the URL to force an error
   const { data, loading, error } = useApiCall(
     `https://api.noroff.dev/api/v1/holidaze/venues/${params.id}`
   );
   if (loading) return <LoadingPage />;
   if (error) return <PageNotFound errorMessage={error.message} />;
   console.log(data);
-  return <h1>{data.name}</h1>;
+  return (
+    <Container className="mt-5 mainContainer">
+      <Images data={data} />
+    </Container>
+  );
 }

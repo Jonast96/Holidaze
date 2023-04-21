@@ -7,9 +7,14 @@ import { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 function Images(props) {
   const [show, setShow] = useState(false);
+  const [index, setIndex] = useState(0);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
 
   return (
     <>
@@ -22,7 +27,30 @@ function Images(props) {
           ))}
         </Carousel>
       </Modal>
-      <Row onClick={handleShow} className="images imgContainer" md={6}>
+
+      <Carousel
+        className="mobileVersion"
+        activeIndex={index}
+        onSelect={handleSelect}
+        interval={null}
+      >
+        {props.data.media.map((imageSrc, index) => (
+          <Carousel.Item key={index}>
+            <img
+              onClick={handleShow}
+              className="img-fluid"
+              src={imageSrc}
+              alt=""
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
+
+      <Row
+        onClick={handleShow}
+        className="images imgContainer desktopVersion"
+        md={6}
+      >
         <Col md={6} className="m-0 p-0  ">
           <img className="img-fluid shadow" src={props.data.media[0]} alt="" />
         </Col>

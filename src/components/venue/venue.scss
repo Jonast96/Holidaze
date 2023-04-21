@@ -1,12 +1,21 @@
 .mainContainer {
   height: 450px;
-
-  img {
-    height: 100%;
-    padding: 1px;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 5px;
+  .desktopVersion {
+    display: none;
+    img {
+      height: 100%;
+      padding: 1px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+  .mobileVersion {
+    img {
+      height: 350px;
+      width: 100%;
+      object-fit: cover;
+    }
   }
 
   .imgContainer {
@@ -36,5 +45,16 @@
     width: 100%;
     object-fit: cover;
     min-height: 400px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mainContainer {
+    .mobileVersion {
+      display: none;
+    }
+    .desktopVersion {
+      display: flex;
+    }
   }
 }

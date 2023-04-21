@@ -35,9 +35,11 @@ export default function VenueCard(props) {
             >
               {props.img.map((imageSrc, index) => (
                 <Carousel.Item key={index}>
-                  <div className="imgContainer">
-                    <Card.Img variant="top" src={imageSrc} />
-                  </div>
+                  <Link to={`/venue/${props.id}`}>
+                    <div className="imgContainer">
+                      <Card.Img variant="top" src={imageSrc} />
+                    </div>
+                  </Link>
                 </Carousel.Item>
               ))}
             </Carousel>

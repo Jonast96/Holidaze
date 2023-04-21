@@ -15,23 +15,26 @@ function Images(props) {
     <>
       <Modal centered show={show} onHide={handleClose}>
         <Carousel interval={null} slide={false}>
-          {props.data.media.map((image) => (
-            <Carousel.Item>
+          {props.data.media.map((image, index) => (
+            <Carousel.Item key={index}>
               <img src={image} />
             </Carousel.Item>
           ))}
         </Carousel>
       </Modal>
       <Row onClick={handleShow} className="images imgContainer" md={6}>
-        <Col md={6} className="m-0 p-0 img ">
+        <Col md={6} className="m-0 p-0  ">
           <img className="img-fluid shadow" src={props.data.media[0]} alt="" />
         </Col>
         <Col md={6}>
           <Row className="h-100">
-            {props.data.media.slice(1, 5).map((image) => {
+            {props.data.media.slice(1, 5).map((image, index, slicedArray) => {
               return (
-                <Col className="m-0 p-0 img " xs={6}>
+                <Col key={index} className="m-0 p-0  smallImages" xs={6}>
                   <img className="img-fluid shadow" src={image} alt="" />
+                  {index === slicedArray.length - 1 ? (
+                    <div className="fs-5">+{props.data.media.length}</div>
+                  ) : null}
                 </Col>
               );
             })}

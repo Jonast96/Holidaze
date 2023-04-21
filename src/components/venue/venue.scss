@@ -13,7 +13,7 @@
     height: 100%;
   }
 
-  .lastImg {
+  .smallImages {
     position: relative;
     div {
       position: absolute;
@@ -21,7 +21,10 @@
       right: 0;
 
       padding: 2px 15px;
-      background-color: rgba(0, 0, 0, 0.6);
+      margin: 1px;
+      border-radius: 5px;
+
+      background-color: rgba(0, 0, 0, 0.8);
       color: white;
     }
   }

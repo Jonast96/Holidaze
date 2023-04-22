@@ -22,7 +22,7 @@ function Images(props) {
         <Carousel interval={null} slide={false}>
           {props.data.media.map((image, index) => (
             <Carousel.Item key={index}>
-              <img src={image} />
+              <img src={image} alt="" />
             </Carousel.Item>
           ))}
         </Carousel>
@@ -48,18 +48,20 @@ function Images(props) {
 
       <Row
         onClick={handleShow}
-        className="images imgContainer desktopVersion"
+        className="images imgContainer desktopVersion w-100 h-100 m-0 "
         md={6}
       >
         <Col md={6} className="m-0 p-0  ">
-          <img className="img-fluid shadow" src={props.data.media[0]} alt="" />
+          <div className="mainImage">
+            <img className=" shadow" src={props.data.media[0]} alt="" />
+          </div>{" "}
         </Col>
         <Col md={6}>
           <Row className="h-100">
             {props.data.media.slice(1, 5).map((image, index, slicedArray) => {
               return (
-                <Col key={index} className="m-0 p-0  smallImages" xs={6}>
-                  <img className="img-fluid shadow" src={image} alt="" />
+                <Col key={index} className="m-0 p-0 smallImages" xs={6}>
+                  <img className=" shadow " src={image} alt="" />
                   {index === slicedArray.length - 1 ? (
                     <div className="fs-5">+{props.data.media.length}</div>
                   ) : null}

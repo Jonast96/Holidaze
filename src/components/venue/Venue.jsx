@@ -5,6 +5,7 @@ import LoadingPage from "../../components/404_loading_etc/Loading";
 import Container from "react-bootstrap/Container";
 import "./venue.scss";
 import Images from "./Images";
+import Info from "./Info";
 
 export default function Venue() {
   const params = useParams();
@@ -19,6 +20,7 @@ export default function Venue() {
   return (
     <Container className="mt-5 mainContainer">
       <Images data={data} />
+      <Info data={data} />
     </Container>
   );
 }

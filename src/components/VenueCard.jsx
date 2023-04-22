@@ -16,15 +16,14 @@ export default function VenueCard(props) {
   };
 
   const [mouseOver, setMouseOver] = useState(false);
-  console.log(mouseOver ? "Mouse over" : "Mouse not over");
 
   return (
-    <Col className="mb-4" md={6} xl={4}>
+    <Col className="mb-4" md={6} lg={4} xxl={3}>
       <Card
         onMouseOver={() => setMouseOver(true)}
         onMouseLeave={() => setMouseOver(false)}
         as="div"
-        className="shadow-sm h-100"
+        className="border-light shadow-sm h-100"
       >
         <div className="imgContainer ">
           {props.img.length > 1 ? (

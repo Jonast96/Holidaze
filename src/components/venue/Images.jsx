@@ -46,31 +46,72 @@ function Images(props) {
         ))}
       </Carousel>
 
-      <Row
-        onClick={handleShow}
-        className="images imgContainer desktopVersion w-100 h-100 m-0 "
-        md={6}
-      >
-        <Col md={6} className="m-0 p-0  ">
-          <div className="mainImage">
-            <img className=" shadow" src={props.data.media[0]} alt="" />
-          </div>{" "}
-        </Col>
-        <Col md={6}>
-          <Row className="h-100">
-            {props.data.media.slice(1, 5).map((image, index, slicedArray) => {
-              return (
-                <Col key={index} className="m-0 p-0 smallImages" xs={6}>
-                  <img className=" shadow " src={image} alt="" />
-                  {index === slicedArray.length - 1 ? (
-                    <div className="fs-5">+{props.data.media.length}</div>
-                  ) : null}
-                </Col>
-              );
-            })}
-          </Row>
-        </Col>
-      </Row>
+      {props.data.media.length > 4 ? (
+        <Row
+          onClick={handleShow}
+          className="images imgContainer desktopVersion w-100 h-100 m-0 "
+          md={6}
+        >
+          <Col md={6} className="m-0 p-0  ">
+            <div className="mainImage">
+              <img className=" shadow-sm" src={props.data.media[0]} alt="" />
+            </div>{" "}
+          </Col>
+          <Col md={6}>
+            <Row className="h-100">
+              {props.data.media.slice(1, 5).map((image, index, slicedArray) => {
+                return (
+                  <Col key={index} className="m-0 p-0 smallImages" xs={6}>
+                    <img className=" shadow-sm" src={image} alt="" />
+                    {index === slicedArray.length - 1 ? (
+                      <div className="fs-5">+{props.data.media.length}</div>
+                    ) : null}
+                  </Col>
+                );
+              })}
+            </Row>
+          </Col>
+        </Row>
+      ) : props.data.media.length > 2 ? (
+        <Row
+          onClick={handleShow}
+          className="images imgContainer desktopVersion w-100 h-100 m-0 "
+          md={6}
+        >
+          <Col md={6} className="m-0 p-0  ">
+            <div className="mainImage">
+              <img className=" shadow-sm" src={props.data.media[0]} alt="" />
+            </div>{" "}
+          </Col>
+          <Col md={6}>
+            <Row className="h-100">
+              {props.data.media.slice(1, 5).map((image, index, slicedArray) => {
+                return (
+                  <Col key={index} className="m-0 p-0 smallImages " xs={12}>
+                    <img className=" shadow-sm" src={image} alt="" />
+                    {index === slicedArray.length - 1 ? (
+                      <div className="fs-5">+{props.data.media.length}</div>
+                    ) : null}
+                  </Col>
+                );
+              })}
+            </Row>
+          </Col>
+        </Row>
+      ) : (
+        <Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
+          {props.data.media.map((imageSrc, index) => (
+            <Carousel.Item key={index}>
+              <img
+                onClick={handleShow}
+                className="img-fluid images"
+                src={imageSrc}
+                alt=""
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      )}
     </>
   );
 }

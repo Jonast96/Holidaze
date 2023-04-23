@@ -12,7 +12,8 @@ export default function Venue() {
   console.log(params.id);
 
   const { data, loading, error } = useApiCall(
-    `https://api.noroff.dev/api/v1/holidaze/venues/${params.id}`
+    `https://api.noroff.dev/api/v1/holidaze/venues/${params.id}?_owner=true&_bookings=true
+    `
   );
   if (loading) return <LoadingPage />;
   if (error) return <PageNotFound errorMessage={error.message} />;

@@ -18,6 +18,11 @@
       object-fit: cover;
     }
   }
+  .images {
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+  }
   .mainImage {
     height: 400px;
   }
@@ -41,13 +46,31 @@
   .metaValues {
     padding: 5px 10px;
     border-radius: 5px;
+    font-weight: 500;
   }
   .included {
-    border: solid 1px $secondary;
+    border: solid 1px $primary;
   }
   .notIncluded {
     border: solid 1px red;
     text-decoration: line-through;
+  }
+  .booking {
+    margin: 0 auto;
+    h2 {
+      font-weight: 500;
+    }
+    .price {
+      font-weight: 500;
+    }
+  }
+  .dates {
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: $secondary;
+    color: white;
+    font-weight: 500;
   }
 }
 

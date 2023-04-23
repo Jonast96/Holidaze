@@ -71,6 +71,7 @@ function Login(props) {
         email: json.email,
         isVenueManager: json.venueManager,
         avatar: json.avatar,
+        token: json.accessToken,
       };
       localStorage.setItem("user", JSON.stringify(user));
 
@@ -79,7 +80,11 @@ function Login(props) {
         throw new Error("API call failed");
       }
       props.onHide();
-      setUser({ loggedIn: true, venueManager: json.venueManager });
+      setUser({
+        loggedIn: true,
+        venueManager: json.venueManager,
+        token: json.accessToken,
+      });
     } catch (error) {
       console.error("Error while making API call:", error);
     }

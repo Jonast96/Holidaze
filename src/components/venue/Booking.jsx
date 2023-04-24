@@ -94,7 +94,12 @@ function Booking(props) {
   }
 
   return (
-    <Col sm={12} lg={4} className="booking text-center border mt-4">
+    <Col
+      sm={12}
+      lg={4}
+      id="booking"
+      className="booking text-center border mt-4"
+    >
       <h2 className=" fs-3 mt-4">Select your dates</h2>
       {errorMessage && <p className="text-danger">{errorMessage}</p>}
       <DatePicker

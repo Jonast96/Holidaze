@@ -99,7 +99,12 @@ function Images(props) {
           </Col>
         </Row>
       ) : (
-        <Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
+        <Carousel
+          className="displayNoneDesktop"
+          activeIndex={index}
+          onSelect={handleSelect}
+          interval={null}
+        >
           {props.data.media.map((imageSrc, index) => (
             <Carousel.Item key={index}>
               <img

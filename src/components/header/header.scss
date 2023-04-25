@@ -1,0 +1,27 @@
+header {
+  padding-bottom: 5rem;
+
+  .navbar-transition {
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .hidden-navbar {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  img {
+    width: 50px;
+    margin-right: 10px;
+  }
+}
+.guest {
+  img {
+    width: 50px;
+  }
+}
+
+.userInfo {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+}

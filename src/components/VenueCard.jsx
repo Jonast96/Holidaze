@@ -15,10 +15,19 @@ export default function VenueCard(props) {
     setIndex(selectedIndex);
   };
 
+  const [mouseOver, setMouseOver] = useState(false);
+
+  console.log(props);
+
   return (
-    <Col className="mb-4" md={6} xl={4}>
-      <Card as="div" className="shadow-sm h-100 ">
-        <div className="imgContainer">
+    <Col className="mb-4" md={6} lg={4} xxl={3}>
+      <Card
+        onMouseOver={() => setMouseOver(true)}
+        onMouseLeave={() => setMouseOver(false)}
+        as="div"
+        className="border-light shadow-sm h-100"
+      >
+        <div className="imgContainer ">
           {props.img.length > 1 ? (
             <Carousel
               activeIndex={index}
@@ -27,26 +36,38 @@ export default function VenueCard(props) {
             >
               {props.img.map((imageSrc, index) => (
                 <Carousel.Item key={index}>
-                  <div className="imgContainer">
-                    <Card.Img variant="top" src={imageSrc} />
-                  </div>
+                  <Link to={`/venue/${props.id}`}>
+                    <div className="imgContainer">
+                      <Card.Img variant="top" src={imageSrc} />
+                    </div>
+                  </Link>
                 </Carousel.Item>
               ))}
             </Carousel>
           ) : (
-            <div className="imgContainer">
-              <Card.Img
-                onError={handleImageError}
-                variant="top"
-                src={props.img}
-              />
-            </div>
+            <Link to={`/venue/${props.id}`}>
+              <div className="imgContainer">
+                <Card.Img
+                  onError={handleImageError}
+                  variant="top"
+                  src={props.img}
+                />
+              </div>
+            </Link>
           )}
         </div>
         <Link to={`/venue/${props.id}`}>
-          <div className="link-dark cardInfo p-2">
+          <div
+            className={
+              mouseOver
+                ? "link-dark cardInfo p-2 text-decoration-underline"
+                : "link-dark cardInfo p-2"
+            }
+          >
             <Card.Title>{props.name}</Card.Title>
-            <Card.Text>City, Country</Card.Text>
+            <Card.Text>
+              {props.location.city}, {props.location.country}
+            </Card.Text>
             <Card.Body className="p-0">
               <span className="fw-bold">${props.price},-</span> per night
             </Card.Body>

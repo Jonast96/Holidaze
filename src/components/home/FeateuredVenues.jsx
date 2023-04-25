@@ -2,15 +2,14 @@ import Row from "react-bootstrap/Row";
 
 import Container from "react-bootstrap/Container";
 
-import useApiCall from "../..//hooks/useApiCall";
-import VenueCard from "../../components/VenueCard";
+import useApiCall from "../../hooks/useApiCall";
+import VenueCard from "../VenueCard";
 
 import noImg from "../../assets/media/no-photo.png";
 export default function FeaturedVenues() {
   const { data, loading, error } = useApiCall(
-    "https://api.noroff.dev/api/v1/holidaze/venues"
+    "https://api.noroff.dev/api/v1/holidaze/venues?_owner=true&_bookings=true"
   );
-  console.log(data);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
@@ -34,6 +33,7 @@ export default function FeaturedVenues() {
                 placeholder={noImg}
                 price={venue.price}
                 id={venue.id}
+                location={venue.location}
               />
             );
           })}

@@ -65,26 +65,45 @@ function Login(props) {
         }
       );
       const json = await response.json();
+      console.log(json);
+      const user = {
+        name: json.name,
+        email: json.email,
+        isVenueManager: json.venueManager,
+        avatar: json.avatar,
+        token: json.accessToken,
+      };
+      localStorage.setItem("user", JSON.stringify(user));
 
       if (!response.ok) {
         setErrorMessage(json.errors[0].message);
         throw new Error("API call failed");
       }
       props.onHide();
-      setUser({ loggedIn: true, venueManager: json.venueManager });
+      setUser({
+        loggedIn: true,
+        venueManager: json.venueManager,
+        token: json.accessToken,
+      });
     } catch (error) {
       console.error("Error while making API call:", error);
     }
   }
 
   return (
-    <Container>
+    <Container className="login">
       <Modal size="lg" centered show={props.show} onHide={props.onHide}>
         <Row className="register">
           <Col lg={6}>
-            <img className="img-fluid h-100" src={image} alt="" />
+            <img className="img-fluid h-25" src={image} alt="" />
           </Col>
-          <Col lg={6}>
+          <Col lg={6} className="p-3">
+            <button
+              onClick={props.onHide}
+              type="button"
+              className="btn-close float-end"
+              aria-label="Close"
+            ></button>
             <Modal.Title className="text-center">Login</Modal.Title>
 
             <Modal.Body>

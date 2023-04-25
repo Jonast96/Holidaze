@@ -13,6 +13,8 @@ import logo from "../..//assets/media/logo.png";
 import { UserContext } from "../Context";
 import VenueManager from "./VenueManager";
 import Guest from "./Guest";
+import "./header.scss";
+import { Link } from "react-router-dom";
 /**
  * `Header` is a functional React component that displays the website header with navigation menu.
  * The header hides when the user scrolls down and shows when the user scrolls up.
@@ -25,8 +27,19 @@ function Header() {
   const [lastScrollPos, setLastScrollPos] = useState(0);
   const { user, setUser } = React.useContext(UserContext);
 
+  useEffect(() => {
+    const localStoredUser = JSON.parse(localStorage.getItem("user"));
+    console.log(localStoredUser);
+    setUser(
+      localStoredUser
+        ? { loggedIn: true, venueManager: localStoredUser.venueManager }
+        : { loggedIn: false, venueManager: false }
+    );
+  }, []);
+
   function logout() {
     setUser({ loggedIn: false, venueManager: false });
+    localStorage.clear();
   }
 
   const handleScroll = () => {
@@ -52,7 +65,11 @@ function Header() {
         fixed="top"
       >
         <Container>
-          <Navbar.Brand className="text-secondary fw-bold fs-3" href="/">
+          <Navbar.Brand
+            className="text-secondary fw-bold fs-3"
+            as={Link}
+            to={"/"}
+          >
             <img src={logo} alt="" />
             Holidaze
           </Navbar.Brand>
@@ -66,9 +83,9 @@ function Header() {
             placement="end"
             className="bg-dark"
           >
-            <Offcanvas.Header closeButton>
+            <Offcanvas.Header className="btn-close-white" closeButton>
               <Offcanvas.Title
-                className="text-secondary fs-3 fw-bold"
+                className=" fs-3 fw-bold"
                 id="offcanvasNavbarLabel-expand-lg "
               >
                 Holidaze

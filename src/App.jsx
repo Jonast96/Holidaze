@@ -1,13 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/custom.scss";
 import "./styles/styles.scss";
-import Header from "./components/header/Header";
-import { Route, Routes } from "react-router-dom";
-import Venue from "./views/venue/Venue";
-import Index from "./views/home/Index";
-import GuestProfile from "./views/guestProfile/GuestProfile";
-import HostProfile from "./views/hostProfile/HostProfile";
 
+import { Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+const Index = lazy(() => import("./components/home/Index"));
+const Header = lazy(() => import("./components/header/Header"));
+const Venue = lazy(() => import("./components/venue/Venue"));
+const Profile = lazy(() => import("./components/profile/Profile"));
+const Loading = lazy(() => import("./components/404_loading_etc/Loading"));
 function App() {
   function Layout(props) {
     return (
@@ -20,15 +22,16 @@ function App() {
 
   return (
     <>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/venue" element={<Venue />} />
-          <Route path="/hostProfile" element={<HostProfile />} />
-          <Route path="/guestProfile" element={<GuestProfile />} />
-          <Route path="/venue/:id" element={<Venue />} />
-        </Routes>
-      </Layout>
+      <Suspense fallback={<Loading />}>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/venue" element={<Venue />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/venue/:id" element={<Venue />} />
+          </Routes>
+        </Layout>
+      </Suspense>
     </>
   );
 }

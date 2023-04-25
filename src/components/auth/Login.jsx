@@ -101,7 +101,7 @@ function Login(props) {
             <button
               onClick={props.onHide}
               type="button"
-              class="btn-close float-end"
+              className="btn-close float-end"
               aria-label="Close"
             ></button>
             <Modal.Title className="text-center">Login</Modal.Title>

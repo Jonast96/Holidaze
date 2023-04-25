@@ -7,6 +7,7 @@ import Login from "../auth/Login";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import BookingConfirmationModal from "./BookingConfirmationModal";
 
 function Booking(props) {
   const [startDate, setStartDate] = useState(new Date());
@@ -14,6 +15,7 @@ function Booking(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [disableBooking, setDisableBooking] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const bookings = props.data.bookings;
@@ -82,8 +84,8 @@ function Booking(props) {
       const json = await response.json();
       console.log(json);
       if (response.ok) {
-        alert("Booking successful!");
         setErrorMessage("");
+        setShowConfirmation(true);
       } else {
         setErrorMessage(json.message);
       }
@@ -100,6 +102,17 @@ function Booking(props) {
       id="booking"
       className="booking text-center border mt-4"
     >
+      <BookingConfirmationModal
+        show={showConfirmation}
+        onHide={() => setShowConfirmation(false)}
+        bookingData={{
+          startDate,
+          endDate,
+          venue: props.data.name,
+          price: props.data.price,
+        }}
+      />
+
       <h2 className=" fs-3 mt-4">Select your dates</h2>
       {errorMessage && <p className="text-danger">{errorMessage}</p>}
       <DatePicker

@@ -95,7 +95,7 @@ function Login(props) {
       <Modal size="lg" centered show={props.show} onHide={props.onHide}>
         <Row className="register">
           <Col lg={6}>
-            <img className="img-fluid h-25" src={image} alt="" />
+            <img className="img-fluid h-100" src={image} alt="" />
           </Col>
           <Col lg={6} className="p-3">
             <button

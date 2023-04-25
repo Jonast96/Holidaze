@@ -42,14 +42,9 @@ function Info(props) {
         </div>
         <p>{props.data.description}</p>
         {props.data.location.lat && props.data.location.lng ? (
-          <div>
+          <div className="mb-4">
             <h3>Explore the location</h3>
-            <MapContainer
-              className="mapContainer"
-              center={position}
-              zoom={13}
-              scrollWheelZoom={false}
-            >
+            <MapContainer className="mapContainer" center={position} zoom={13}>
               <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

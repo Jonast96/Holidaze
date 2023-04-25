@@ -17,6 +17,8 @@ export default function VenueCard(props) {
 
   const [mouseOver, setMouseOver] = useState(false);
 
+  console.log(props);
+
   return (
     <Col className="mb-4" md={6} lg={4} xxl={3}>
       <Card
@@ -63,7 +65,9 @@ export default function VenueCard(props) {
             }
           >
             <Card.Title>{props.name}</Card.Title>
-            <Card.Text>City, Country</Card.Text>
+            <Card.Text>
+              {props.location.city}, {props.location.country}
+            </Card.Text>
             <Card.Body className="p-0">
               <span className="fw-bold">${props.price},-</span> per night
             </Card.Body>

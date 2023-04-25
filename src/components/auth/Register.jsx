@@ -136,6 +136,12 @@ function Register(props) {
             <img className="img-fluid h-100" src={image} alt="" />
           </Col>
           <Col lg={6} className="p-3">
+            <button
+              onClick={props.onHide}
+              type="button"
+              class="btn-close float-end"
+              aria-label="Close"
+            ></button>
             <Modal.Title className="text-center">Register</Modal.Title>
 
             <Modal.Body>

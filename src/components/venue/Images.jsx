@@ -85,7 +85,7 @@ function Images(props) {
           </Col>
           <Col md={6}>
             <Row className="h-100">
-              {props.data.media.slice(1, 5).map((image, index, slicedArray) => {
+              {props.data.media.slice(1, 3).map((image, index, slicedArray) => {
                 return (
                   <Col key={index} className="m-0 p-0 smallImages " xs={12}>
                     <img className=" shadow-sm" src={image} alt="" />

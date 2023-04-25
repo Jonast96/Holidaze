@@ -83,9 +83,9 @@ function Header() {
             placement="end"
             className="bg-dark"
           >
-            <Offcanvas.Header closeButton>
+            <Offcanvas.Header className="btn-close-white" closeButton>
               <Offcanvas.Title
-                className="text-secondary fs-3 fw-bold"
+                className=" fs-3 fw-bold"
                 id="offcanvasNavbarLabel-expand-lg "
               >
                 Holidaze

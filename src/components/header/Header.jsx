@@ -1,27 +1,25 @@
-//External dependencies
+// External dependencies
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
 
 // Internal dependencies
 import LoggedOut from "./LoggedOut";
-import logo from "../..//assets/media/logo.png";
-import { UserContext } from "../Context";
 import VenueManager from "./VenueManager";
 import Guest from "./Guest";
+import { UserContext } from "../Context";
+import logo from "../../assets/media/logo.png";
 import "./header.scss";
-import { Link } from "react-router-dom";
+
 /**
  * `Header` is a functional React component that displays the website header with navigation menu.
  * The header hides when the user scrolls down and shows when the user scrolls up.
  *
  * @returns {ReactElement} The rendered `Header` component.
  */
-
 function Header() {
   const [visible, setVisible] = useState(true);
   const [lastScrollPos, setLastScrollPos] = useState(0);
@@ -29,10 +27,9 @@ function Header() {
 
   useEffect(() => {
     const localStoredUser = JSON.parse(localStorage.getItem("user"));
-    console.log(localStoredUser);
     setUser(
       localStoredUser
-        ? { loggedIn: true, venueManager: localStoredUser.venueManager }
+        ? { loggedIn: true, venueManager: localStoredUser.isVenueManager }
         : { loggedIn: false, venueManager: false }
     );
   }, []);
@@ -54,6 +51,7 @@ function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollPos]);
+
   return (
     <header>
       <Navbar

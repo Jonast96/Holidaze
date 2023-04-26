@@ -3,7 +3,6 @@ import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 
 export default function Guest(props) {
-  //parse user from local storage
   const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div className="guest">

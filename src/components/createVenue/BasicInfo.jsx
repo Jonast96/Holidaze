@@ -13,10 +13,10 @@ function BasicInfo({
   setMaxGuests,
 }) {
   return (
-    <Form>
+    <Form className="d-flex row gap-3">
       <h4>Basic Information</h4>
       <Form.Group controlId="name">
-        <Form.Label>Name</Form.Label>
+        <Form.Label className="p-0 m-0">Name</Form.Label>
         <Form.Control
           type="text"
           value={name}
@@ -25,7 +25,7 @@ function BasicInfo({
         />
       </Form.Group>
       <Form.Group controlId="description">
-        <Form.Label>Description</Form.Label>
+        <Form.Label className="p-0 m-0">Description</Form.Label>
         <Form.Control
           as="textarea"
           value={description}
@@ -34,7 +34,7 @@ function BasicInfo({
         />
       </Form.Group>
       <Form.Group controlId="price">
-        <Form.Label>Price</Form.Label>
+        <Form.Label className="p-0 m-0">Price</Form.Label>
         <InputGroup>
           <InputGroup.Text>$</InputGroup.Text>
           <Form.Control
@@ -46,7 +46,7 @@ function BasicInfo({
         </InputGroup>
       </Form.Group>
       <Form.Group controlId="maxGuests">
-        <Form.Label>Max Guests</Form.Label>
+        <Form.Label className="p-0 m-0">Max Guests</Form.Label>
         <Form.Control
           type="number"
           value={maxGuests}

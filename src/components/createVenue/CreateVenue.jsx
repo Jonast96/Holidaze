@@ -9,9 +9,11 @@ import Media from "./Media";
 
 import BasicInfo from "./BasicInfo";
 import Amenities from "./Amenities";
+import Location from "./Location";
+import Preview from "./Preview";
 function CreateVenue() {
   const [step, setStep] = useState(1);
-  const progress = (step / 4) * 100;
+  const progress = (step / 5) * 100;
 
   const [venueData, setVenueData] = useState({
     name: "",
@@ -28,8 +30,11 @@ function CreateVenue() {
     location: {
       address: "",
       city: "",
-      state: "",
       zip: "",
+      country: "",
+      continent: "",
+      latitude: "",
+      longitude: "",
     },
   });
 
@@ -57,15 +62,12 @@ function CreateVenue() {
     setVenueData({ ...venueData, amenities: value });
   }
 
-  function setAddress(value) {
-    setVenueData({
-      ...venueData,
-      location: { ...venueData.location, address: value },
-    });
+  function setLocation(value) {
+    setVenueData({ ...venueData, location: value });
   }
 
   function handleNext() {
-    if (step < 4) {
+    if (step < 5) {
       setStep(step + 1);
     }
     console.log(venueData);
@@ -85,7 +87,7 @@ function CreateVenue() {
           <ProgressBar now={progress} label={`${progress}%`} />
         </Col>
       </Row>
-      <Row>
+      <Row className="mt-2">
         <Col>
           {step === 1 && (
             <BasicInfo
@@ -124,21 +126,24 @@ function CreateVenue() {
       <Row>
         <Col>
           {step === 4 && (
-            <div>
-              Location
-              <Button>Submit</Button>
-            </div>
+            <Location location={venueData.location} setLocation={setLocation} />
           )}
         </Col>
       </Row>
+      <Row>
+        <Col>{step === 5 && <Preview data={venueData} />}</Col>
+      </Row>
+
       <Row>
         <Col className="d-flex justify-content-between mt-3">
           <Button onClick={handleBack} disabled={step === 1}>
             Back
           </Button>
-          <Button onClick={handleNext} disabled={step === 4}>
-            Next
-          </Button>
+          {step < 5 ? (
+            <Button onClick={handleNext}>Next</Button>
+          ) : (
+            <Button>Submit</Button>
+          )}
         </Col>
       </Row>
     </Container>

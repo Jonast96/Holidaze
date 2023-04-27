@@ -23,8 +23,9 @@ function Media({ mediaUrls, setMediaUrls }) {
     <div className="media">
       <h4>Media Upload</h4>
       <Form.Group controlId="urlInput">
-        <Form.Label>Photo URL</Form.Label>
+        <Form.Label className="p-0 m-0">Photo URL</Form.Label>
         <Form.Control
+          className="mb-2"
           type="text"
           value={urlInput}
           onChange={(e) => setUrlInput(e.target.value)}

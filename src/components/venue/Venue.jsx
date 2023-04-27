@@ -19,12 +19,23 @@ export default function Venue() {
   );
   if (loading) return <LoadingPage />;
   if (error) return <PageNotFound errorMessage={error.message} />;
-  console.log(data);
+  console.log(data.media);
   return (
     <Container className="mt-5 mainContainer">
-      <Images data={data} />
+      <Images media={data.media} />
       <Row>
-        <Info data={data} />
+        <Info
+          name={data.name}
+          maxGuests={data.maxGuests}
+          city={data.city}
+          country={data.country}
+          description={data.description}
+          lat={data.location.lat}
+          lng={data.location.lng}
+          owner={data.owner}
+          meta={data.meta}
+        />
+
         <Booking data={data} />
       </Row>
     </Container>

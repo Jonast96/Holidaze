@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import "./CreateVenue.scss";
+import "./createVenue.scss";
 import Media from "./Media";
 
 import BasicInfo from "./BasicInfo";

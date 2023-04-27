@@ -13,34 +13,34 @@ function Amenities({ amenities, setAmenities }) {
   return (
     <div className="amenities">
       <h4>Select amenities</h4>
-      <Form.Group className="d-flex gap-2" controlId="Parking">
+      <Form.Group className="d-flex gap-2" controlId="parking">
         <Form.Check
           type="checkbox"
-          name="Parking"
+          name="parking"
           onChange={handleAmenityChange}
         />
         <Form.Label>Parking</Form.Label>
       </Form.Group>
-      <Form.Group className="d-flex gap-2" controlId="Wifi">
+      <Form.Group className="d-flex gap-2" controlId="wifi">
         <Form.Check
           type="checkbox"
-          name="Wifi"
+          name="wifi"
           onChange={handleAmenityChange}
         />
         <Form.Label>Wifi</Form.Label>
       </Form.Group>
-      <Form.Group className="d-flex gap-2" controlId="Breakfast">
+      <Form.Group className="d-flex gap-2" controlId="breakfast">
         <Form.Check
           type="checkbox"
-          name="Breakfast"
+          name="breakfast"
           onChange={handleAmenityChange}
         />
         <Form.Label>Breakfast</Form.Label>
       </Form.Group>
-      <Form.Group className="d-flex gap-2" controlId="Pets">
+      <Form.Group className="d-flex gap-2" controlId="pets">
         <Form.Check
           type="checkbox"
-          name="Pets"
+          name="pets"
           onChange={handleAmenityChange}
         />
         <Form.Label>Pets</Form.Label>

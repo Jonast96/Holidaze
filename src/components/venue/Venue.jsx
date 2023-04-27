@@ -19,7 +19,7 @@ export default function Venue() {
   );
   if (loading) return <LoadingPage />;
   if (error) return <PageNotFound errorMessage={error.message} />;
-  console.log(data.media);
+  console.log(data);
   return (
     <Container className="mt-5 mainContainer">
       <Images media={data.media} />

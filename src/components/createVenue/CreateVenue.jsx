@@ -22,10 +22,10 @@ function CreateVenue() {
     maxGuests: "",
     mediaUrls: [],
     amenities: {
-      Parking: false,
-      Wifi: false,
-      Breakfast: false,
-      Pets: false,
+      parking: false,
+      wifi: false,
+      breakfast: false,
+      pets: false,
     },
     location: {
       address: "",

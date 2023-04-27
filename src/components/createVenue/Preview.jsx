@@ -2,17 +2,18 @@ import React from "react";
 import Row from "react-bootstrap/Row";
 import Images from "../venue/Images";
 import Info from "../venue/Info";
-import "../venue/venue.scss";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
 
 function Preview(props) {
   const owner = {
     name: "John Doe",
-    avatar: "", // Add a default avatar or a placeholder image URL here.
+    avatar: "",
   };
+  console.log(props.data.mediaUrls.length);
   return (
-    <div className="preview">
+    <Container className="mt-5 mainContainer preview">
       <h2>Preview</h2>
-
       <Images media={props.data.mediaUrls} />
       <Row>
         <Info
@@ -26,8 +27,17 @@ function Preview(props) {
           owner={owner}
           meta={props.data.amenities}
         />
+
+        <Col
+          sm={12}
+          lg={4}
+          id="booking"
+          className="booking text-center border mt-4"
+        >
+          Booking will go here
+        </Col>
       </Row>
-    </div>
+    </Container>
   );
 }
 export default Preview;

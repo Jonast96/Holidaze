@@ -4,6 +4,8 @@ import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 
+import "./venue.scss";
+
 import Carousel from "react-bootstrap/Carousel";
 function Images(props) {
   const [show, setShow] = useState(false);

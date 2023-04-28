@@ -4,11 +4,6 @@ import Col from "react-bootstrap/Col";
 import { getNames } from "country-list";
 
 function Location({ location, setLocation }) {
-  const [coordinates, setCoordinates] = useState({
-    latitude: "",
-    longitude: "",
-  });
-
   const countries = getNames();
   const continents = [
     "Africa",
@@ -24,7 +19,12 @@ function Location({ location, setLocation }) {
     const { name, value } = e.target;
     setLocation({
       ...location,
-      [name]: value,
+      [name]:
+        name === "lat" || name === "lng"
+          ? value
+            ? parseFloat(value)
+            : ""
+          : value,
     });
   };
 
@@ -84,22 +84,22 @@ function Location({ location, setLocation }) {
         </Form.Control>
       </Form.Group>
 
-      <Form.Group as={Col} controlId="latitude">
+      <Form.Group as={Col} controlId="lat">
         <Form.Label>Latitude</Form.Label>
         <Form.Control
-          type="text"
-          name="latitude"
-          value={location.latitude || coordinates.latitude}
+          type="number"
+          name="lat"
+          value={location.lat}
           onChange={handleLocationChange}
         />
       </Form.Group>
 
-      <Form.Group as={Col} controlId="longitude">
+      <Form.Group as={Col} controlId="lng">
         <Form.Label>Longitude</Form.Label>
         <Form.Control
-          type="text"
-          name="longitude"
-          value={location.longitude || coordinates.longitude}
+          type="number"
+          name="lng"
+          value={location.lng}
           onChange={handleLocationChange}
         />
       </Form.Group>

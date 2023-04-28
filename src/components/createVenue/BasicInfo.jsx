@@ -40,7 +40,7 @@ function BasicInfo({
           <Form.Control
             type="number"
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => setPrice(parseFloat(e.target.value))}
             placeholder="Enter price"
           />
         </InputGroup>
@@ -50,7 +50,7 @@ function BasicInfo({
         <Form.Control
           type="number"
           value={maxGuests}
-          onChange={(e) => setMaxGuests(e.target.value)}
+          onChange={(e) => setMaxGuests(parseFloat(e.target.value))}
           placeholder="Enter max guests"
         />
       </Form.Group>

@@ -1,18 +1,18 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 
-function Amenities({ amenities, setAmenities }) {
+function Amenities({ meta, setMeta }) {
   function handleAmenityChange(event) {
     const { name, checked } = event.target;
-    setAmenities({
-      ...amenities,
+    setMeta({
+      ...meta,
       [name]: checked,
     });
   }
 
   return (
-    <div className="amenities">
-      <h4>Select amenities</h4>
+    <div className="meta">
+      <h4>Select meta</h4>
       <Form.Group className="d-flex gap-2" controlId="parking">
         <Form.Check
           type="checkbox"

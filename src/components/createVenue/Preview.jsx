@@ -10,11 +10,10 @@ function Preview(props) {
     name: "John Doe",
     avatar: "",
   };
-  console.log(props.data.mediaUrls.length);
   return (
     <Container className="mt-5 mainContainer preview">
       <h2>Preview</h2>
-      <Images media={props.data.mediaUrls} />
+      <Images media={props.data.media} />
       <Row>
         <Info
           name={props.data.name}
@@ -22,10 +21,10 @@ function Preview(props) {
           city={props.data.location.city}
           country={props.data.location.country}
           description={props.data.description}
-          lat={props.data.location.latitude}
-          lng={props.data.location.longitude}
+          lat={props.data.location.lat}
+          lng={props.data.location.lng}
           owner={owner}
-          meta={props.data.amenities}
+          meta={props.data.meta}
         />
 
         <Col

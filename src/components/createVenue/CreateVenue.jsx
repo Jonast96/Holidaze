@@ -18,12 +18,12 @@ function CreateVenue() {
   const [venueData, setVenueData] = useState({
     name: "",
     description: "",
-    price: "",
-    maxGuests: "",
-    mediaUrls: [],
-    amenities: {
-      parking: false,
+    media: [],
+    price: 0,
+    maxGuests: 0,
+    meta: {
       wifi: false,
+      parking: false,
       breakfast: false,
       pets: false,
     },
@@ -33,10 +33,12 @@ function CreateVenue() {
       zip: "",
       country: "",
       continent: "",
-      latitude: "",
-      longitude: "",
+      lat: 0,
+      lng: 0,
     },
   });
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   function setName(value) {
     setVenueData({ ...venueData, name: value });
@@ -54,16 +56,22 @@ function CreateVenue() {
     setVenueData({ ...venueData, maxGuests: value });
   }
 
-  function setMediaUrls(value) {
-    setVenueData({ ...venueData, mediaUrls: value });
+  function setMedia(value) {
+    setVenueData({ ...venueData, media: value });
   }
 
-  function setAmenities(value) {
-    setVenueData({ ...venueData, amenities: value });
+  function setMeta(value) {
+    setVenueData({ ...venueData, meta: value });
   }
 
   function setLocation(value) {
-    setVenueData({ ...venueData, location: value });
+    setVenueData((prevState) => ({
+      ...prevState,
+      location: {
+        ...prevState.location,
+        ...value,
+      },
+    }));
   }
 
   function handleNext() {
@@ -76,6 +84,25 @@ function CreateVenue() {
   function handleBack() {
     if (step > 1) {
       setStep(step - 1);
+    }
+  }
+
+  async function handleSubmit() {
+    const response = "https://api.noroff.dev/api/v1/holidaze/venues";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + user.token,
+      },
+      body: JSON.stringify(venueData),
+    };
+    try {
+      const result = await fetch(response, options);
+      const json = await result.json();
+      console.log(json);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -105,22 +132,12 @@ function CreateVenue() {
       </Row>
       <Row>
         <Col>
-          {step === 2 && (
-            <Media
-              mediaUrls={venueData.mediaUrls}
-              setMediaUrls={setMediaUrls}
-            />
-          )}
+          {step === 2 && <Media media={venueData.media} setMedia={setMedia} />}
         </Col>
       </Row>
       <Row>
         <Col>
-          {step === 3 && (
-            <Amenities
-              amenities={venueData.amenities}
-              setAmenities={setAmenities}
-            />
-          )}
+          {step === 3 && <Amenities meta={venueData.meta} setMeta={setMeta} />}
         </Col>
       </Row>
       <Row>
@@ -142,7 +159,7 @@ function CreateVenue() {
           {step < 5 ? (
             <Button onClick={handleNext}>Next</Button>
           ) : (
-            <Button>Submit</Button>
+            <Button onClick={handleSubmit}>Submit</Button>
           )}
         </Col>
       </Row>

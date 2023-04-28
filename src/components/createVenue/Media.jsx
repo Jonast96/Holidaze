@@ -3,20 +3,20 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./createVenue.scss";
 
-function Media({ mediaUrls, setMediaUrls }) {
+function Media({ media, setMedia }) {
   const [urlInput, setUrlInput] = useState("");
 
   function addUrl() {
     if (urlInput !== "") {
-      setMediaUrls([...mediaUrls, urlInput]);
+      setMedia([...media, urlInput]);
       setUrlInput("");
     }
   }
 
   function removeUrl(index) {
-    const newMediaUrls = [...mediaUrls];
+    const newMediaUrls = [...media];
     newMediaUrls.splice(index, 1);
-    setMediaUrls(newMediaUrls);
+    setMedia(newMediaUrls);
   }
 
   return (
@@ -34,7 +34,7 @@ function Media({ mediaUrls, setMediaUrls }) {
       </Form.Group>
       <Button onClick={addUrl}>Add URL</Button>
       <div className="d-flex flex-wrap justify-content-center">
-        {mediaUrls.map((url, index) => (
+        {media.map((url, index) => (
           <div className="text-center" key={index}>
             <div>
               <img className="img-thumbnail " src={url} alt={url} />

@@ -100,7 +100,13 @@ function CreateVenue() {
     try {
       const result = await fetch(response, options);
       const json = await result.json();
-      console.log(json);
+      if (result.ok) {
+        alert("Successfully added new venue");
+        console.log(json);
+      } else {
+        alert("Something went wrong");
+        console.log(json);
+      }
     } catch (error) {
       console.log(error);
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { getNames } from "country-list";
+import useDebounce from "../../hooks/useDebounce";
 
 function Location({ location, setLocation }) {
   const countries = getNames();
@@ -28,20 +29,68 @@ function Location({ location, setLocation }) {
     });
   };
 
+  const [locationName, setLocationName] = useState("");
+  const [locationData, setLocationData] = useState({});
+  const debouncedSearchTerm = useDebounce(locationName, 1000);
+
+  function getLocation() {
+    fetch(
+      `https://nominatim.openstreetmap.org/search?city=${locationName}&format=json`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.length > 0) {
+          let lat = parseFloat(data[0].lat);
+          let lng = parseFloat(data[0].lon);
+          setLocationData({ lat, lng });
+          console.log(lat, lng);
+        }
+      })
+      .catch((error) => console.error(error));
+  }
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      getLocation();
+    }
+  }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    if (locationData.lat && locationData.lng) {
+      setLocation({
+        ...location,
+        lat: locationData.lat,
+        lng: locationData.lng,
+      });
+    }
+  }, [locationData]);
+
   return (
     <Form>
       <h4>Location data</h4>
+
+      <Form.Group as={Col} controlId="address">
+        <Form.Label>Address</Form.Label>
+        <Form.Control
+          type="text"
+          name="address"
+          value={location.address}
+          onChange={(event) => {
+            handleLocationChange(event);
+            setLocationName(event.target.value);
+          }}
+        />
+      </Form.Group>
 
       <Form.Group as={Col} controlId="city">
         <Form.Label>City</Form.Label>
         <Form.Control
           type="text"
           name="city"
-          value={location.city}
+          value={location.city || ""}
           onChange={handleLocationChange}
         />
       </Form.Group>
-
       <Form.Group as={Col} controlId="zip">
         <Form.Label>Zip</Form.Label>
         <Form.Control

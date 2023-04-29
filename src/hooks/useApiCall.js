@@ -1,26 +1,36 @@
 import { useState, useEffect } from "react";
 
-export default function useApiCall(url) {
+export default function useApiCall(url, headers = {}) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(url)
-            .then((response) => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        ...headers,
+                        'Content-Type': 'application/json',
+                    }
+                });
+
                 if (!response.ok) {
-                    throw new Error("API call failed");
+                    const errorData = await response.json();
+                    throw errorData;
                 }
-                return response.json();
-            })
-            .then((responseData) => {
+
+                const responseData = await response.json();
                 setData(responseData);
                 setLoading(false);
-            })
-            .catch((error) => {
+            } catch (error) {
+                console.log("Error:", error);
                 setError(error);
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchData();
     }, [url]);
 
     return { data, error, loading };

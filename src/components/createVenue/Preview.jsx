@@ -6,9 +6,14 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 
 function Preview(props) {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  console.log(user);
   const owner = {
-    name: "John Doe",
-    avatar: "",
+    name: user.name,
+    avatar: user.avatar
+      ? user.avatar
+      : "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
   };
   return (
     <Container className="mt-5 mainContainer preview">

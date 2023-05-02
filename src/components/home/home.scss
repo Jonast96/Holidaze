@@ -84,4 +84,11 @@
       }
     }
   }
+
+  .booking {
+    background-color: rgba($color: $light, $alpha: 0.6);
+    padding: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
 }

@@ -2,18 +2,10 @@ import Row from "react-bootstrap/Row";
 
 import Container from "react-bootstrap/Container";
 
-import useApiCall from "../../hooks/useApiCall";
 import VenueCard from "../VenueCard";
 
 import noImg from "../../assets/media/no-photo.png";
-export default function FeaturedVenues() {
-  const { data, loading, error } = useApiCall(
-    "https://api.noroff.dev/api/v1/holidaze/venues?_owner=true&_bookings=true"
-  );
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
-
+export default function FeaturedVenues(props) {
   return (
     <section className="featuredVenues">
       <Container>
@@ -24,7 +16,7 @@ export default function FeaturedVenues() {
           Filters will go here when api gets updated
         </p>
         <Row>
-          {data.map((venue) => {
+          {props.data.map((venue) => {
             return (
               <VenueCard
                 name={venue.name}

@@ -6,14 +6,26 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import "./createVenue.scss";
 import Media from "./Media";
+import Modal from "react-bootstrap/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 import BasicInfo from "./BasicInfo";
 import Amenities from "./Amenities";
 import Location from "./Location";
 import Preview from "./Preview";
+import PageNotFound from "..//404_loading_etc/PageNotFound";
 function CreateVenue() {
   const [step, setStep] = useState(1);
   const progress = (step / 5) * 100;
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [error, setError] = useState("");
+
+  function handleClose() {
+    setShowSuccessModal(false);
+    setShowErrorModal(false);
+  }
 
   const [venueData, setVenueData] = useState({
     name: "",
@@ -40,20 +52,8 @@ function CreateVenue() {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  function setName(value) {
-    setVenueData({ ...venueData, name: value });
-  }
-
-  function setDescription(value) {
-    setVenueData({ ...venueData, description: value });
-  }
-
-  function setPrice(value) {
-    setVenueData({ ...venueData, price: value });
-  }
-
-  function setMaxGuests(value) {
-    setVenueData({ ...venueData, maxGuests: value });
+  function setValue(name, value) {
+    setVenueData((prevState) => ({ ...prevState, [name]: value }));
   }
 
   function setMedia(value) {
@@ -101,10 +101,20 @@ function CreateVenue() {
       const result = await fetch(response, options);
       const json = await result.json();
       if (result.ok) {
-        alert("Successfully added new venue");
+        setShowSuccessModal(true);
         console.log(json);
       } else {
-        alert("Something went wrong");
+        setError(
+          json.errors.map((error) => {
+            return (
+              <div className="d-flex">
+                <p className="me-2">{error.message}</p>
+                <p className="me-2">{error.message}</p>
+              </div>
+            );
+          })
+        );
+        setShowErrorModal(true);
         console.log(json);
       }
     } catch (error) {
@@ -112,8 +122,8 @@ function CreateVenue() {
     }
   }
 
-  return (
-    <Container className="mt-5 mainContent">
+  return user && user.isVenueManager ? (
+    <Container className="my-5 mainContent">
       <Row>
         <Col>
           <h1 className="fs-3">Add new venue</h1>
@@ -121,20 +131,7 @@ function CreateVenue() {
         </Col>
       </Row>
       <Row className="mt-2">
-        <Col>
-          {step === 1 && (
-            <BasicInfo
-              name={venueData.name}
-              setName={setName}
-              description={venueData.description}
-              setDescription={setDescription}
-              price={venueData.price}
-              setPrice={setPrice}
-              maxGuests={venueData.maxGuests}
-              setMaxGuests={setMaxGuests}
-            />
-          )}
-        </Col>
+        <Col>{step === 1 && <BasicInfo setValue={setValue} />}</Col>
       </Row>
       <Row>
         <Col>
@@ -160,16 +157,46 @@ function CreateVenue() {
       <Row>
         <Col className="d-flex justify-content-between mt-3">
           <Button onClick={handleBack} disabled={step === 1}>
-            Back
+            <FontAwesomeIcon icon={faArrowLeft} />
           </Button>
           {step < 5 ? (
-            <Button onClick={handleNext}>Next</Button>
+            <Button onClick={handleNext}>
+              <FontAwesomeIcon icon={faArrowRight} />
+            </Button>
           ) : (
             <Button onClick={handleSubmit}>Submit</Button>
           )}
         </Col>
       </Row>
+      <Modal show={showSuccessModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Success</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Your venue has been successfully added!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showErrorModal} onHide={handleClose}>
+        <Modal.Header closeButton className="error-modal-header">
+          <Modal.Title>Error!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="error-modal-body">{error}</Modal.Body>
+        <Modal.Footer className="error-modal-footer">
+          <Button
+            style={{ backgroundColor: "#f2994a", borderColor: "#f2994a" }}
+            onClick={handleClose}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
+  ) : (
+    <PageNotFound />
   );
 }
 

@@ -1,6 +1,15 @@
 .mainContent {
   max-width: 900px;
 
+  .addImagePreviewContainer {
+    position: relative;
+    .addImagePreviewButton {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
   .media {
     img {
       width: 250px;

@@ -4,9 +4,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 function BasicInfo({
   name,
-  setName,
+  setValue,
   description,
-  setDescription,
   price,
   setPrice,
   maxGuests,
@@ -20,7 +19,7 @@ function BasicInfo({
         <Form.Control
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setValue("name", e.target.value)}
           placeholder="Enter name"
         />
       </Form.Group>
@@ -29,7 +28,7 @@ function BasicInfo({
         <Form.Control
           as="textarea"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => setValue("description", e.target.value)}
           placeholder="Enter description"
         />
       </Form.Group>
@@ -40,7 +39,7 @@ function BasicInfo({
           <Form.Control
             type="number"
             value={price}
-            onChange={(e) => setPrice(parseFloat(e.target.value))}
+            onChange={(e) => setValue("price", parseFloat(e.target.value))}
             placeholder="Enter price"
           />
         </InputGroup>
@@ -50,7 +49,7 @@ function BasicInfo({
         <Form.Control
           type="number"
           value={maxGuests}
-          onChange={(e) => setMaxGuests(parseFloat(e.target.value))}
+          onChange={(e) => setValue("maxGuests", parseFloat(e.target.value))}
           placeholder="Enter max guests"
         />
       </Form.Group>

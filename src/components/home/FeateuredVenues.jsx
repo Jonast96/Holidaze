@@ -7,7 +7,7 @@ import VenueCard from "../VenueCard";
 import noImg from "../../assets/media/no-photo.png";
 export default function FeaturedVenues(props) {
   return (
-    <section className="featuredVenues">
+    <section id="featuredVenues" className="featuredVenues">
       <Container>
         <h4 className="fs-2 text-center mt-4 fw-light text-secondary">
           Featured Venues

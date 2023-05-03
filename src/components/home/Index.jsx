@@ -3,18 +3,27 @@ import SecondHero from "./SecondHero";
 import "./home.scss";
 import useApiCall from "../../hooks/useApiCall";
 import FeaturedVenues from "./FeateuredVenues";
+import Loading from "../404_loading_etc/Loading";
+import PageNotFound from "../404_loading_etc/PageNotFound";
+import { useState, useEffect } from "react";
 function Index() {
   const { data, loading, error } = useApiCall(
-    "https://api.noroff.dev/api/v1/holidaze/venues?_owner=true&_bookings=true&limit=12"
+    "https://api.noroff.dev/api/v1/holidaze/venues?_owner=true&_bookings=true&limit=50"
   );
+  const [filteredData, setFilteredData] = useState();
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
+  useEffect(() => {
+    setFilteredData(data);
+  }, [data]);
+
+  if (loading) return <Loading />;
+  if (error) return <PageNotFound />;
+
   return (
     <main className="home">
-      <Hero data={data} />
+      <Hero data={data} setFilteredData={setFilteredData} />
       <SecondHero />
-      <FeaturedVenues data={data} />
+      <FeaturedVenues data={filteredData ? filteredData : data} />
     </main>
   );
 }

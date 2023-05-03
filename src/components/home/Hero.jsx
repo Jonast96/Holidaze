@@ -2,34 +2,86 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
 import { Form, InputGroup } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import _ from "lodash";
 
 import heroImg from "../../assets/media/hero.jpg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function Hero(props) {
+export default function Hero({ data, setFilteredData }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [searchResult, setSearchResult] = useState({});
+  const [showMessage, setShowMessage] = useState(false);
 
-  const handleChange = _.debounce((value) => {
-    setSearchResult((prevState) => ({ ...prevState, city: value }));
-  }, 1000);
+  const [searchResult, setSearchResult] = useState({
+    city: "",
+    startDate: startDate,
+    endDate: endDate,
+  });
+  useEffect(() => {
+    setSearchResult((prevSearchResult) => ({
+      ...prevSearchResult,
+      startDate,
+      endDate,
+    }));
+  }, [startDate, endDate]);
+
+  function isDateRangeOverlapping(startDate1, endDate1, startDate2, endDate2) {
+    return startDate1 < endDate2 && startDate2 < endDate1;
+  }
+
+  function handleSearch() {
+    const searchStartDate = new Date(searchResult.startDate);
+    const searchEndDate = new Date(searchResult.endDate);
+
+    return data.filter((venue) => {
+      if (
+        !venue.location.city
+          .toLowerCase()
+          .includes(searchResult.city.toLowerCase())
+      ) {
+        return false;
+      }
+
+      const hasOverlappingBooking = venue.bookings.some((booking) => {
+        const bookingStartDate = new Date(booking.dateFrom);
+        const bookingEndDate = new Date(booking.dateTo);
+
+        return isDateRangeOverlapping(
+          searchStartDate,
+          searchEndDate,
+          bookingStartDate,
+          bookingEndDate
+        );
+      });
+
+      return !hasOverlappingBooking;
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(searchResult);
+    if (handleSearch().length === 0) {
+      setShowMessage(true);
+    } else {
+      setShowMessage(false);
+      console.log(handleSearch().length);
+      console.log(handleSearch());
+      setFilteredData(handleSearch());
+      window.location.hash = "";
+      window.location.hash = "featuredVenues";
+    }
   };
-
-  console.log(props.data);
-
   return (
     <section className="position-relative mt-5 mainHero ">
       <img className="img-fluid" src={heroImg} alt="" />
       <div className="overlay"></div>
       <div className="hero-center p-3">
         <h1 className="fw-light ">Your home, away from home</h1>
+        {showMessage && (
+          <div className=" fs-4 text-danger mt-3 noSearchResults rounded">
+            No matches for this result.
+          </div>
+        )}
 
         <Form
           onSubmit={handleSubmit}
@@ -40,7 +92,12 @@ export default function Hero(props) {
               <FontAwesomeIcon icon={faLocationArrow} />
             </InputGroup.Text>
             <Form.Control
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => {
+                setSearchResult((prevState) => ({
+                  ...prevState,
+                  city: e.target.value,
+                }));
+              }}
               size="lg"
               type="text"
               placeholder="Country"
@@ -48,7 +105,7 @@ export default function Hero(props) {
           </InputGroup>
           <div className="d-flex flex-row ">
             <DatePicker
-              className="form-control fs-5"
+              className="date left fs-5"
               selected={startDate}
               onChange={(date) => {
                 setStartDate(date);
@@ -62,7 +119,7 @@ export default function Hero(props) {
               endDate={endDate}
             />
             <DatePicker
-              className="form-control fs-5"
+              className="date right fs-5"
               selected={endDate}
               onChange={(date) => {
                 setEndDate(date);
@@ -77,10 +134,7 @@ export default function Hero(props) {
               minDate={startDate}
             />
           </div>
-          <button
-            onClick={() => console.log(searchResult)}
-            className="btn btn-primary"
-          >
+          <button type="submit" className="btn btn-primary">
             Search
           </button>
         </Form>

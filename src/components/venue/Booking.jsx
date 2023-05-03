@@ -51,10 +51,16 @@ function Booking(props) {
   };
 
   function getExcludedIntervals() {
-    return bookings.map((booking) => ({
-      start: new Date(booking.dateFrom) - 86400000,
-      end: new Date(booking.dateTo),
-    }));
+    return bookings.map((booking) => {
+      const start = new Date(booking.dateFrom);
+      const end = new Date(booking.dateTo);
+
+      if (start > end) {
+        return { start: end, end: start };
+      } else {
+        return { start, end };
+      }
+    });
   }
 
   async function handleBooking() {

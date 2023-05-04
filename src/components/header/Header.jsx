@@ -24,6 +24,8 @@ function Header() {
   const [visible, setVisible] = useState(true);
   const [lastScrollPos, setLastScrollPos] = useState(0);
   const { user, setUser } = React.useContext(UserContext);
+  const [offcanvasOpen, setOffcanvasOpen] = useState(false);
+  console.log(offcanvasOpen);
 
   useEffect(() => {
     const localStoredUser = JSON.parse(localStorage.getItem("user"));
@@ -39,6 +41,10 @@ function Header() {
     localStorage.clear();
   }
 
+  const toggleOffcanvas = () => {
+    setOffcanvasOpen(!offcanvasOpen);
+  };
+
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
     setVisible(currentScrollPos < lastScrollPos || currentScrollPos === 0);
@@ -51,6 +57,24 @@ function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollPos]);
+
+  useEffect(() => {
+    const handleDocumentClick = (e) => {
+      if (
+        offcanvasOpen &&
+        !e.target.closest(".navbar") &&
+        !e.target.closest(".offcanvas") &&
+        !e.target.closest(".modal")
+      ) {
+        setOffcanvasOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, [offcanvasOpen]);
 
   return (
     <header>
@@ -72,16 +96,22 @@ function Header() {
             Holidaze
           </Navbar.Brand>
           <Navbar.Toggle
-            className="bg-secondary text-secondary "
+            className="bg-secondary text-secondary"
             aria-controls="offcanvasNavbar-expand-lg"
+            onClick={toggleOffcanvas}
           />
           <Navbar.Offcanvas
             id="offcanvasNavbar-expand-lg"
             aria-labelledby="offcanvasNavbarLabel-expand-lg"
             placement="end"
             className="bg-dark"
+            show={offcanvasOpen}
           >
-            <Offcanvas.Header className="btn-close-white" closeButton>
+            <Offcanvas.Header
+              className="btn-close-white"
+              closeButton
+              onClick={toggleOffcanvas}
+            >
               <Offcanvas.Title
                 className=" fs-3 fw-bold"
                 id="offcanvasNavbarLabel-expand-lg "
@@ -93,12 +123,24 @@ function Header() {
               <Nav className="justify-content-end flex-grow-1 pe-3 text-light fs-5">
                 {user.loggedIn ? (
                   user.venueManager ? (
-                    <VenueManager logout={() => logout()} />
+                    <VenueManager
+                      logout={() => {
+                        logout();
+                        setOffcanvasOpen(false);
+                      }}
+                      close={() => setOffcanvasOpen(false)}
+                    />
                   ) : (
-                    <Guest logout={() => logout()} />
+                    <Guest
+                      logout={() => {
+                        logout();
+                        setOffcanvasOpen(false);
+                      }}
+                      close={() => setOffcanvasOpen(false)}
+                    />
                   )
                 ) : (
-                  <LoggedOut />
+                  <LoggedOut close={() => setOffcanvasOpen(false)} />
                 )}
               </Nav>
             </Offcanvas.Body>

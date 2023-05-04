@@ -9,7 +9,12 @@ export default function VenueManager(props) {
 
   return (
     <div className="host">
-      <Nav.Link className="userInfo" as={Link} to={"/profile"}>
+      <Nav.Link
+        onClick={props.close}
+        className="userInfo"
+        as={Link}
+        to={"/profile"}
+      >
         <img
           src={
             user.avatar
@@ -24,10 +29,15 @@ export default function VenueManager(props) {
       <Button onClick={props.logout} className="w-100">
         Log out
       </Button>
-      <Nav.Link as={Link} to={"/addVenue"}>
+      <Nav.Link onClick={props.close} as={Link} to={"/addVenue"}>
         Home
       </Nav.Link>
-      <Nav.Link className="text-secondary" as={Link} to={"/createVenue"}>
+      <Nav.Link
+        onClick={props.close}
+        className="text-secondary"
+        as={Link}
+        to={"/createVenue"}
+      >
         <FontAwesomeIcon icon={faAdd} /> Add a new venue
       </Nav.Link>
     </div>

@@ -27,13 +27,10 @@ export default function Venue() {
         <Info
           name={data.name}
           maxGuests={data.maxGuests}
-          city={data.city}
-          country={data.country}
           description={data.description}
-          lat={data.location.lat}
-          lng={data.location.lng}
           owner={data.owner}
           meta={data.meta}
+          location={data.location}
         />
 
         <Booking data={data} />

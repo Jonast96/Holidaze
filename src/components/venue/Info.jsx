@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBed } from "@fortawesome/free-solid-svg-icons";
+import { faBed, faEdit } from "@fortawesome/free-solid-svg-icons";
 import "react-datepicker/dist/react-datepicker.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-
+import { Form } from "react-bootstrap";
+import EditModal from "./Modal";
 import "leaflet/dist/leaflet.css";
 
 function Info(props) {
@@ -15,16 +16,115 @@ function Info(props) {
     { key: "pets", label: "Pets" },
   ];
 
-  const position = [props.lat, props.lng];
+  const position = [props.location.lat, props.location.lng];
+  const [show, setShow] = useState(false);
+  function handleShow() {
+    setShow(true);
+  }
+  function handleClose() {
+    setShow(false);
+  }
+  const [locationData, setLocationData] = useState({
+    address: "",
+    city: "",
+    zip: "",
+    country: "",
+    continent: "",
+    lat: 0,
+    lng: 0,
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLocationData({
+      ...locationData,
+      [name]: value,
+    });
+  };
 
+  console.log(props);
   return (
     <>
+      <EditModal
+        show={show}
+        handleClose={handleClose}
+        body={
+          <Form>
+            <h4>Location data</h4>
+            <Form.Group as={Col} controlId="address">
+              <Form.Label>Address</Form.Label>
+              <Form.Control
+                type="text"
+                name="address"
+                value={props.location.address}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="city">
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                type="text"
+                name="city"
+                value={props.location.city}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="zip">
+              <Form.Label>Zip</Form.Label>
+
+              <Form.Control
+                type="text"
+                name="zip"
+                value={props.location.zip}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="country">
+              <Form.Label>Country</Form.Label>
+              <Form.Control
+                type="text"
+                name="country"
+                value={props.location.country}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="continent">
+              <Form.Label>Continent</Form.Label>
+              <Form.Control
+                type="text"
+                name="continent"
+                value={props.location.continent}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="lat">
+              <Form.Label>Latitude</Form.Label>
+              <Form.Control
+                type="number"
+                name="lat"
+                value={props.location.lat}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="lng">
+              <Form.Label>Longitude</Form.Label>
+              <Form.Control
+                type="number"
+                name="lng"
+                value={props.location.lng}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+          </Form>
+        }
+      />
       <Col sm={12} lg={7} className="">
         <h1 className="fw-semibold fs-3 mt-4">{props.name}</h1>
         <FontAwesomeIcon icon={faBed} /> {props.maxGuests} Beds
-        <p>
-          {props.city}, {props.country}
-        </p>
+        {props.location.city}, {props.location.country}
+        <div onClick={handleShow} className="d-flex align-items-center">
+          <FontAwesomeIcon className="me-1" icon={faEdit} />
+          <p className="m-0 p-0">Edit location</p>
+        </div>
         <a className="bookingLink btn btn-secondary mb-3" href="#booking">
           Take me to booking
         </a>
@@ -41,7 +141,7 @@ function Info(props) {
           ))}
         </div>
         <p>{props.description}</p>
-        {props.lat && props.lng ? (
+        {props.locationlat && props.locationlng ? (
           <div className="mb-4">
             <h3>Explore the location</h3>
             <MapContainer className="mapContainer" center={position} zoom={13}>
@@ -74,7 +174,8 @@ function Info(props) {
             during your stay.
           </p>
           <p>
-            {props.city !== "Unknown" && props.country !== "Unknown"
+            {props.location.city !== "Unknown" &&
+            props.location.country !== "Unknown"
               ? `Book your stay at ${props.name} today and enjoy a memorable experience in ${props.city}, ${props.country}.`
               : `Book your stay at ${props.name} today and enjoy a memorable experience at our one-of-a-kind venue.`}
           </p>

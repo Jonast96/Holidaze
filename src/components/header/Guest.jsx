@@ -25,7 +25,7 @@ export default function Guest(props) {
       </Nav.Link>
       <Button
         onClick={() => {
-          props.logout;
+          props.logout();
           props.close;
         }}
         className="w-100"

@@ -134,7 +134,10 @@ export default function Hero({ data, setFilteredData }) {
               minDate={startDate}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn fs-5 fw-light btn-primary searchButton"
+          >
             Search
           </button>
         </Form>

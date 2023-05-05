@@ -25,7 +25,6 @@ function Header() {
   const [lastScrollPos, setLastScrollPos] = useState(0);
   const { user, setUser } = React.useContext(UserContext);
   const [offcanvasOpen, setOffcanvasOpen] = useState(false);
-  console.log(offcanvasOpen);
 
   useEffect(() => {
     const localStoredUser = JSON.parse(localStorage.getItem("user"));

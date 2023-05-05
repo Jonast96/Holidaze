@@ -11,7 +11,6 @@ import Booking from "./Booking";
 
 export default function Venue() {
   const params = useParams();
-  console.log(params.id);
 
   const { data, loading, error } = useApiCall(
     `https://api.noroff.dev/api/v1/holidaze/venues/${params.id}?_owner=true&_bookings=true
@@ -19,7 +18,6 @@ export default function Venue() {
   );
   if (loading) return <LoadingPage />;
   if (error) return <PageNotFound errorMessage={error.message} />;
-  console.log(data);
   return (
     <Container className="mt-5 mainContainer">
       <Images media={data.media} />

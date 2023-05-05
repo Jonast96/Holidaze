@@ -19,7 +19,6 @@ function Booking(props) {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const bookings = props.data.bookings;
-  console.log(bookings);
 
   function isOverlapping(range1, range2) {
     return range1.start <= range2.end && range1.end >= range2.start;
@@ -88,7 +87,6 @@ function Booking(props) {
         }
       );
       const json = await response.json();
-      console.log(json);
       if (response.ok) {
         setErrorMessage("");
         setShowConfirmation(true);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function EditModal({ show, handleClose, body }) {
+function EditModal({ show, handleClose, body }, props) {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -14,7 +14,12 @@ function EditModal({ show, handleClose, body }) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              handleClose();
+            }}
+          >
             Continue editing
           </Button>
         </Modal.Footer>

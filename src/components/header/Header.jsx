@@ -14,12 +14,6 @@ import { UserContext } from "../Context";
 import logo from "../../assets/media/logo.png";
 import "./header.scss";
 
-/**
- * `Header` is a functional React component that displays the website header with navigation menu.
- * The header hides when the user scrolls down and shows when the user scrolls up.
- *
- * @returns {ReactElement} The rendered `Header` component.
- */
 function Header() {
   const [visible, setVisible] = useState(true);
   const [lastScrollPos, setLastScrollPos] = useState(0);
@@ -53,7 +47,9 @@ function Header() {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      if (handleScroll) {
+        window.removeEventListener("scroll", handleScroll);
+      }
     };
   }, [lastScrollPos]);
 
@@ -71,7 +67,9 @@ function Header() {
 
     document.addEventListener("click", handleDocumentClick);
     return () => {
-      document.removeEventListener("click", handleDocumentClick);
+      if (handleDocumentClick) {
+        document.removeEventListener("click", handleDocumentClick);
+      }
     };
   }, [offcanvasOpen]);
 

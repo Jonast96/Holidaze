@@ -30,6 +30,7 @@ function Preview(props) {
           lng={props.data.location.lng}
           owner={owner}
           meta={props.data.meta}
+          location={props.data.location}
         />
 
         <Col

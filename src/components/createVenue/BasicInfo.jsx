@@ -2,15 +2,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-function BasicInfo({
-  name,
-  setValue,
-  description,
-  price,
-  setPrice,
-  maxGuests,
-  setMaxGuests,
-}) {
+function BasicInfo({ name, setValue, description, price, maxGuests }) {
   return (
     <Form className="d-flex row gap-3">
       <h4>Basic Information</h4>

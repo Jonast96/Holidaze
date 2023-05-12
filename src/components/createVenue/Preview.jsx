@@ -18,19 +18,16 @@ function Preview(props) {
   return (
     <Container className="mt-5 mainContainer preview">
       <h2>Preview</h2>
-      <Images media={props.data.media} />
+      <Images media={props.media} />
       <Row>
         <Info
-          name={props.data.name}
-          maxGuests={props.data.maxGuests}
-          city={props.data.location.city}
-          country={props.data.location.country}
-          description={props.data.description}
-          lat={props.data.location.lat}
-          lng={props.data.location.lng}
+          payload={props.payload}
+          name={props.name}
+          maxGuests={props.maxGuests}
+          description={props.description}
           owner={owner}
-          meta={props.data.meta}
-          location={props.data.location}
+          meta={props.meta}
+          location={props.location}
         />
 
         <Col

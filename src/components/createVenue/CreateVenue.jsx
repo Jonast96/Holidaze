@@ -151,7 +151,20 @@ function CreateVenue() {
         </Col>
       </Row>
       <Row>
-        <Col>{step === 5 && <Preview data={venueData} />}</Col>
+        <Col>
+          {step === 5 && (
+            <Preview
+              media={venueData.media}
+              payload={venueData}
+              name={venueData.name}
+              maxGuests={venueData.maxGuests}
+              description={venueData.description}
+              owner={user.username}
+              meta={venueData.meta}
+              location={venueData.location}
+            />
+          )}
+        </Col>
       </Row>
 
       <Row>

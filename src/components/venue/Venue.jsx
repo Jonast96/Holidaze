@@ -54,7 +54,7 @@ export default function Venue() {
           pets: data.meta.pets,
           breakfast: data.meta.breakfast,
         },
-        name: "changed name",
+        name: data.name,
         description: data.description,
         price: data.price,
         maxGuests: data.maxGuests,
@@ -91,22 +91,38 @@ export default function Venue() {
       const json = await response.json();
       console.log(json);
       console.log(response.ok);
+      location.reload();
     } catch (error) {
       console.error(error);
     }
   }
 
-  function handleInputChange(event, field) {
+  function handleLocationChange(event, field) {
+    let value = event.target.value;
+    if (field === "lat" || field === "lng") {
+      value = parseFloat(value);
+    }
     const newPayload = {
       ...payload,
       location: {
         ...payload.location,
-        [field]: event.target.value,
+        [field]: value,
       },
     };
     setPayload(newPayload);
   }
 
+  function handleInfoChange(event, field) {
+    let value = event.target.value;
+    if (field === "price" || field === "maxGuests") {
+      value = parseInt(value);
+    }
+    const newPayload = {
+      ...payload,
+      [field]: value,
+    };
+    setPayload(newPayload);
+  }
   return (
     <Container className="mt-5 mainContainer">
       <Images media={data.media} />
@@ -123,7 +139,8 @@ export default function Venue() {
           </div>
         ) : null}
         <Info
-          handleInputChange={handleInputChange}
+          handleLocationChange={handleLocationChange}
+          handleInfoChange={handleInfoChange}
           payload={payload}
           name={data.name}
           maxGuests={data.maxGuests}

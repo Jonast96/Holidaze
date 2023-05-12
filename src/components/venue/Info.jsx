@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBed, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBed,
+  faEdit,
+  faGlobe,
+  faInfo,
+} from "@fortawesome/free-solid-svg-icons";
 import "react-datepicker/dist/react-datepicker.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -16,9 +21,13 @@ function Info(props) {
     { key: "wifi", label: "Wifi" },
     { key: "pets", label: "Pets" },
   ];
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showLocationModal, setShowLocationModal] = useState(false);
+  const handleLocationClose = () => setShowLocationModal(false);
+  const handleLocationShow = () => setShowLocationModal(true);
+
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const handleInfoClose = () => setShowInfoModal(false);
+  const handleInfoShow = () => setShowInfoModal(true);
 
   const position = [props.location.lat, props.location.lng];
 
@@ -34,8 +43,59 @@ function Info(props) {
     <>
       <Col sm={12} lg={7} className="">
         <Modal
-          show={show}
-          handleClose={handleClose}
+          show={showInfoModal}
+          handleClose={handleInfoClose}
+          body={
+            <Form>
+              <h4>Update info</h4>
+
+              <Form.Group as={Col} controlId="name">
+                <Form.Label>Name</Form.Label>
+
+                <Form.Control
+                  type="text"
+                  name="name"
+                  value={props.payload.name}
+                  onChange={(e) => props.handleInfoChange(e, "name")}
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="description">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  type="text"
+                  as="textarea"
+                  value={props.payload.description}
+                  onChange={(e) => props.handleInfoChange(e, "description")}
+                  placeholder="Enter description"
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="maxGuests">
+                <Form.Label>Max Guests</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="maxGuests"
+                  value={props.payload.maxGuests}
+                  onChange={(e) => props.handleInfoChange(e, "maxGuests")}
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="price">
+                <Form.Label>Price</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="price"
+                  value={props.payload.price}
+                  onChange={(e) => props.handleInfoChange(e, "price")}
+                />
+              </Form.Group>
+            </Form>
+          }
+        />
+        <Modal
+          show={showLocationModal}
+          handleClose={handleLocationClose}
           body={
             <Form>
               <h4>Update location</h4>
@@ -46,7 +106,7 @@ function Info(props) {
                   type="text"
                   name="address"
                   value={props.payload.location.address}
-                  onChange={(e) => props.handleInputChange(e, "address")}
+                  onChange={(e) => props.handleLocationChange(e, "address")}
                 />
               </Form.Group>
 
@@ -56,7 +116,7 @@ function Info(props) {
                   type="text"
                   name="city"
                   value={props.payload.location.city}
-                  onChange={(e) => props.handleInputChange(e, "city")}
+                  onChange={(e) => props.handleLocationChange(e, "city")}
                 />
               </Form.Group>
 
@@ -66,7 +126,7 @@ function Info(props) {
                   type="text"
                   name="continent"
                   value={props.payload.location.continent}
-                  onChange={(e) => props.handleInputChange(e, "continent")}
+                  onChange={(e) => props.handleLocationChange(e, "continent")}
                 />
               </Form.Group>
 
@@ -76,7 +136,7 @@ function Info(props) {
                   type="text"
                   name="country"
                   value={props.payload.location.country}
-                  onChange={(e) => props.handleInputChange(e, "country")}
+                  onChange={(e) => props.handleLocationChange(e, "country")}
                 />
               </Form.Group>
 
@@ -87,7 +147,7 @@ function Info(props) {
                   name="lat"
                   step="0.000001"
                   value={props.payload.location.lat}
-                  onChange={(e) => props.handleInputChange(e, "lat")}
+                  onChange={(e) => props.handleLocationChange(e, "lat")}
                 />
               </Form.Group>
 
@@ -98,7 +158,7 @@ function Info(props) {
                   name="lng"
                   step="0.000001"
                   value={props.payload.location.lng}
-                  onChange={(e) => props.handleInputChange(e, "lng")}
+                  onChange={(e) => props.handleLocationChange(e, "lng")}
                 />
               </Form.Group>
 
@@ -108,7 +168,7 @@ function Info(props) {
                   type="text"
                   name="zip"
                   value={props.payload.location.zip}
-                  onChange={(e) => props.handleInputChange(e, "zip")}
+                  onChange={(e) => props.handleLocationChange(e, "zip")}
                 />
               </Form.Group>
             </Form>
@@ -117,9 +177,21 @@ function Info(props) {
         <h1 className="fw-semibold fs-3 mt-4">{props.name}</h1>
         <FontAwesomeIcon icon={faBed} /> {props.maxGuests} Beds
         {user && user.name === props.owner.name ? (
-          <div onClick={handleShow}>
-            <FontAwesomeIcon className="fs-4 text-secondary" icon={faEdit} />{" "}
-            Edit info details
+          <div className="my-2 	">
+            <div
+              className="border d-inline p-2 cursor-pointer"
+              onClick={handleInfoShow}
+            >
+              <FontAwesomeIcon className="fs-4 text-secondary" icon={faEdit} />{" "}
+              Edit Info details
+            </div>
+            <div
+              className="border d-inline p-2 cursor-pointer"
+              onClick={handleLocationShow}
+            >
+              <FontAwesomeIcon className="fs-4 text-secondary" icon={faGlobe} />{" "}
+              Edit location details
+            </div>
           </div>
         ) : null}
         <div className="d-flex">

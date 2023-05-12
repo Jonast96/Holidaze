@@ -8,7 +8,7 @@ import PageNotFound from "../404_loading_etc/PageNotFound";
 import { useState, useEffect } from "react";
 function Index() {
   const { data, loading, error } = useApiCall(
-    "https://api.noroff.dev/api/v1/holidaze/venues?_owner=true&_bookings=true&limit=50"
+    "https://api.noroff.dev/api/v1/holidaze/venues?_owner=true&_bookings=true"
   );
   const [filteredData, setFilteredData] = useState();
 

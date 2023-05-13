@@ -65,7 +65,6 @@ function Login(props) {
         }
       );
       const json = await response.json();
-      console.log(json);
       const user = {
         name: json.name,
         email: json.email,
@@ -74,6 +73,7 @@ function Login(props) {
         token: json.accessToken,
       };
       localStorage.setItem("user", JSON.stringify(user));
+      props.close();
 
       if (!response.ok) {
         setErrorMessage(json.errors[0].message);

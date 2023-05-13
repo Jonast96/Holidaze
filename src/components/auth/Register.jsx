@@ -7,8 +7,6 @@ This file defines the Register component, which is responsible for rendering the
 import React, { useState } from "react";
 import { Col, Row, Form, Container, Button, Alert } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 // Internal dependencies
 import image from "../.././assets//media/registerImage.jpg";
@@ -26,9 +24,6 @@ import "./register.scss";
  */
 function Register(props) {
   const [errorMessage, setErrorMessage] = useState("");
-  function notify(message) {
-    return toast(<CustomAlert message={message} />);
-  }
 
   const [formValues, setFormValues] = useState({
     name: "",
@@ -101,7 +96,6 @@ function Register(props) {
    */
   async function handleSubmit() {
     try {
-      console.log(formValues);
       const response = await fetch(
         "https://api.noroff.dev/api/v1/holidaze/auth/register",
         {
@@ -113,15 +107,14 @@ function Register(props) {
         }
       );
       const json = await response.json();
-
       if (!response.ok) {
         console.log(json.errors[0].message);
         setErrorMessage(json.errors[0].message);
         throw new Error("API call failed");
       }
-      console.log(json);
-      notify(`Hello ${json.name}! You have been registered.`);
+      alert(`Hello ${json.name}! You have been registered.`);
       props.onHide();
+      props.close();
     } catch (error) {
       console.error("Error while making API call:", error);
     }
@@ -139,7 +132,7 @@ function Register(props) {
             <button
               onClick={props.onHide}
               type="button"
-              class="btn-close float-end"
+              className="btn-close float-end"
               aria-label="Close"
             ></button>
             <Modal.Title className="text-center">Register</Modal.Title>
@@ -256,20 +249,6 @@ function Register(props) {
           </Col>
         </Row>
       </Modal>
-
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        closeButton={false}
-      />
     </Container>
   );
 }

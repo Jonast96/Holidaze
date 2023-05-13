@@ -91,9 +91,13 @@ export default function Venue() {
       const json = await response.json();
       console.log(json);
       console.log(response.ok);
-      location.reload();
+      if (response.ok) {
+        alert("Venue updated successfully");
+      } else {
+        alert(json.errors[0].message);
+      }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   }
 
@@ -123,6 +127,7 @@ export default function Venue() {
     };
     setPayload(newPayload);
   }
+
   return (
     <Container className="mt-5 mainContainer">
       <Images media={data.media} />

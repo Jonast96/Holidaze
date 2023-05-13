@@ -39,8 +39,16 @@ export default function LoggedOut(props) {
           Sign up
         </Button>
       </div>
-      <Login show={showLogin} onHide={() => setShowLogin(false)} />
-      <Register show={showRegister} onHide={() => setShowRegister(false)} />
+      <Login
+        close={props.close}
+        show={showLogin}
+        onHide={() => setShowLogin(false)}
+      />
+      <Register
+        close={props.close}
+        show={showRegister}
+        onHide={() => setShowRegister(false)}
+      />
     </>
   );
 }

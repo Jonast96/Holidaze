@@ -1,20 +1,23 @@
+// External imports
 import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import "./createVenue.scss";
-import Media from "./Media";
 import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
+// Internal imports
+import "./createVenue.scss";
+import Media from "./Media";
 import BasicInfo from "./BasicInfo";
 import Amenities from "./Amenities";
 import Location from "./Location";
 import Preview from "./Preview";
-import PageNotFound from "..//404_loading_etc/PageNotFound";
+import PageNotFound from "../404_loading_etc/PageNotFound";
+
 function CreateVenue() {
   const [step, setStep] = useState(1);
   const progress = (step / 5) * 100;

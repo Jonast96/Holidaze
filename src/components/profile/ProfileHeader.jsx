@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-
+import { editUserSchema } from "../auth/validation/editUserSchema";
 export default function ProfileHeader({
   image,
   title,
@@ -23,6 +23,12 @@ export default function ProfileHeader({
     media: user?.media ? user.media : "",
   });
 
+  const [errors, setErrors] = React.useState({
+    name: "",
+    email: "",
+    media: "",
+  });
+
   console.log(updatedUser);
 
   function handleChange(event) {
@@ -32,7 +38,28 @@ export default function ProfileHeader({
     });
   }
 
-  console.log(updatedUser);
+  async function validateForm(data) {
+    try {
+      await editUserSchema.validate(data, { abortEarly: false });
+      console.log("Validation successful!");
+      //clears errors
+      setErrors({
+        name: "",
+        email: "",
+        media: "",
+      });
+      return true;
+    } catch (error) {
+      const errors = {};
+      error.inner.forEach((error) => {
+        errors[error.path] = error.message;
+      });
+      setErrors(errors);
+
+      console.error("Validation failed: ", error.message);
+      return false;
+    }
+  }
 
   return (
     <Row className="header text-center align-items-center">
@@ -40,10 +67,15 @@ export default function ProfileHeader({
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <Form
-            onSubmit={(event) => {
+            onSubmit={async (event) => {
               event.preventDefault();
-              // editInfo(updatedUser);
-              handleClose();
+              const isValid = await validateForm(updatedUser);
+              if (isValid) {
+                editInfo(updatedUser);
+                handleClose();
+              } else {
+                console.log("Validation failed!");
+              }
             }}
           >
             <Form.Group controlId="formName">
@@ -54,7 +86,12 @@ export default function ProfileHeader({
                 placeholder="Enter name"
                 value={updatedUser.name}
                 onChange={handleChange}
+                isInvalid={!!errors.name}
               />
+
+              <Form.Control.Feedback type="invalid">
+                {errors.name}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formEmail">
               <Form.Label>Email address</Form.Label>
@@ -64,7 +101,11 @@ export default function ProfileHeader({
                 placeholder="Enter email"
                 value={updatedUser.email}
                 onChange={handleChange}
+                isInvalid={!!errors.email}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.email}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formMedia">
               <Form.Label>Media</Form.Label>
@@ -74,9 +115,14 @@ export default function ProfileHeader({
                 placeholder="Enter media URL"
                 value={updatedUser.media}
                 onChange={handleChange}
+                isInvalid={!!errors.media}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.media}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Button type="submit" variant="primary">
+
+            <Button className="mt-3" type="submit" variant="primary">
               Save changes
             </Button>
           </Form>

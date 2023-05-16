@@ -2,7 +2,7 @@ import React from "react";
 import ProfileHeader from "../ProfileHeader";
 import Button from "react-bootstrap/Button";
 
-export default function ({ data }) {
+export default function ({ data, editInfo }) {
   //active is used to toggle between upcoming and expired bookings where active is true for upcoming and false for expired
   const [active, setActive] = React.useState(true);
 
@@ -21,6 +21,7 @@ export default function ({ data }) {
             "Stay in control of your travel plans with Holidaze. Here, you can review the details of your upcoming and previous stays. Need to make any changes or cancel a booking? Simply click the 'Manage Booking' button for upcoming stays. For previous stays, feel free to leave reviews and share your experiences to help fellow travelers make informed decisions."
           }
           user={data}
+          editInfo={editInfo}
         />
       </div>
 

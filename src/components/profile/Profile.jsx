@@ -9,6 +9,9 @@ import "./profile.scss";
 export default function Profile() {
   const user = JSON.parse(localStorage.getItem("user"));
 
+  function editInfo() {
+    console.log("edit info");
+  }
   const { data, loading, error } = useApiCall(
     `https://api.noroff.dev/api/v1/holidaze/profiles/${user?.name}?_bookings=true`,
     { Authorization: "Bearer " + user?.token }
@@ -21,7 +24,11 @@ export default function Profile() {
   console.log(user);
   return (
     <Container className="mt-5">
-      {user?.isVenueManager ? <VenueHost data={data} /> : <Guest data={data} />}
+      {user?.isVenueManager ? (
+        <VenueHost data={data} />
+      ) : (
+        <Guest data={data} editInfo={editInfo} />
+      )}
     </Container>
   );
 }

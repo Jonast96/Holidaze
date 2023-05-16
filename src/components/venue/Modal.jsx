@@ -2,13 +2,11 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function EditModal({ show, handleClose, body }, props) {
+function EditModal({ show, handleClose, body }) {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
+        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>{body}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

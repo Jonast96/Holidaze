@@ -11,7 +11,6 @@ import Modal from "react-bootstrap/Modal";
 // Internal dependencies
 import image from "../.././assets//media/registerImage.jpg";
 import { registerSchema } from "./validation/registerSchema";
-import CustomAlert from "../CustomAlert";
 import "./register.scss";
 
 /**
@@ -42,6 +41,10 @@ function Register(props) {
 
   const [venueManager, setVenueManager] = React.useState(false);
 
+  /**
+   * Handles changes to the form input fields.
+   * @param {Object} e - Event object.
+   */
   function handleChange(e) {
     const { name, value, type } = e.target;
 
@@ -112,8 +115,10 @@ function Register(props) {
         setErrorMessage(json.errors[0].message);
         throw new Error("API call failed");
       }
+      if (response.ok) {
+        props.onHide();
+      }
       alert(`Hello ${json.name}! You have been registered.`);
-      props.onHide();
       props.close();
     } catch (error) {
       console.error("Error while making API call:", error);

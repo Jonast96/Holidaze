@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Guest(props) {
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
   return (
     <div className="guest">
       <Nav.Link

@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { editUserSchema } from "../auth/validation/editUserSchema";
+
 export default function ProfileHeader({
   image,
   title,
@@ -17,46 +17,20 @@ export default function ProfileHeader({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [updatedUser, setUpdatedUser] = React.useState({
-    name: user?.name,
-    email: user?.email,
-    media: user?.media ? user.media : "",
-  });
+  const [updatedMedia, setUpdatedMedia] = React.useState(user?.media || "");
 
-  const [errors, setErrors] = React.useState({
-    name: "",
-    email: "",
-    media: "",
-  });
-
-  console.log(updatedUser);
+  const [errors, setErrors] = React.useState("");
 
   function handleChange(event) {
-    setUpdatedUser({
-      ...updatedUser,
-      [event.target.name]: event.target.value,
-    });
+    setUpdatedMedia(event.target.value);
   }
 
-  async function validateForm(data) {
-    try {
-      await editUserSchema.validate(data, { abortEarly: false });
-      console.log("Validation successful!");
-      //clears errors
-      setErrors({
-        name: "",
-        email: "",
-        media: "",
-      });
+  async function validateForm(media) {
+    if (media) {
+      setErrors("");
       return true;
-    } catch (error) {
-      const errors = {};
-      error.inner.forEach((error) => {
-        errors[error.path] = error.message;
-      });
-      setErrors(errors);
-
-      console.error("Validation failed: ", error.message);
+    } else {
+      setErrors("Media is required");
       return false;
     }
   }
@@ -69,56 +43,27 @@ export default function ProfileHeader({
           <Form
             onSubmit={async (event) => {
               event.preventDefault();
-              const isValid = await validateForm(updatedUser);
+              const isValid = await validateForm(updatedMedia);
               if (isValid) {
-                editInfo(updatedUser);
+                editInfo(updatedMedia);
                 handleClose();
               } else {
                 console.log("Validation failed!");
               }
             }}
           >
-            <Form.Group controlId="formName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                placeholder="Enter name"
-                value={updatedUser.name}
-                onChange={handleChange}
-                isInvalid={!!errors.name}
-              />
-
-              <Form.Control.Feedback type="invalid">
-                {errors.name}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                placeholder="Enter email"
-                value={updatedUser.email}
-                onChange={handleChange}
-                isInvalid={!!errors.email}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.email}
-              </Form.Control.Feedback>
-            </Form.Group>
             <Form.Group controlId="formMedia">
               <Form.Label>Media</Form.Label>
               <Form.Control
                 type="text"
                 name="media"
                 placeholder="Enter media URL"
-                value={updatedUser.media}
+                value={updatedMedia}
                 onChange={handleChange}
-                isInvalid={!!errors.media}
+                isInvalid={!!errors}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.media}
+                {errors}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -137,7 +82,7 @@ export default function ProfileHeader({
           onClick={handleShow}
           variant="outline-primary text-black fw-light m-0 py-1 leftBtn"
         >
-          Edit Profile
+          Edit Media
         </Button>
         <Button
           onClick={logout}

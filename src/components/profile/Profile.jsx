@@ -7,21 +7,42 @@ import Loading from "../404_loading_etc/Loading";
 import PageNotFound from "../404_loading_etc/PageNotFound";
 import "./profile.scss";
 export default function Profile() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  let user = JSON.parse(localStorage.getItem("user"));
 
-  function editInfo() {
-    console.log("edit info");
+  async function editInfo(updatedMedia) {
+    try {
+      const response = await fetch(
+        `https://api.noroff.dev/api/v1/holidaze/profiles/${user?.name}/media`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + user?.token,
+          },
+          body: JSON.stringify({ avatar: updatedMedia }),
+        }
+      );
+      user.avatar = updatedMedia;
+      localStorage.setItem("user", JSON.stringify(user));
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        location.reload();
+      } else {
+        alert(`${data.errors[0].code}: ${data.errors[0].message}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
+
   const { data, loading, error } = useApiCall(
     `https://api.noroff.dev/api/v1/holidaze/profiles/${user?.name}?_bookings=true`,
     { Authorization: "Bearer " + user?.token }
   );
   if (loading) return <Loading />;
   if (error) return <PageNotFound />;
-  console.log(error);
 
-  console.log(data);
-  console.log(user);
   return (
     <Container className="mt-5">
       {user?.isVenueManager ? (

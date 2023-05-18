@@ -3,20 +3,29 @@ import Login from "../auth/Login";
 import Register from "../auth/Register";
 import { useState } from "react";
 import Nav from "react-bootstrap/Nav";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 
 export default function LoggedOut(props) {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   return (
     <>
-      <Nav.Link onClick={props.close} as={Link} to={"/"}>
+      <Nav.Link onClick={props.close} as={RouterLink} to={"/"}>
         Home
       </Nav.Link>
-      <Nav.Link onClick={props.close} as={Link} to={"/venue"}>
+      <Nav.Link
+        onClick={props.close}
+        as={ScrollLink}
+        to="featuredVenues"
+        spy={true}
+        smooth={true}
+        offset={-70}
+        duration={500}
+      >
         Browse venue
       </Nav.Link>
-      <Nav.Link onClick={props.close} as={Link} to={"/becomeHost"}>
+      <Nav.Link onClick={props.close} as={RouterLink} to={"/becomeHost"}>
         Become a host
       </Nav.Link>
       <div className=" mt-2  d-flex">

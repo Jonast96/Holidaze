@@ -42,13 +42,13 @@ export default function Profile() {
   );
   if (loading) return <Loading />;
   if (error) return <PageNotFound />;
-
+  console.log(data);
   return (
     <Container className="mt-5">
       {user?.isVenueManager ? (
         <VenueHost data={data} />
       ) : (
-        <Guest data={data} editInfo={editInfo} />
+        <Guest data={data} editInfo={editInfo} bookings={data.bookings} />
       )}
     </Container>
   );

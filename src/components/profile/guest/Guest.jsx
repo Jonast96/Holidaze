@@ -1,13 +1,15 @@
 import React from "react";
 import ProfileHeader from "../ProfileHeader";
 import Button from "react-bootstrap/Button";
-import VenueCard from "../..//VenueCard";
+import ModifiedVenueCard from "../ModifiedVenueCard";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 export default function ({ data, editInfo, bookings }) {
-  //active is used to toggle between upcoming and expired bookings where active is true for upcoming and false for expired
-  const [active, setActive] = React.useState(true);
+  const [upcomingBookings, setUpcomingBookings] = React.useState(true);
+  const [expiredBookings, setExpiredBookings] = React.useState(false);
+
+  const todayDate = new Date().toISOString();
+  console.log(todayDate);
 
   function logOut() {
     localStorage.clear();
@@ -30,30 +32,28 @@ export default function ({ data, editInfo, bookings }) {
 
       <div className="text-center mt-5 d-flex">
         <Button
-          onClick={() => setActive(!active)}
-          className={
-            active
-              ? "leftBtn fs-4 text-white specialBtn w-100"
-              : "leftBtn fs-4 specialBtn w-100"
-          }
+          onClick={() => {
+            setUpcomingBookings(true);
+            setExpiredBookings(false);
+          }}
+          className={"leftBtn fs-4 specialBtn w-100"}
           variant={
-            active
-              ? `primary text-black fw-light w-100`
+            upcomingBookings
+              ? `primary  fw-light w-100`
               : `outline-primary text-black fw-light w-100`
           }
         >
           Upcoming Bookings
         </Button>
         <Button
-          onClick={() => setActive(!active)}
-          className={
-            !active
-              ? "rightBtn fs-4 text-white specialBtn w-100"
-              : "rightBtn fs-4 specialBtn w-100"
-          }
+          onClick={() => {
+            setUpcomingBookings(false);
+            setExpiredBookings(true);
+          }}
+          className={"rightBtn fs-4 specialBtn w-100"}
           variant={
-            !active
-              ? `primary text-black fw-light w-100`
+            expiredBookings
+              ? `primary  fw-light w-100`
               : `outline-primary text-black fw-light w-100`
           }
         >
@@ -61,18 +61,35 @@ export default function ({ data, editInfo, bookings }) {
         </Button>
       </div>
       <Row className="mt-5">
-        {bookings.map((booking, index) => {
-          return (
-            <VenueCard
-              name={booking.venue.name}
-              key={index}
-              img={booking.venue.media}
-              price={booking.venue.price}
-              id={booking.venue.id}
-              location={booking.venue.location}
-            />
-          );
-        })}
+        {upcomingBookings
+          ? bookings.map((booking, index) => {
+              if (booking.dateTo > todayDate) {
+                return (
+                  <ModifiedVenueCard
+                    name={booking.venue.name}
+                    key={index}
+                    img={booking.venue.media}
+                    price={booking.venue.price}
+                    id={booking.venue.id}
+                    location={booking.venue.location}
+                  />
+                );
+              }
+            })
+          : bookings.map((booking, index) => {
+              if (booking.dateTo < todayDate) {
+                return (
+                  <ModifiedVenueCard
+                    name={booking.venue.name}
+                    key={index}
+                    img={booking.venue.media}
+                    price={booking.venue.price}
+                    id={booking.venue.id}
+                    location={booking.venue.location}
+                  />
+                );
+              }
+            })}
       </Row>
     </div>
   );

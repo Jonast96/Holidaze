@@ -47,8 +47,10 @@ export default function Profile() {
     <Container className="mt-5">
       {user?.isVenueManager ? (
         <VenueHost data={data} />
-      ) : (
+      ) : data.bookings.length > 0 ? (
         <Guest data={data} editInfo={editInfo} bookings={data.bookings} />
+      ) : (
+        "There are currently no bookings for this user"
       )}
     </Container>
   );

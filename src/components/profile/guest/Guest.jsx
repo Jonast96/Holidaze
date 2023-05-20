@@ -60,6 +60,7 @@ export default function ({ data, editInfo, bookings }) {
           Expired Bookings
         </Button>
       </div>
+
       <Row className="mt-5">
         {upcomingBookings
           ? bookings.map((booking, index) => {
@@ -72,6 +73,7 @@ export default function ({ data, editInfo, bookings }) {
                     price={booking.venue.price}
                     id={booking.venue.id}
                     location={booking.venue.location}
+                    bookingInfo={booking}
                   />
                 );
               }
@@ -86,6 +88,7 @@ export default function ({ data, editInfo, bookings }) {
                     price={booking.venue.price}
                     id={booking.venue.id}
                     location={booking.venue.location}
+                    bookingInfo={booking}
                   />
                 );
               }

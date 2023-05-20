@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 function BookingConfirmationModal({ show, onHide, bookingData }) {
-  const { startDate, endDate, venue, price } = bookingData;
+  const { startDate, endDate, venue, price, guests } = bookingData;
 
   return (
     <Modal show={show} onHide={onHide} centered>
@@ -38,6 +38,9 @@ function BookingConfirmationModal({ show, onHide, bookingData }) {
         </p>
         <p>
           <strong>Price:</strong> ${price.toFixed(2)} per night
+        </p>
+        <p>
+          <strong>Guests:</strong> {guests}
         </p>
         <p>
           <strong>Total:</strong> $

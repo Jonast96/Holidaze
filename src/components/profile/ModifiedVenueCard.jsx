@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
-import { ListGroupItem } from "react-bootstrap";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
 
 export default function VenueCard(props) {
   const [index, setIndex] = useState(0);

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBed,
-  faEdit,
-  faGlobe,
-  faInfo,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBed, faEdit, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import "react-datepicker/dist/react-datepicker.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";

@@ -1,6 +1,11 @@
 // External dependencies
 import React, { useState } from "react";
-import { Col, Row, Form, Container, Button, Alert } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
 import "react-toastify/dist/ReactToastify.css";
 

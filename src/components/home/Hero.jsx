@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
-import { Form, InputGroup } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import { useEffect, useState } from "react";
 
 import heroImg from "../../assets/media/hero.jpg";

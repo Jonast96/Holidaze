@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
 import { useState } from "react";

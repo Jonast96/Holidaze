@@ -84,4 +84,26 @@
       }
     }
   }
+
+  .booking {
+    padding: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .date {
+    padding: 8px;
+    border: 0;
+    max-width: 135px;
+  }
+  .left {
+    border-radius: 5px 0px 0px 5px;
+  }
+  .right {
+    border-radius: 0px 5px 5px 0px;
+  }
+  .noSearchResults {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: rgba($color: black, $alpha: 0.5);
+  }
 }

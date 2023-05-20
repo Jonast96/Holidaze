@@ -9,6 +9,12 @@ import image from "../.././assets//media/registerImage.jpg";
 import { loginSchema } from "./validation/loginSchema";
 import "./register.scss";
 import { UserContext } from "../Context";
+
+/**
+ * Login component that allows users to log in to the application.
+ * @param {Object} props - Component props.
+ * @returns {JSX.Element} - Rendered component.
+ */
 function Login(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const { user, setUser } = React.useContext(UserContext);
@@ -22,11 +28,19 @@ function Login(props) {
     password: "",
   });
 
+  /**
+   * Handles changes to the form input fields.
+   * @param {Object} e - Event object.
+   */
   function handleChange(e) {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   }
 
+  /**
+   * Validates the form input fields.
+   * @returns {boolean} - Whether or not the form is valid.
+   */
   const validateForm = async () => {
     try {
       await loginSchema.validate(formValues, { abortEarly: false });
@@ -45,6 +59,10 @@ function Login(props) {
     }
   };
 
+  /**
+   * Handles form submission.
+   * @param {Object} e - Event object.
+   */
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (await validateForm()) {
@@ -65,7 +83,6 @@ function Login(props) {
         }
       );
       const json = await response.json();
-      console.log(json);
       const user = {
         name: json.name,
         email: json.email,
@@ -79,7 +96,9 @@ function Login(props) {
         setErrorMessage(json.errors[0].message);
         throw new Error("API call failed");
       }
-      props.onHide();
+      if (response.ok) {
+        props.close();
+      }
       setUser({
         loggedIn: true,
         venueManager: json.venueManager,
@@ -95,7 +114,7 @@ function Login(props) {
       <Modal size="lg" centered show={props.show} onHide={props.onHide}>
         <Row className="register">
           <Col lg={6}>
-            <img className="img-fluid h-25" src={image} alt="" />
+            <img className="img-fluid h-100" src={image} alt="" />
           </Col>
           <Col lg={6} className="p-3">
             <button

@@ -1,9 +1,20 @@
 import Button from "react-bootstrap/Button";
+import Nav from "react-bootstrap/Nav";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
 export default function VenueManager(props) {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <div className="host">
-      <Nav.Link className="userInfo" as={Link} to={"/profile"}>
+      <Nav.Link
+        onClick={props.close}
+        className="userInfo"
+        as={Link}
+        to={"/profile"}
+      >
         <img
           src={
             user.avatar
@@ -18,8 +29,16 @@ export default function VenueManager(props) {
       <Button onClick={props.logout} className="w-100">
         Log out
       </Button>
-      <Nav.Link as={Link} to={"/"}>
+      <Nav.Link onClick={props.close} as={Link} to={"/addVenue"}>
         Home
+      </Nav.Link>
+      <Nav.Link
+        onClick={props.close}
+        className="text-secondary"
+        as={Link}
+        to={"/createVenue"}
+      >
+        <FontAwesomeIcon icon={faAdd} /> Add a new venue
       </Nav.Link>
     </div>
   );

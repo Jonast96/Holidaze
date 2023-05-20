@@ -4,6 +4,8 @@ import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 
+import "./venue.scss";
+
 import Carousel from "react-bootstrap/Carousel";
 function Images(props) {
   const [show, setShow] = useState(false);
@@ -20,7 +22,7 @@ function Images(props) {
     <>
       <Modal centered show={show} onHide={handleClose}>
         <Carousel interval={null} slide={false}>
-          {props.data.media.map((image, index) => (
+          {props.media.map((image, index) => (
             <Carousel.Item key={index}>
               <img src={image} alt="" />
             </Carousel.Item>
@@ -34,7 +36,7 @@ function Images(props) {
         onSelect={handleSelect}
         interval={null}
       >
-        {props.data.media.map((imageSrc, index) => (
+        {props.media.map((imageSrc, index) => (
           <Carousel.Item key={index}>
             <img
               onClick={handleShow}
@@ -46,7 +48,7 @@ function Images(props) {
         ))}
       </Carousel>
 
-      {props.data.media.length > 4 ? (
+      {props.media.length > 4 ? (
         <Row
           onClick={handleShow}
           className="images imgContainer desktopVersion w-100 h-100 m-0 "
@@ -54,17 +56,17 @@ function Images(props) {
         >
           <Col md={6} className="m-0 p-0  ">
             <div className="mainImage">
-              <img className=" shadow-sm" src={props.data.media[0]} alt="" />
+              <img className=" shadow-sm" src={props.media[0]} alt="" />
             </div>{" "}
           </Col>
           <Col md={6}>
             <Row className="h-100">
-              {props.data.media.slice(1, 5).map((image, index, slicedArray) => {
+              {props.media.slice(1, 5).map((image, index, slicedArray) => {
                 return (
                   <Col key={index} className="m-0 p-0 smallImages" xs={6}>
                     <img className=" shadow-sm" src={image} alt="" />
                     {index === slicedArray.length - 1 ? (
-                      <div className="fs-5">+{props.data.media.length}</div>
+                      <div className="fs-5">+{props.media.length}</div>
                     ) : null}
                   </Col>
                 );
@@ -72,7 +74,7 @@ function Images(props) {
             </Row>
           </Col>
         </Row>
-      ) : props.data.media.length > 2 ? (
+      ) : props.media.length > 2 ? (
         <Row
           onClick={handleShow}
           className="images imgContainer desktopVersion w-100 h-100 m-0 "
@@ -80,17 +82,17 @@ function Images(props) {
         >
           <Col md={6} className="m-0 p-0  ">
             <div className="mainImage">
-              <img className=" shadow-sm" src={props.data.media[0]} alt="" />
+              <img className=" shadow-sm" src={props.media[0]} alt="" />
             </div>{" "}
           </Col>
           <Col md={6}>
             <Row className="h-100">
-              {props.data.media.slice(1, 3).map((image, index, slicedArray) => {
+              {props.media.slice(1, 3).map((image, index, slicedArray) => {
                 return (
                   <Col key={index} className="m-0 p-0 smallImages " xs={12}>
                     <img className=" shadow-sm" src={image} alt="" />
                     {index === slicedArray.length - 1 ? (
-                      <div className="fs-5">+{props.data.media.length}</div>
+                      <div className="fs-5">+{props.media.length}</div>
                     ) : null}
                   </Col>
                 );
@@ -105,7 +107,7 @@ function Images(props) {
           onSelect={handleSelect}
           interval={null}
         >
-          {props.data.media.map((imageSrc, index) => (
+          {props.media.map((imageSrc, index) => (
             <Carousel.Item key={index}>
               <img
                 onClick={handleShow}

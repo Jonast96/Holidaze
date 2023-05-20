@@ -3,11 +3,15 @@ import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 
 export default function Guest(props) {
-  //parse user from local storage
   const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div className="guest">
-      <Nav.Link className="userInfo" as={Link} to={"/profile"}>
+      <Nav.Link
+        onClick={props.close}
+        className="userInfo"
+        as={Link}
+        to={"/profile"}
+      >
         <img
           src={
             user.avatar
@@ -19,14 +23,20 @@ export default function Guest(props) {
         />
         <h5 className="text-center">{user.name}</h5>
       </Nav.Link>
-      <Button onClick={props.logout} className="w-100">
+      <Button
+        onClick={() => {
+          props.logout();
+          props.close;
+        }}
+        className="w-100"
+      >
         Log out
       </Button>
-      <Nav.Link as={Link} to={"/"}>
+      <Nav.Link onClick={props.close} as={Link} to={"/"}>
         Home
       </Nav.Link>
 
-      <Nav.Link as={Link} to={"/becomeHost"}>
+      <Nav.Link onClick={props.close} as={Link} to={"/becomeHost"}>
         Become a host
       </Nav.Link>
     </div>

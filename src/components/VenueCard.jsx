@@ -17,8 +17,6 @@ export default function VenueCard(props) {
 
   const [mouseOver, setMouseOver] = useState(false);
 
-  console.log(props);
-
   return (
     <Col className="mb-4" md={6} lg={4} xxl={3}>
       <Card

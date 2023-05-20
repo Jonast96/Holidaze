@@ -8,10 +8,12 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import BookingConfirmationModal from "./BookingConfirmationModal";
+import Form from "react-bootstrap/Form";
 
 function Booking(props) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
+  const [guests, setGuests] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
   const [disableBooking, setDisableBooking] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -19,7 +21,6 @@ function Booking(props) {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const bookings = props.data.bookings;
-  console.log(bookings);
 
   function isOverlapping(range1, range2) {
     return range1.start <= range2.end && range1.end >= range2.start;
@@ -51,11 +52,18 @@ function Booking(props) {
   };
 
   function getExcludedIntervals() {
-    return bookings.map((booking) => ({
-      start: new Date(booking.dateFrom) - 86400000,
-      end: new Date(booking.dateTo),
-    }));
+    return bookings.map((booking) => {
+      const start = new Date(booking.dateFrom);
+      const end = new Date(booking.dateTo);
+
+      if (start > end) {
+        return { start: end, end: start };
+      } else {
+        return { start, end };
+      }
+    });
   }
+  console.log(guests);
 
   async function handleBooking() {
     if (!startDate || !endDate) {
@@ -76,7 +84,7 @@ function Booking(props) {
           body: JSON.stringify({
             dateFrom: startDate.toISOString(),
             dateTo: endDate.toISOString(),
-            guests: 1,
+            guests: guests,
             venueId: props.data.id,
           }),
         }
@@ -94,6 +102,7 @@ function Booking(props) {
       setErrorMessage("Failed to book dates");
     }
   }
+  console.log();
 
   return (
     <Col
@@ -110,6 +119,7 @@ function Booking(props) {
           endDate,
           venue: props.data.name,
           price: props.data.price,
+          guests: guests,
         }}
       />
 
@@ -127,6 +137,25 @@ function Booking(props) {
       />
 
       <p className="fs-5 price">${props.data.price},- per night</p>
+      <Form.Select
+        aria-label="Default select example"
+        onChange={(e) => setGuests(parseFloat(e.target.value))}
+        value={guests}
+      >
+        <option value="1">Guests</option>
+        {(() => {
+          let options = [];
+          for (let i = 1; i <= props.data.maxGuests; i++) {
+            options.push(
+              <option key={i} value={i}>{`${i} ${
+                i > 1 ? "Guests" : "Guest"
+              }`}</option>
+            );
+          }
+          return options;
+        })()}
+      </Form.Select>
+
       <div className="d-flex justify-content-center gap-4 align-items-center">
         <div>
           <p className="p-0 m-0">From</p>

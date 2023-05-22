@@ -92,7 +92,7 @@ export default function ProfileHeader({
         </Button>
       </Col>
       <Col sm={12} lg={9}>
-        <h1 className="m-0 p-0">{title}</h1>
+        <h1 className="m-0 mb-3 p-0">{title}</h1>
         <p className="m-0 p-0">{description}</p>
       </Col>
     </Row>

@@ -23,7 +23,7 @@ export default function ({ data, editInfo, bookings }) {
           image={data.avatar}
           title={"Your stays"}
           description={
-            "Stay in control of your travel plans with Holidaze. Here, you can review the details of your upcoming and previous stays. Need to make any changes or cancel a booking? Simply click the 'Manage Booking' button for upcoming stays. For previous stays, feel free to leave reviews and share your experiences to help fellow travelers make informed decisions."
+            "Stay on top of your venue rentals with Holidaze. Here, you have the ability to overview the specifics of your upcoming and past bookings. For any changes to your upcoming bookings, please contact us directly. Once your booking has expired, we encourage you to leave reviews and share your experiences. This helps fellow venue owners understand and make informed decisions."
           }
           user={data}
           editInfo={editInfo}

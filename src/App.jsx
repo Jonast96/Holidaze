@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/custom.scss";
 import "./styles/styles.scss";
+import Footer from "./components/footer/Footer";
 
 import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
@@ -16,13 +17,14 @@ function App() {
     return (
       <>
         <Header />
-        {props.children}
+        <div className="content">{props.children}</div>
+        <Footer />
       </>
     );
   }
 
   return (
-    <>
+    <div className="app">
       <Suspense fallback={<Loading />}>
         <Layout>
           <Routes>
@@ -34,7 +36,7 @@ function App() {
           </Routes>
         </Layout>
       </Suspense>
-    </>
+    </div>
   );
 }
 

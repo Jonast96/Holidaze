@@ -1,0 +1,19 @@
+@import "../../styles//variables.scss";
+
+footer {
+  background-color: $dark;
+  p {
+    color: $secondary;
+    margin-bottom: 0.5rem;
+
+    a {
+      color: $light;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
+}

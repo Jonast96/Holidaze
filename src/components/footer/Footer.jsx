@@ -2,7 +2,7 @@ import "./footer.scss";
 
 function Footer() {
   return (
-    <footer className="text-center p-2">
+    <footer className="text-center p-2 mt-5">
       <p className="fw-light fs-3">Holidaze © 2023</p>
       <p>
         <a href="/">Terms and Conditions</a>

@@ -101,6 +101,21 @@ export default function Venue() {
     }
   }
 
+  async function handleDeleteRequest() {
+    const response = await fetch(
+      `https://api.noroff.dev/api/v1/holidaze/venues/${params.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const json = await response.json();
+    console.log(json);
+  }
+
   function handleLocationChange(event, field) {
     let value = event.target.value;
     if (field === "lat" || field === "lng") {
@@ -140,7 +155,21 @@ export default function Venue() {
             >
               Save changes
             </Button>
-            <Button className="deleteBtn fw-normal">Delete</Button>
+            <Button
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Are you sure you want to delete this venue? This action cannot be undone."
+                  )
+                ) {
+                  handleDeleteRequest();
+                  window.location.href = "/";
+                }
+              }}
+              className="deleteBtn fw-normal"
+            >
+              Delete
+            </Button>
           </div>
         ) : null}
         <Info

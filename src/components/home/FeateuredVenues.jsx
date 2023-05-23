@@ -2,10 +2,10 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import VenueCard from "../VenueCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 import noImg from "../../assets/media/no-photo.png";
 import Dropdown from "react-bootstrap/Dropdown";
-
+import Button from "react-bootstrap/Button";
 export default function FeaturedVenues({ data, setSorting }) {
   return (
     <section id="featuredVenues" className="featuredVenues">
@@ -13,7 +13,12 @@ export default function FeaturedVenues({ data, setSorting }) {
         <h4 className="fs-2 text-center mt-4 fw-light text-secondary">
           Featured Venues
         </h4>
-        <Dropdown>
+        <Dropdown className="mb-2">
+          <a href="#search">
+            <Button className="me-1">
+              <FontAwesomeIcon icon={faSearch} className="me-2" />
+            </Button>
+          </a>
           <Dropdown.Toggle variant="primary" id="dropdown-basic">
             <FontAwesomeIcon icon={faFilter} className="me-2" />
           </Dropdown.Toggle>

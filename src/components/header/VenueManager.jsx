@@ -29,7 +29,7 @@ export default function VenueManager(props) {
       <Button onClick={props.logout} className="w-100">
         Log out
       </Button>
-      <Nav.Link onClick={props.close} as={Link} to={"/addVenue"}>
+      <Nav.Link onClick={props.close} as={Link} to={"/"}>
         Home
       </Nav.Link>
       <Nav.Link

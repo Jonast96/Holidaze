@@ -74,7 +74,7 @@ function Header() {
   }, [offcanvasOpen]);
 
   return (
-    <header>
+    <header id="search">
       <Navbar
         bg="dark"
         expand="xxxl"

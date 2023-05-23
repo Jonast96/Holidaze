@@ -17,7 +17,7 @@ function App() {
     return (
       <>
         <Header />
-        <div className="content">{props.children}</div>
+        <main className="content">{props.children}</main>
         <Footer />
       </>
     );

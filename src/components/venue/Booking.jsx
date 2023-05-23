@@ -11,7 +11,7 @@ import BookingConfirmationModal from "./BookingConfirmationModal";
 import Form from "react-bootstrap/Form";
 
 function Booking(props) {
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [guests, setGuests] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
@@ -159,7 +159,9 @@ function Booking(props) {
       <div className="d-flex justify-content-center gap-4 align-items-center">
         <div>
           <p className="p-0 m-0">From</p>
-          <p className="dates  m-0">{startDate.toLocaleDateString()}</p>
+          <p className="dates  m-0">
+            {startDate ? startDate.toLocaleDateString() : "Select start date"}
+          </p>
         </div>
         <FontAwesomeIcon size="xl" icon={faArrowCircleRight} />
         <div>

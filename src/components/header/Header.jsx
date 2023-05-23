@@ -32,6 +32,7 @@ function Header() {
   function logout() {
     setUser({ loggedIn: false, venueManager: false });
     localStorage.clear();
+    window.location.href = "/";
   }
 
   const toggleOffcanvas = () => {

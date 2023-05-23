@@ -33,14 +33,14 @@ export default function ({ data, editInfo, bookings, venues }) {
           editInfo={editInfo}
         />
       </div>
-      <div className="text-center mt-5 d-flex">
+      <div className="mt-5 d-flex  ">
         <Button
           onClick={() => {
             setUpcomingBookings(true);
             setExpiredBookings(false);
             setMyVenues(false);
           }}
-          className={"leftBtn fs-5 specialBtn w-100"}
+          className={"leftBtn fs-6 specialBtn w-100"}
           variant={
             upcomingBookings
               ? `primary  fw-light w-100`
@@ -55,7 +55,7 @@ export default function ({ data, editInfo, bookings, venues }) {
             setMyVenues(false);
             setExpiredBookings(true);
           }}
-          className={"middleButton fs-5 specialBtn w-100"}
+          className={"middleButton fs-6 specialBtn w-100"}
           variant={
             expiredBookings
               ? `primary  fw-light w-100`
@@ -70,7 +70,7 @@ export default function ({ data, editInfo, bookings, venues }) {
             setExpiredBookings(false);
             setMyVenues(true);
           }}
-          className={"rightBtn fs-5 specialBtn w-100"}
+          className={"rightBtn fs-6 specialBtn w-100"}
           variant={
             myVenues
               ? `primary fw-light w-100`

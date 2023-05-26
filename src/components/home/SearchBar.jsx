@@ -45,6 +45,7 @@ export default function SearchBar({ onSearch }) {
               searchInput: e.target.value,
             }));
           }}
+          id="searchInput"
           size="lg"
           type="text"
           placeholder="Search"

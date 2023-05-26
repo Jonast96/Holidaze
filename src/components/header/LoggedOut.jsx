@@ -23,7 +23,7 @@ export default function LoggedOut(props) {
         offset={-70}
         duration={500}
       >
-        Browse venue
+        Browse venues
       </Nav.Link>
       <Nav.Link onClick={props.close} as={RouterLink} to={"/becomeHost"}>
         Become a host

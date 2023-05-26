@@ -12,6 +12,7 @@ const Venue = lazy(() => import("./components/venue/Venue"));
 const Profile = lazy(() => import("./components/profile/Profile"));
 const Loading = lazy(() => import("./components/404_loading_etc/Loading"));
 const CreateVenue = lazy(() => import("./components/createVenue/CreateVenue"));
+const BecomeHost = lazy(() => import("./components/becomeHost/BecomeHost"));
 function App() {
   function Layout(props) {
     return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/venue/:id" element={<Venue />} />
             <Route path="/createVenue" element={<CreateVenue />} />
+            <Route path="/becomeHost" element={<BecomeHost />} />
           </Routes>
         </Layout>
       </Suspense>

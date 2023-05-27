@@ -1,6 +1,21 @@
 import React from "react";
 import "./404.scss";
 
+/**
+ * `PageNotFound` is a functional component that displays a 404 error message.
+ * It accepts a prop, `errorMessage`, which can be used to customize the error message.
+ *
+ * If `errorMessage` is not provided, the default error message "Page not found" is displayed.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} props.errorMessage - The custom error message to display.
+ *
+ * @example
+ * return (
+ *   <PageNotFound errorMessage="Sorry, we couldn't find that page." />
+ * )
+ */
 function PageNotFound(props) {
   return (
     <div className="not-found-container">

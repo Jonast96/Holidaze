@@ -11,6 +11,19 @@ import Booking from "./Booking";
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
+/**
+ * Venue component.
+ *
+ * This component is responsible for displaying a specific venue. The venue is determined by the `id` parameter in the route.
+ * It displays various information about the venue and provides options to edit or delete the venue if the current user is the owner of the venue.
+ * It fetches venue data using `useApiCall` hook and the data is kept in the `payload` state.
+ * The state is updated in response to changes in the `data` returned from the `useApiCall` hook.
+ * This component also contains handlers for updating the venue information (`handleUpdateRequest`) and deleting the venue (`handleDeleteRequest`).
+ * Changes in the input fields of location and info sections are handled by `handleLocationChange` and `handleInfoChange` functions respectively which update the `payload` state.
+ * If the data is still loading, it renders the `LoadingPage` component. If there is an error, it renders the `PageNotFound` component.
+ *
+ * @returns {JSX.Element} Venue component.
+ */
 export default function Venue() {
   const params = useParams();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));

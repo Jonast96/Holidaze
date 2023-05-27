@@ -2,17 +2,27 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 
 /**
- * `Amenities` is a functional React component that displays a form with checkboxes for selecting amenities.
+ * The `Amenities` functional component displays a form with checkboxes for selecting amenities.
  *
- * @param {object} props - The properties passed to the component.
- * @param {object} props.meta - An object that contains the current state of the form.
- * @param {function} props.setMeta - A function that updates the state of the form.
- * @returns {ReactElement} The rendered `Amenities` component.
+ * @component
+ * @param {Object} props - The properties passed down from the parent component.
+ * @param {Object} props.meta - An object that contains the current state of the form.
+ * @param {Function} props.setMeta - A function that updates the state of the form.
+ *
+ * @example
+ * return (
+ *   <Amenities
+ *     meta={currentAmenities}
+ *     setMeta={updateAmenities}
+ *   />
+ * )
+ *
+ * @returns {ReactElement} The `Amenities` component, a form for selecting various amenities.
  */
 function Amenities({ meta, setMeta }) {
   /**
-   * Handles changes to the form input fields.
-   * @param {Object} event - The event object.
+   * Handles changes to the checkboxes in the form, updating the `meta` state accordingly.
+   * @param {Object} event - The event object from the checkbox input change.
    */
   function handleAmenityChange(event) {
     const { name, checked } = event.target;

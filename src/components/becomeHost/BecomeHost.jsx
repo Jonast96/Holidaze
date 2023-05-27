@@ -5,20 +5,76 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./becomeHost.scss";
 import Accordion from "react-bootstrap/Accordion";
+import Register from "..//auth/Register";
+import { useState } from "react";
 
 import illustration from "../..//assets/media/illustration.jpg";
 import illustrationTwo from "../../assets/media/illustrationTwo.jpg";
 import illustrationThree from "../../assets/media/illustrationThree.jpg";
 export default function BecomeHost() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
+  const [showRegister, setShowRegister] = useState(false);
+
+  async function becomeHost() {
+    const response = await fetch(
+      `https://api.noroff.dev/api/v1/holidaze/profiles/${user?.name}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({
+          venueManager: true,
+        }),
+      }
+    );
+    if (response.ok) {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          ...user,
+          isVenueManager: true,
+        })
+      );
+      window.location.href = "/profile";
+    }
+    const json = await response.json();
+    console.log(json);
+    console.log(response);
+  }
+
   return (
     <Container className="mt-5">
+      <Register show={showRegister} onHide={() => setShowRegister(false)} />
       <Row className="mb-5 ">
         <Col className="d-flex row mb-3" sm={12} md={6}>
           <h1>Ready to take the next step with HoliDaze?</h1>
           <p>Become a host today and unlock a world of opportunities</p>
-          <Button className="button" variant="primary">
-            Become a host
-          </Button>
+          {user ? (
+            user.isVenueManager ? (
+              ""
+            ) : (
+              <Button
+                onClick={() => becomeHost()}
+                className="button"
+                variant="primary"
+              >
+                Become a host
+              </Button>
+            )
+          ) : (
+            <Button
+              onClick={() => {
+                setShowRegister(true);
+              }}
+              className="button"
+              variant="primary"
+            >
+              Register as a host
+            </Button>
+          )}
         </Col>
         <Col className="imgCol" sm={12} md={6}>
           <img

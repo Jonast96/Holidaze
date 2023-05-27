@@ -16,9 +16,23 @@ import "./register.scss";
 import { UserContext } from "../Context";
 
 /**
- * Login component that allows users to log in to the application.
+ * `Login` is a functional component that displays a login form.
+ *
+ * The form has validation that uses the Yup library. It checks for valid email and password inputs.
+ * If the form inputs are valid, a login request is made to the server.
+ *
+ * On successful login, user information is stored in the local storage and the UserContext is updated.
+ *
+ * @component
  * @param {Object} props - Component props.
- * @returns {JSX.Element} - Rendered component.
+ * @param {Function} props.close - Function to close the login modal.
+ * @param {boolean} props.show - Whether or not to show the login modal.
+ * @param {Function} props.onHide - Function to hide the login modal.
+ *
+ * @example
+ * return (
+ *   <Login close={closeModalFunction} show={isModalVisible} onHide={hideModalFunction} />
+ * )
  */
 function Login(props) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,7 +49,9 @@ function Login(props) {
 
   /**
    * Handles changes to the form input fields.
-   * @param {Object} e - Event object.
+   * @param {Object} e - The event object.
+   * @param {string} e.target.name - The name of the input field.
+   * @param {string} e.target.value - The value of the input field.
    */
   function handleChange(e) {
     const { name, value } = e.target;

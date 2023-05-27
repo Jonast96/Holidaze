@@ -8,6 +8,27 @@ import { Link } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 
+/**
+ * `VenueCard` component represents a single venue's information and booking details.
+ * It includes an image carousel, venue details and a modal for booking details.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {Array} props.img - Array of venue's images.
+ * @param {Object} props.bookingInfo - Information of a booking for the venue.
+ * @param {String} props.name - Name of the venue.
+ * @param {Object} props.location - Object containing city and country of the venue.
+ * @param {Number} props.price - Price per night of the venue.
+ * @param {String} props.id - The ID of the venue.
+ * @param {String} props.placeholder - Placeholder image for the venue.
+ *
+ * @example
+ * return (
+ *   <VenueCard img={venueImages} bookingInfo={bookingData} name="My Venue" location={{city: 'San Francisco', country: 'USA'}} price={120} id="1234" placeholder="placeholder.png" />
+ * );
+ *
+ * @returns {ReactElement} The VenueCard component representing a single venue.
+ */
 export default function VenueCard(props) {
   const [index, setIndex] = useState(0);
 

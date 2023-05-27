@@ -6,6 +6,21 @@ import InputGroup from "react-bootstrap/InputGroup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+/**
+ * The `SearchBar` functional component represents a search bar with a date picker.
+ * The search bar allows users to input a search term and select a date range for searching for available venues.
+ *
+ * @component
+ * @param {Object} props The props.
+ * @param {function(Object): void} props.onSearch A callback function that is called when the search form is submitted. This function is passed an object with the search input and the selected start and end dates.
+ *
+ * @example
+ * return (
+ *   <SearchBar onSearch={handleSearch} />
+ * );
+ *
+ * @returns {ReactElement} The rendered `SearchBar` component.
+ */
 export default function SearchBar({ onSearch }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());

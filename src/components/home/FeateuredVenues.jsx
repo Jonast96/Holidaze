@@ -6,6 +6,24 @@ import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 import noImg from "../../assets/media/no-photo.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
+
+/**
+ * The `FeaturedVenues` functional component displays a list of featured venues and provides sorting functionality.
+ * The venues are presented in a 'VenueCard' format, and can be sorted by price (low to high or high to low) or name (A-Z or Z-A).
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <FeaturedVenues data={venueData} setSorting={updateSortingFunction} />
+ * );
+ *
+ * @param {Object} props - The component's props.
+ * @param {Array} props.data - An array of venue objects. Each object should contain information about the venue, such as name, id, media, price, and location.
+ * @param {function} props.setSorting - The function to call when a user selects a sorting option. This function should accept a string that specifies the new sorting order.
+ *
+ * @returns {ReactElement} The `FeaturedVenues` component presenting the list of featured venues and sorting options.
+ */
 export default function FeaturedVenues({ data, setSorting }) {
   return (
     <section id="featuredVenues" className="featuredVenues">

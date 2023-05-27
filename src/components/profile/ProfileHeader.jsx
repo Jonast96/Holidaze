@@ -5,6 +5,26 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
+/**
+ * `ProfileHeader` component represents the header of a user's profile page.
+ * It includes user details and controls to edit media or logout.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {String} props.image - The image URL of the user.
+ * @param {String} props.title - The title of the user's profile.
+ * @param {String} props.description - The description of the user's profile.
+ * @param {Object} props.user - The user object containing user details.
+ * @param {Function} props.logout - The function to handle user logout.
+ * @param {Function} props.editInfo - The function to edit user information.
+ *
+ * @example
+ * return (
+ *   <ProfileHeader image="user.png" title="User Name" description="User description" user={userData} logout={handleLogout} editInfo={handleEditInfo} />
+ * );
+ *
+ * @returns {ReactElement} The ProfileHeader component.
+ */
 export default function ProfileHeader({
   image,
   title,

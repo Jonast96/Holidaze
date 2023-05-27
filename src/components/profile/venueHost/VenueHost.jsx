@@ -7,6 +7,26 @@ import Row from "react-bootstrap/Row";
 import ModifiedVenueCard from "..//ModifiedVenueCard";
 import VenueCard from "../..//VenueCard";
 import noImg from "../..//../assets/media/no-photo.png";
+
+/**
+ * The anonymous functional component represents a user's profile page with user's bookings and hosted venues.
+ * It displays 'upcoming', 'expired' bookings and 'hosted venues' and allows the user to switch between them.
+ *
+ * @component
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} props.data - The user's profile data.
+ * @param {function} props.editInfo - Function to edit user's info.
+ * @param {Array} props.bookings - Array of bookings of the user.
+ * @param {Array} props.venues - Array of venues hosted by the user.
+ *
+ * @example
+ * return (
+ *   <AnonymousComponent data={userData} editInfo={handleEditInfo} bookings={userBookings} venues={userVenues} />
+ * );
+ *
+ * @returns {ReactElement} A section of the profile page showcasing user's bookings and hosted venues.
+ */
 export default function ({ data, editInfo, bookings, venues }) {
   const [upcomingBookings, setUpcomingBookings] = React.useState(true);
   const [expiredBookings, setExpiredBookings] = React.useState(false);

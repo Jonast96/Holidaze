@@ -9,6 +9,42 @@ import Modal from "./Modal";
 import Form from "react-bootstrap/Form";
 import { useEffect } from "react";
 
+/**
+ * `Info` is a React component that displays the details of a property, such as
+ * name, description, location, and amenities. It allows the property owner to
+ * edit the property's information and location details. The component also
+ * displays a map showing the property's location, and introduces the host of
+ * the property to the users.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} props.location - The location object containing lat, lng, address, city, continent, country, and zip.
+ * @param {Object} props.payload - The property object containing name, description, maxGuests, price, and location.
+ * @param {Object} props.owner - The owner object containing name, avatar, and email.
+ * @param {Object} props.meta - The meta object containing boolean values for amenities.
+ * @param {string} props.name - The name of the property.
+ * @param {string} props.description - The description of the property.
+ * @param {number} props.maxGuests - The maximum number of guests the property can accommodate.
+ * @param {function} props.handleInfoChange - Function to handle changes in the info form.
+ * @param {function} props.handleLocationChange - Function to handle changes in the location form.
+ *
+ * @example
+ * return (
+ *   <Info
+ *     location={locationData}
+ *     payload={propertyData}
+ *     owner={ownerData}
+ *     meta={metaData}
+ *     name="Beach House"
+ *     description="A beautiful house on the beach."
+ *     maxGuests={4}
+ *     handleInfoChange={myInfoChangeHandler}
+ *     handleLocationChange={myLocationChangeHandler}
+ *   />
+ * );
+ *
+ * @returns {ReactElement} The Info component.
+ */
 function Info(props) {
   const amenities = [
     { key: "breakfast", label: "Breakfast" },

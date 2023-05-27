@@ -10,6 +10,22 @@ import "react-datepicker/dist/react-datepicker.css";
 import BookingConfirmationModal from "./BookingConfirmationModal";
 import Form from "react-bootstrap/Form";
 
+/**
+ * `Booking` component represents the booking process of a venue.
+ * It includes date picking, guest selection, and login controls for booking.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} props.data - The data of the venue to be booked.
+ * @param {Array} props.data.bookings - The existing bookings for the venue.
+ *
+ * @example
+ * return (
+ *   <Booking data={venueData} />
+ * );
+ *
+ * @returns {ReactElement} The Booking component.
+ */
 function Booking(props) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);

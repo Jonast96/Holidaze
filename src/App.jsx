@@ -13,7 +13,29 @@ const Profile = lazy(() => import("./components/profile/Profile"));
 const Loading = lazy(() => import("./components/404_loading_etc/Loading"));
 const CreateVenue = lazy(() => import("./components/createVenue/CreateVenue"));
 const BecomeHost = lazy(() => import("./components/becomeHost/BecomeHost"));
+
+/**
+ * The main `App` component of the application. It imports and uses a variety of components
+ * and routes to different paths, using the `react-router-dom` package.
+ * It uses `Suspense` from React for lazy loading of components.
+ *
+ * @component
+ * @example
+ * function Component() {
+ *   return <App />;
+ * }
+ */
 function App() {
+  /**
+   * The `Layout` component, that acts as a layout wrapper for its children components.
+   * It includes the `Header`, `Footer` components, and a main section for the content which
+   * is filled by whatever is passed as `props.children`.
+   *
+   * @function
+   * @param {Object} props - The properties object, expecting `children`.
+   * @param {ReactNode} props.children - The children components to be rendered within this layout.
+   * @returns {ReactElement} Returns the main layout of the page including `Header`, `Footer`, and `props.children`.
+   */
   function Layout(props) {
     return (
       <>

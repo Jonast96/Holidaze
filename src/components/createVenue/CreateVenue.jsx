@@ -18,6 +18,18 @@ import Location from "./Location";
 import Preview from "./Preview";
 import PageNotFound from "../404_loading_etc/PageNotFound";
 
+/**
+ * The `CreateVenue` functional component displays a form for creating a new venue.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <CreateVenue />
+ * )
+ *
+ * @returns {ReactElement} The `CreateVenue` component, a multi-step form for creating a new venue.
+ */
 function CreateVenue() {
   const [step, setStep] = useState(1);
   const progress = (step / 5) * 100;

@@ -14,6 +14,20 @@ import { UserContext } from "../Context";
 import logo from "../../assets/media/logo.png";
 import "./header.scss";
 
+/**
+ * The `Header` functional component renders the application's navigation bar. It displays a different
+ * set of navigation links based on whether the user is logged in, and if they are, whether they are a guest
+ * or a venue manager.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <Header />
+ * );
+ *
+ * @returns {ReactElement} The `Header` component that serves as a global navigation bar for the application.
+ */
 function Header() {
   const [visible, setVisible] = useState(true);
   const [lastScrollPos, setLastScrollPos] = useState(0);

@@ -6,6 +6,21 @@ import Guest from "./guest/Guest";
 import Loading from "../404_loading_etc/Loading";
 import PageNotFound from "../404_loading_etc/PageNotFound";
 import "./profile.scss";
+
+/**
+ * `Profile` component represents the profile of a user.
+ * It includes details of the user and his/her bookings, and also allows a user to edit their information.
+ * The profile view changes based on the role of the user i.e. either a VenueHost or a Guest.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <Profile />
+ * );
+ *
+ * @returns {ReactElement} The Profile component representing a user's profile.
+ */
 export default function Profile() {
   let user = JSON.parse(localStorage.getItem("user"));
 

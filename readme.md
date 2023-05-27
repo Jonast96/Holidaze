@@ -1,37 +1,49 @@
-User Stories
-DESIGN PROTOTYPE CHECKLIST
+# HOLIDAZE
 
-- [x] ~~_A user may view a list of Venues_~~ [2023-04-11]
-- [x] ~~_A user may search for a specific Venue_~~ [2023-04-11]
-- [x] ~~_A user may view a specific Venue page by id_~~ [2023-04-11]
-- [x] ~~_A user may view a calendar with available dates for a Venue_~~ [2023-04-11]
-- [x] ~~_A user with a stud.noroff.no email may register as a customer_~~ [2023-04-11]
-- [x] ~~_A registered customer may create a booking at a Venue_~~ [2023-04-11]
-- [x] ~~_A user with a stud.noroff.no email may register as a Venue manager_~~ [2023-04-11]
-- [x] ~~_A registered user may login_~~ [2023-04-11]
-- [x] ~~_A registered customer may view their upcoming bookings_~~ [2023-04-12]
-- [ ] A registered Venue manager may create a Venue
-- [x] ~~_A registered Venue manager may update a Venue they manage_~~ [2023-04-12]
-- [x] ~~_A registered Venue manager may delete a Venue they manage_~~ [2023-04-12]
-- [x] ~~_A registered Venue manager may view bookings for a Venue they manage_~~ [2023-04-12]
-- [x] ~~_A registered user may update their avatar_~~ [2023-04-12]
-- [x] ~~_A registered user may logout_~~ [2023-04-12]
+Holidaze is a venue booking and hosting application developed as a part of the semester 4 exam at Noroff. The application allows users to browse, book, and host venues.
 
-User Stories
-DEVELOPMENT CHECKLIST
+## Tech stack
 
-- [ ] A user may view a list of Venues
-- [ ] A user may search for a specific Venue
-- [ ] A user may view a specific Venue page by id
-- [ ] A user may view a calendar with available dates for a Venue
-- [ ] A user with a stud.noroff.no email may register as a customer
-- [ ] A registered customer may create a booking at a Venue
-- [ ] A user with a stud.noroff.no email may register as a Venue manager
-- [ ] A registered user may login
-- [ ] A registered customer may view their upcoming bookings
-- [ ] A registered Venue manager may create a Venue
-- [ ] A registered Venue manager may update a Venue they manage
-- [ ] A registered Venue manager may delete a Venue they manage
-- [ ] A registered Venue manager may view bookings for a Venue they manage
-- [ ] A registered user may update their avatar
-- [ ] A registered user may logout
+The project is built using a variety of technologies including:
+
+* React
+
+* React Router Dom
+
+* React Bootstrap
+
+* Leaflet for interactive maps
+
+* Vite for the building system
+
+* Several other libraries like Yup, match-sorterh, react-tostify, and more
+
+## Installation
+
+To get started with the project, make sure you have Node.js and npm/yarn installed. Then follow these steps:
+
+* Clone the project: git clone https://github.com/Jonast96/Holidaze.git
+ 
+* Navigate into the project directory: cd holidaze
+ 
+* Install dependencies: npm install or yarn install
+
+* Start the development server: npm run dev or yarn dev
+
+The application will now be running at http://localhost:3000.
+
+## Project Structure
+
+The project follows a standard React project structure with components organized into separate folders.
+
+/components - Contains all the React components
+
+## Building for Production
+
+To create a production build, use the build script defined in package.json
+```
+npm run build
+```
+
+## Contact
+For any queries or suggestions, please contact me on github

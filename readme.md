@@ -2,6 +2,13 @@
 
 Holidaze is a venue booking and hosting application developed as a part of the semester 4 exam at Noroff. The application allows users to browse, book, and host venues.
 
+## Documentation
+
+This project uses jsDocs that you can generate with 
+```
+npm run docs
+```
+
 ## Tech stack
 
 The project is built using a variety of technologies including:

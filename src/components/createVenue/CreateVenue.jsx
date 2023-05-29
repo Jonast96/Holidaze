@@ -36,6 +36,7 @@ function CreateVenue() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [error, setError] = useState("");
+  const [showSubmit, setShowSubmit] = useState(true);
 
   function handleClose() {
     setShowSuccessModal(false);
@@ -117,13 +118,13 @@ function CreateVenue() {
       const json = await result.json();
       if (result.ok) {
         setShowSuccessModal(true);
+        setShowSubmit(false);
         console.log(json);
       } else {
         setError(
           json.errors.map((error) => {
             return (
               <div className="d-flex">
-                <p className="me-2">{error.message}</p>
                 <p className="me-2">{error.message}</p>
               </div>
             );
@@ -191,8 +192,10 @@ function CreateVenue() {
             <Button onClick={handleNext}>
               <FontAwesomeIcon icon={faArrowRight} />
             </Button>
-          ) : (
+          ) : showSubmit ? (
             <Button onClick={handleSubmit}>Submit</Button>
+          ) : (
+            <Button disabled>Submit</Button>
           )}
         </Col>
       </Row>

@@ -24,7 +24,7 @@ import "./profile.scss";
 export default function Profile() {
   let user = JSON.parse(localStorage.getItem("user"));
 
-  async function editInfo() {
+  async function editInfo(updatedMedia) {
     try {
       const response = await fetch(
         `https://api.noroff.dev/api/v1/holidaze/profiles/${user?.name}/media`,
@@ -37,7 +37,7 @@ export default function Profile() {
           body: JSON.stringify({ avatar: updatedMedia }),
         }
       );
-      user.avatar = updatedMedia;
+      // user.avatar = updatedMedia;
       localStorage.setItem("user", JSON.stringify(user));
       const data = await response.json();
       console.log(data);

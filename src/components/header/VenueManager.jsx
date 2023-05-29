@@ -49,6 +49,9 @@ export default function VenueManager(props) {
       <Nav.Link onClick={props.close} as={Link} to={"/"}>
         Home
       </Nav.Link>
+      <Nav.Link onClick={props.close} as={Link} to={"/becomeHost"}>
+        Host info
+      </Nav.Link>
       <Nav.Link
         onClick={props.close}
         className="text-secondary"

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/auth/Register.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/auth/Register.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+
+@file
+This file defines the Register component, which is responsible for rendering the registration form, handling user input, and submitting the form data to the server.
+*/
+// External dependencies
+import React, { useState } from "react";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
+import Modal from "react-bootstrap/Modal";
+
+// Internal dependencies
+import image from "../.././assets//media/registerImage.jpg";
+import { registerSchema } from "./validation/registerSchema";
+import "./register.scss";
+
+/**
+ * The `Register` functional component displays a user registration form within a modal.
+ *
+ * @component
+ * @param {Object} props - The properties passed down from the parent component.
+ * @param {boolean} props.show - A boolean indicating whether the modal should be visible. Pass `true` to show the modal and `false` to hide it.
+ * @param {function} props.onHide - A function to be called when the modal needs to be hidden. Typically, this function should update the parent component's state to change the `show` prop value to `false`.
+ *
+ * @example
+ * return (
+ *   &lt;Register
+ *     show={showRegisterModal}
+ *     onHide={() => setShowRegisterModal(false)}
+ *   />
+ * )
+ *
+ * @returns {ReactElement} The `Register` component, containing a form for user registration, rendered in a modal.
+ */
+function Register(props) {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [formValues, setFormValues] = useState({
+    name: "",
+    email: "",
+    avatar: "",
+    password: "",
+    venueManager: false,
+  });
+
+  const [formErrors, setFormErrors] = useState({
+    name: "",
+    email: "",
+    avatar: "",
+    password: "",
+  });
+
+  const [venueManager, setVenueManager] = React.useState(false);
+
+  /**
+   * Handles changes to the form input fields.
+   * @param {Object} e - Event object.
+   */
+  function handleChange(e) {
+    const { name, value, type } = e.target;
+
+    if (type === "radio" &amp;&amp; name === "registrationType") {
+      setFormValues({ ...formValues, venueManager: JSON.parse(value) });
+    } else {
+      setFormValues({ ...formValues, [name]: value });
+    }
+  }
+
+  /**
+   * Validates the form data against the `registerSchema` validation schema.
+   *
+   * @returns {Promise&lt;boolean>} A promise that resolves to a boolean indicating whether the form data is valid.
+   */
+  const validateForm = async () => {
+    try {
+      await registerSchema.validate(formValues, { abortEarly: false });
+      setFormErrors({
+        name: "",
+        email: "",
+        avatar: "",
+        password: "",
+        venueManager: "",
+      });
+      return true;
+    } catch (err) {
+      const errors = {};
+      err.inner.forEach((error) => {
+        errors[error.path] = error.message;
+      });
+      setFormErrors(errors);
+      return false;
+    }
+  };
+
+  /**
+   * Handles form submission by validating the form data and, if valid, calling `handleSubmit`.
+   *
+   * @param {object} e - The form submit event.
+   */
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (await validateForm()) {
+      handleSubmit();
+    }
+  };
+
+  /**
+   * Submits the form data to the server and displays a notification upon successful registration.
+   * If an error occurs during the API call, logs the error.
+   */
+  async function handleSubmit() {
+    try {
+      const response = await fetch(
+        "https://api.noroff.dev/api/v1/holidaze/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
+      const json = await response.json();
+      if (!response.ok) {
+        console.log(json.errors[0].message);
+        setErrorMessage(json.errors[0].message);
+        throw new Error("API call failed");
+      }
+      if (response.ok) {
+        props.onHide();
+      }
+      alert(`Hello ${json.name}! You have been registered.`);
+      props.close();
+    } catch (error) {
+      console.error("Error while making API call:", error);
+    }
+  }
+
+  // Return statement for rendering the `Register` component
+  return (
+    &lt;Container>
+      &lt;Modal size="lg" centered show={props.show} onHide={props.onHide}>
+        &lt;Row className="register">
+          &lt;Col lg={6}>
+            &lt;img className="img-fluid h-100" src={image} alt="" />
+          &lt;/Col>
+          &lt;Col lg={6} className="p-3">
+            &lt;button
+              onClick={props.onHide}
+              type="button"
+              className="btn-close float-end"
+              aria-label="Close"
+            >&lt;/button>
+            &lt;Modal.Title className="text-center">Register&lt;/Modal.Title>
+
+            &lt;Modal.Body>
+              &lt;Form onSubmit={handleFormSubmit}>
+                {errorMessage &amp;&amp; (
+                  &lt;Alert className="border-danger bg-light">
+                    {errorMessage}
+                  &lt;/Alert>
+                )}
+                &lt;Form.Group className="mb-3" controlId="formBasicName">
+                  &lt;Form.Label>Name&lt;/Form.Label>
+                  &lt;Form.Control
+                    type="name"
+                    placeholder="Enter full name"
+                    name="name"
+                    value={formValues.name}
+                    onChange={handleChange}
+                    isInvalid={!!formErrors.name}
+                  />
+                  &lt;Form.Control.Feedback type="invalid">
+                    {formErrors.name}
+                  &lt;/Form.Control.Feedback>
+                &lt;/Form.Group>
+                &lt;Form.Group className="mb-3" controlId="formBasicEmail">
+                  &lt;Form.Label>Email address&lt;/Form.Label>
+                  &lt;Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    name="email"
+                    value={formValues.email}
+                    onChange={handleChange}
+                    isInvalid={!!formErrors.email}
+                  />
+                  &lt;Form.Control.Feedback type="invalid">
+                    {formErrors.email}
+                  &lt;/Form.Control.Feedback>
+                &lt;/Form.Group>
+                &lt;Form.Group className="mb-3" controlId="formBasicImage">
+                  &lt;Form.Label>Profile avatar&lt;/Form.Label>
+                  &lt;Form.Control
+                    type="text"
+                    placeholder="Enter image URL"
+                    name="avatar"
+                    value={formValues.avatar}
+                    onChange={handleChange}
+                    isInvalid={!!formErrors.avatar}
+                  />
+                  &lt;Form.Control.Feedback type="invalid">
+                    {formErrors.avatar}
+                  &lt;/Form.Control.Feedback>
+                &lt;/Form.Group>
+                &lt;Form.Group className="mb-3" controlId="formBasicPassword">
+                  &lt;Form.Label>Password&lt;/Form.Label>
+                  &lt;Form.Control
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={formValues.password}
+                    onChange={handleChange}
+                    isInvalid={!!formErrors.password}
+                  />
+                  &lt;Form.Control.Feedback type="invalid">
+                    {formErrors.password}
+                  &lt;/Form.Control.Feedback>
+                &lt;/Form.Group>
+                &lt;p className="text-center">Select your account type&lt;/p>
+                &lt;Form.Group className="my-4 d-flex">
+                  &lt;div className="radioWrapper w-100">
+                    &lt;Form.Check
+                      onChange={handleChange}
+                      type="radio"
+                      id="guest"
+                      name="registrationType"
+                      label=""
+                      value={false}
+                      onClick={() => setVenueManager(false)}
+                    />
+                    &lt;label
+                      htmlFor="guest"
+                      className={
+                        !venueManager ? "customRadio selected" : "customRadio"
+                      }
+                    >
+                      Guest
+                    &lt;/label>
+                  &lt;/div>
+                  &lt;div className="radioWrapper w-100">
+                    &lt;Form.Check
+                      onChange={handleChange}
+                      type="radio"
+                      id="host"
+                      name="registrationType"
+                      label=""
+                      onClick={() => setVenueManager(true)}
+                      value={true}
+                    />
+                    &lt;label
+                      htmlFor="host"
+                      className={
+                        venueManager ? "customRadio selected" : "customRadio"
+                      }
+                    >
+                      Host
+                    &lt;/label>
+                  &lt;/div>
+                &lt;/Form.Group>
+                &lt;Button className="w-100 p-3" variant="primary" type="submit">
+                  Register
+                &lt;/Button>
+              &lt;/Form>
+            &lt;/Modal.Body>
+          &lt;/Col>
+        &lt;/Row>
+      &lt;/Modal>
+    &lt;/Container>
+  );
+}
+
+export default Register;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Amenities">Amenities</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#BasicInfo">BasicInfo</a></li><li><a href="global.html#Booking">Booking</a></li><li><a href="global.html#BookingConfirmationModal">BookingConfirmationModal</a></li><li><a href="global.html#CreateVenue">CreateVenue</a></li><li><a href="global.html#EditModal">EditModal</a></li><li><a href="global.html#HOTJAR_ID">HOTJAR_ID</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Images">Images</a></li><li><a href="global.html#Index">Index</a></li><li><a href="global.html#Info">Info</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Media">Media</a></li><li><a href="global.html#PageNotFound">PageNotFound</a></li><li><a href="global.html#Preview">Preview</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#emailRegex">emailRegex</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 28 2023 18:44:20 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

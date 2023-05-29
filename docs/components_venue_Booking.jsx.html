@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/venue/Booking.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/venue/Booking.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+import Login from "../auth/Login";
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import BookingConfirmationModal from "./BookingConfirmationModal";
+import Form from "react-bootstrap/Form";
+
+/**
+ * `Booking` component represents the booking process of a venue.
+ * It includes date picking, guest selection, and login controls for booking.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} props.data - The data of the venue to be booked.
+ * @param {Array} props.data.bookings - The existing bookings for the venue.
+ *
+ * @example
+ * return (
+ *   &lt;Booking data={venueData} />
+ * );
+ *
+ * @returns {ReactElement} The Booking component.
+ */
+function Booking(props) {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [guests, setGuests] = useState(1);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [disableBooking, setDisableBooking] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const bookings = props.data.bookings;
+
+  function isOverlapping(range1, range2) {
+    return range1.start &lt;= range2.end &amp;&amp; range1.end >= range2.start;
+  }
+
+  const onChange = (dates) => {
+    const [start, end] = dates;
+
+    const blockedIntervals = getExcludedIntervals();
+
+    const isBlocked = blockedIntervals.some((blockedInterval) =>
+      isOverlapping(
+        { start: start, end: end },
+        { start: blockedInterval.start, end: blockedInterval.end }
+      )
+    );
+
+    if (isBlocked) {
+      setStartDate(start);
+      setEndDate(end);
+      setErrorMessage("Please don't overlap with existing bookings.");
+      setDisableBooking(true);
+    } else {
+      setErrorMessage("");
+      setStartDate(start);
+      setEndDate(end);
+      setDisableBooking(false);
+    }
+  };
+
+  function getExcludedIntervals() {
+    return bookings.map((booking) => {
+      const start = new Date(booking.dateFrom);
+      const end = new Date(booking.dateTo);
+
+      if (start > end) {
+        return { start: end, end: start };
+      } else {
+        return { start, end };
+      }
+    });
+  }
+  console.log(guests);
+
+  async function handleBooking() {
+    if (!startDate || !endDate) {
+      setErrorMessage("Please select a date range.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://api.noroff.dev/api/v1/holidaze/bookings",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + user.token,
+          },
+          body: JSON.stringify({
+            dateFrom: startDate.toISOString(),
+            dateTo: endDate.toISOString(),
+            guests: guests,
+            venueId: props.data.id,
+          }),
+        }
+      );
+      const json = await response.json();
+      console.log(json);
+      if (response.ok) {
+        setErrorMessage("");
+        setShowConfirmation(true);
+      } else {
+        setErrorMessage(json.message);
+      }
+    } catch (error) {
+      console.error("Failed to book dates", error);
+      setErrorMessage("Failed to book dates");
+    }
+  }
+  console.log();
+
+  return (
+    &lt;Col
+      sm={12}
+      lg={4}
+      id="booking"
+      className="booking text-center border mt-4"
+    >
+      &lt;BookingConfirmationModal
+        show={showConfirmation}
+        onHide={() => setShowConfirmation(false)}
+        bookingData={{
+          startDate,
+          endDate,
+          venue: props.data.name,
+          price: props.data.price,
+          guests: guests,
+        }}
+      />
+
+      &lt;h2 className=" fs-3 mt-4">Select your dates&lt;/h2>
+      {errorMessage &amp;&amp; &lt;p className="text-danger">{errorMessage}&lt;/p>}
+      &lt;DatePicker
+        className=""
+        selected={startDate}
+        onChange={onChange}
+        startDate={startDate}
+        endDate={endDate}
+        selectsRange
+        inline
+        excludeDateIntervals={getExcludedIntervals()}
+      />
+
+      &lt;p className="fs-5 price">${props.data.price},- per night&lt;/p>
+      &lt;Form.Select
+        aria-label="Default select example"
+        onChange={(e) => setGuests(parseFloat(e.target.value))}
+        value={guests}
+      >
+        &lt;option value="1">Guests&lt;/option>
+        {(() => {
+          let options = [];
+          for (let i = 1; i &lt;= props.data.maxGuests; i++) {
+            options.push(
+              &lt;option key={i} value={i}>{`${i} ${
+                i > 1 ? "Guests" : "Guest"
+              }`}&lt;/option>
+            );
+          }
+          return options;
+        })()}
+      &lt;/Form.Select>
+
+      &lt;div className="d-flex justify-content-center gap-4 align-items-center">
+        &lt;div>
+          &lt;p className="p-0 m-0">From&lt;/p>
+          &lt;p className="dates  m-0">
+            {startDate ? startDate.toLocaleDateString() : "Select start date"}
+          &lt;/p>
+        &lt;/div>
+        &lt;FontAwesomeIcon size="xl" icon={faArrowCircleRight} />
+        &lt;div>
+          &lt;p className="p-0 m-0">To&lt;/p>
+          &lt;p className="dates  m-0">
+            {endDate ? endDate.toLocaleDateString() : "Select date"}
+          &lt;/p>
+        &lt;/div>
+      &lt;/div>
+      &lt;div className="mt-2">
+        &lt;p className="price fs-4">
+          Total:{" "}
+          {endDate
+            ? `$${(
+                ((endDate - startDate) / 86400000) *
+                props.data.price
+              ).toFixed(2)},-`
+            : "0"}
+        &lt;/p>
+      &lt;/div>
+      {user ? (
+        &lt;Button
+          onClick={disableBooking ? null : handleBooking}
+          className=" w-50 mb-3 fs-4"
+        >
+          Book now
+        &lt;/Button>
+      ) : (
+        &lt;Button className="me-2 w-100" onClick={() => setShowLogin(true)}>
+          Login to book
+        &lt;/Button>
+      )}
+
+      &lt;Login show={showLogin} onHide={() => setShowLogin(false)} />
+    &lt;/Col>
+  );
+}
+
+export default Booking;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Amenities">Amenities</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#BasicInfo">BasicInfo</a></li><li><a href="global.html#Booking">Booking</a></li><li><a href="global.html#BookingConfirmationModal">BookingConfirmationModal</a></li><li><a href="global.html#CreateVenue">CreateVenue</a></li><li><a href="global.html#EditModal">EditModal</a></li><li><a href="global.html#HOTJAR_ID">HOTJAR_ID</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Images">Images</a></li><li><a href="global.html#Index">Index</a></li><li><a href="global.html#Info">Info</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Media">Media</a></li><li><a href="global.html#PageNotFound">PageNotFound</a></li><li><a href="global.html#Preview">Preview</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#emailRegex">emailRegex</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 28 2023 18:44:20 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

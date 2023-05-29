@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/home/Hero.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/home/Hero.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import heroImg from "../../assets/media/hero.jpg";
+import "react-datepicker/dist/react-datepicker.css";
+import SearchBar from "./SearchBar";
+import { useState } from "react";
+
+/**
+ * The `Hero` functional component displays a hero section and a search bar.
+ * The component filters the list of venues based on user search inputs.
+ * When a search is executed, the component checks whether there are overlapping dates
+ * between the user's selected dates and the venue's existing bookings.
+ * If there is no overlap, the venue is considered available and included in the search results.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   &lt;Hero data={venueData} setFilteredData={updateFilteredData} />
+ * );
+ *
+ * @param {Object} props - The component's props.
+ * @param {Array} props.data - An array of venue objects. Each object should contain the venue's name, location, and bookings.
+ * @param {function} props.setFilteredData - The function to call with the search results. This function should accept an array of venues that meet the search criteria.
+ *
+ * @returns {ReactElement} The `Hero` component presenting the hero section and the search bar.
+ */
+export default function Hero({ data, setFilteredData }) {
+  const [showMessage, setShowMessage] = useState(false);
+
+  function isDateRangeOverlapping(startDate1, endDate1, startDate2, endDate2) {
+    return startDate1 &lt; endDate2 &amp;&amp; startDate2 &lt; endDate1;
+  }
+
+  function handleSearch(searchResult) {
+    const searchStartDate = new Date(searchResult.startDate);
+    const searchEndDate = new Date(searchResult.endDate);
+
+    const results = data.filter((venue) => {
+      if (
+        !venue.location.city ||
+        !venue.location.country ||
+        !venue.name
+          .toLowerCase()
+          .includes(searchResult.searchInput.toLowerCase())
+      ) {
+        return false;
+      }
+
+      const hasOverlappingBooking = venue.bookings.some((booking) => {
+        const bookingStartDate = new Date(booking.dateFrom);
+        const bookingEndDate = new Date(booking.dateTo);
+
+        return isDateRangeOverlapping(
+          searchStartDate,
+          searchEndDate,
+          bookingStartDate,
+          bookingEndDate
+        );
+      });
+
+      return !hasOverlappingBooking;
+    });
+
+    if (results.length === 0) {
+      setShowMessage(true);
+    } else {
+      setShowMessage(false);
+      console.log(results.length);
+      console.log(results);
+      setFilteredData(results);
+      window.location.hash = "";
+      window.location.hash = "featuredVenues";
+    }
+  }
+
+  return (
+    &lt;section className="position-relative mt-5 mainHero ">
+      &lt;img className="img-fluid" src={heroImg} alt="" />
+      &lt;div className="overlay">&lt;/div>
+      &lt;div className="hero-center p-3">
+        &lt;h1 className="fw-light ">Your home, away from home&lt;/h1>
+        {showMessage &amp;&amp; (
+          &lt;div className=" fs-4 text-danger mt-3 noSearchResults rounded">
+            No matches for this result.
+          &lt;/div>
+        )}
+
+        &lt;SearchBar onSearch={handleSearch} />
+      &lt;/div>
+    &lt;/section>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Amenities">Amenities</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#BasicInfo">BasicInfo</a></li><li><a href="global.html#Booking">Booking</a></li><li><a href="global.html#BookingConfirmationModal">BookingConfirmationModal</a></li><li><a href="global.html#CreateVenue">CreateVenue</a></li><li><a href="global.html#EditModal">EditModal</a></li><li><a href="global.html#HOTJAR_ID">HOTJAR_ID</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Images">Images</a></li><li><a href="global.html#Index">Index</a></li><li><a href="global.html#Info">Info</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Media">Media</a></li><li><a href="global.html#PageNotFound">PageNotFound</a></li><li><a href="global.html#Preview">Preview</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#emailRegex">emailRegex</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 28 2023 18:44:20 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

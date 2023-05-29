@@ -58,6 +58,7 @@ function Preview(props) {
           owner={owner}
           meta={props.meta}
           location={props.location}
+          showEdit={false}
         />
 
         <Col

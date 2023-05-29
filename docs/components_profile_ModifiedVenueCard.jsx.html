@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/profile/ModifiedVenueCard.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/profile/ModifiedVenueCard.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from "react";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import Carousel from "react-bootstrap/Carousel";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Link } from "react-router-dom";
+import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+
+/**
+ * `VenueCard` component represents a single venue's information and booking details.
+ * It includes an image carousel, venue details and a modal for booking details.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {Array} props.img - Array of venue's images.
+ * @param {Object} props.bookingInfo - Information of a booking for the venue.
+ * @param {String} props.name - Name of the venue.
+ * @param {Object} props.location - Object containing city and country of the venue.
+ * @param {Number} props.price - Price per night of the venue.
+ * @param {String} props.id - The ID of the venue.
+ * @param {String} props.placeholder - Placeholder image for the venue.
+ *
+ * @example
+ * return (
+ *   &lt;VenueCard img={venueImages} bookingInfo={bookingData} name="My Venue" location={{city: 'San Francisco', country: 'USA'}} price={120} id="1234" placeholder="placeholder.png" />
+ * );
+ *
+ * @returns {ReactElement} The VenueCard component representing a single venue.
+ */
+export default function VenueCard(props) {
+  const [index, setIndex] = useState(0);
+
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
+  const handleImageError = (e) => {
+    e.target.src = props.placeholder;
+  };
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
+  function formatDate(isoString) {
+    const date = new Date(isoString);
+    return new Intl.DateTimeFormat("en-US").format(date);
+  }
+
+  const [mouseOver, setMouseOver] = useState(false);
+
+  return (
+    &lt;Col className="mb-4" md={6} lg={4} xxl={3}>
+      &lt;Modal show={showModal} onHide={handleClose}>
+        &lt;Modal.Header closeButton>&lt;/Modal.Header>
+        &lt;Modal.Body>
+          {" "}
+          &lt;ListGroup>
+            &lt;ListGroupItem>
+              Booking created the: {formatDate(props.bookingInfo.created)}
+            &lt;/ListGroupItem>
+            &lt;ListGroupItem>
+              Booking starts the: {formatDate(props.bookingInfo.dateFrom)}
+            &lt;/ListGroupItem>
+            &lt;ListGroupItem>
+              Booking ends the: {formatDate(props.bookingInfo.dateTo)}
+            &lt;/ListGroupItem>
+            &lt;ListGroupItem>
+              Number of guests: {props.bookingInfo.guests}
+            &lt;/ListGroupItem>
+          &lt;/ListGroup>
+        &lt;/Modal.Body>
+        &lt;Modal.Footer>
+          &lt;Button variant="secondary" onClick={handleClose}>
+            Close
+          &lt;/Button>
+          &lt;Link to={`/venue/${props.id}`}>
+            &lt;Button
+              variant="primary"
+              onClick={() => {
+                handleClose();
+              }}
+            >
+              View Venue
+            &lt;/Button>
+          &lt;/Link>
+        &lt;/Modal.Footer>
+      &lt;/Modal>
+
+      &lt;Card
+        onMouseOver={() => setMouseOver(true)}
+        onMouseLeave={() => setMouseOver(false)}
+        as="div"
+        className="border-light shadow-sm h-100 venueCard"
+        onClick={handleShow}
+      >
+        &lt;div className="imgContainer ">
+          {props.img.length > 1 ? (
+            &lt;Carousel
+              activeIndex={index}
+              onSelect={handleSelect}
+              interval={null}
+            >
+              {props.img.map((imageSrc, index) => (
+                &lt;Carousel.Item key={index}>
+                  &lt;div className="imgContainer">
+                    &lt;Card.Img variant="top" src={imageSrc} />
+                  &lt;/div>
+                &lt;/Carousel.Item>
+              ))}
+            &lt;/Carousel>
+          ) : (
+            &lt;div className="imgContainer">
+              &lt;Card.Img
+                onError={handleImageError}
+                variant="top"
+                src={props.img}
+              />
+            &lt;/div>
+          )}
+        &lt;/div>
+        &lt;div
+          className={
+            mouseOver
+              ? "link-dark cardInfo p-2 text-decoration-underline"
+              : "link-dark cardInfo p-2"
+          }
+        >
+          &lt;Card.Title>{props.name}&lt;/Card.Title>
+          &lt;Card.Text>
+            {props.location.city}, {props.location.country}
+          &lt;/Card.Text>
+          &lt;Card.Body className="p-0">
+            &lt;span className="fw-bold">${props.price},-&lt;/span> per night
+          &lt;/Card.Body>
+        &lt;/div>
+      &lt;/Card>
+    &lt;/Col>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Amenities">Amenities</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#BasicInfo">BasicInfo</a></li><li><a href="global.html#Booking">Booking</a></li><li><a href="global.html#BookingConfirmationModal">BookingConfirmationModal</a></li><li><a href="global.html#CreateVenue">CreateVenue</a></li><li><a href="global.html#EditModal">EditModal</a></li><li><a href="global.html#HOTJAR_ID">HOTJAR_ID</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Images">Images</a></li><li><a href="global.html#Index">Index</a></li><li><a href="global.html#Info">Info</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Media">Media</a></li><li><a href="global.html#PageNotFound">PageNotFound</a></li><li><a href="global.html#Preview">Preview</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#emailRegex">emailRegex</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 28 2023 18:44:20 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

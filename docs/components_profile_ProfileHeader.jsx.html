@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/profile/ProfileHeader.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/profile/ProfileHeader.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+
+/**
+ * `ProfileHeader` component represents the header of a user's profile page.
+ * It includes user details and controls to edit media or logout.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {String} props.image - The image URL of the user.
+ * @param {String} props.title - The title of the user's profile.
+ * @param {String} props.description - The description of the user's profile.
+ * @param {Object} props.user - The user object containing user details.
+ * @param {Function} props.logout - The function to handle user logout.
+ * @param {Function} props.editInfo - The function to edit user information.
+ *
+ * @example
+ * return (
+ *   &lt;ProfileHeader image="user.png" title="User Name" description="User description" user={userData} logout={handleLogout} editInfo={handleEditInfo} />
+ * );
+ *
+ * @returns {ReactElement} The ProfileHeader component.
+ */
+export default function ProfileHeader({
+  image,
+  title,
+  description,
+  user,
+  logout,
+  editInfo,
+}) {
+  const [show, setShow] = React.useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [updatedMedia, setUpdatedMedia] = React.useState(user?.media || "");
+
+  const [errors, setErrors] = React.useState("");
+
+  function handleChange(event) {
+    setUpdatedMedia(event.target.value);
+  }
+
+  async function validateForm(media) {
+    if (media) {
+      setErrors("");
+      return true;
+    } else {
+      setErrors("Media is required");
+      return false;
+    }
+  }
+
+  return (
+    &lt;Row className="header text-center align-items-center">
+      &lt;Modal show={show} onHide={handleClose}>
+        &lt;Modal.Header closeButton>&lt;/Modal.Header>
+        &lt;Modal.Body>
+          &lt;Form
+            onSubmit={async (event) => {
+              event.preventDefault();
+              const isValid = await validateForm(updatedMedia);
+              if (isValid) {
+                editInfo(updatedMedia);
+                handleClose();
+              } else {
+                console.log("Validation failed!");
+              }
+            }}
+          >
+            &lt;Form.Group controlId="formMedia">
+              &lt;Form.Label>Media&lt;/Form.Label>
+              &lt;Form.Control
+                type="text"
+                name="media"
+                placeholder="Enter media URL"
+                value={updatedMedia}
+                onChange={handleChange}
+                isInvalid={!!errors}
+              />
+              &lt;Form.Control.Feedback type="invalid">
+                {errors}
+              &lt;/Form.Control.Feedback>
+            &lt;/Form.Group>
+
+            &lt;Button className="mt-3" type="submit" variant="primary">
+              Save changes
+            &lt;/Button>
+          &lt;/Form>
+        &lt;/Modal.Body>
+      &lt;/Modal>
+
+      &lt;Col sm={12} lg={3}>
+        &lt;img src={image} alt={image} />
+        &lt;p className="m-1 p-0">{user.name}&lt;/p>
+        &lt;p className="m-1 p-0">{user.email}&lt;/p>
+        &lt;Button
+          onClick={handleShow}
+          variant="outline-primary text-black fw-light m-0 py-1 leftBtn"
+        >
+          Edit Media
+        &lt;/Button>
+        &lt;Button
+          onClick={logout}
+          variant="outline-danger border-danger text-black fw-light m-0 py-1 rightBtn"
+        >
+          Logout
+        &lt;/Button>
+      &lt;/Col>
+      &lt;Col sm={12} lg={9}>
+        &lt;h1 className="m-0 mb-3 p-0">{title}&lt;/h1>
+        &lt;p className="m-0 p-0">{description}&lt;/p>
+      &lt;/Col>
+    &lt;/Row>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Amenities">Amenities</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#BasicInfo">BasicInfo</a></li><li><a href="global.html#Booking">Booking</a></li><li><a href="global.html#BookingConfirmationModal">BookingConfirmationModal</a></li><li><a href="global.html#CreateVenue">CreateVenue</a></li><li><a href="global.html#EditModal">EditModal</a></li><li><a href="global.html#HOTJAR_ID">HOTJAR_ID</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Images">Images</a></li><li><a href="global.html#Index">Index</a></li><li><a href="global.html#Info">Info</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Media">Media</a></li><li><a href="global.html#PageNotFound">PageNotFound</a></li><li><a href="global.html#Preview">Preview</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#emailRegex">emailRegex</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 28 2023 18:44:20 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

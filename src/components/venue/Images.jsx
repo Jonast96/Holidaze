@@ -5,8 +5,23 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 
 import "./venue.scss";
-
 import Carousel from "react-bootstrap/Carousel";
+
+/**
+ * `Images` is a React component that shows a carousel of images. It also allows
+ * for enlarging the images by opening a modal on click.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {Array} props.media - An array of image URLs.
+ *
+ * @example
+ * return (
+ *   <Images media={imageList} />
+ * );
+ *
+ * @returns {ReactElement} The Images component.
+ */
 function Images(props) {
   const [show, setShow] = useState(false);
   const [index, setIndex] = useState(0);

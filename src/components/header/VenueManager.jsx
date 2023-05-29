@@ -4,6 +4,23 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * The `VenueManager` functional component displays navigation options and controls for users that are logged in as venue managers.
+ * It includes a link to the user's profile, a 'Log out' button, a link to the 'Home' page, and a link to create a new venue.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <VenueManager close={someFunction} logout={someOtherFunction} />
+ * );
+ *
+ * @param {Object} props - The component's props.
+ * @param {function} props.close - The function to call when closing the component.
+ * @param {function} props.logout - The function to call when the user decides to log out.
+ *
+ * @returns {ReactElement} The `VenueManager` component for users that are logged in as venue managers.
+ */
 export default function VenueManager(props) {
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -29,7 +46,7 @@ export default function VenueManager(props) {
       <Button onClick={props.logout} className="w-100">
         Log out
       </Button>
-      <Nav.Link onClick={props.close} as={Link} to={"/addVenue"}>
+      <Nav.Link onClick={props.close} as={Link} to={"/"}>
         Home
       </Nav.Link>
       <Nav.Link

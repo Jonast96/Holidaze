@@ -3,15 +3,28 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 /**
- * `BasicInfo` is a functional React component that displays a form with basic information fields.
+ * The `BasicInfo` functional component displays a form that accepts basic information about a listing.
  *
- * @param {object} props - The properties passed to the component.
+ * @component
+ * @param {Object} props - The properties passed down from the parent component.
  * @param {string} props.name - The name of the listing.
- * @param {function} props.setValue - A function that updates the state of the form.
+ * @param {Function} props.setValue - A function that updates the state of the form.
  * @param {string} props.description - The description of the listing.
  * @param {number} props.price - The price of the listing.
  * @param {number} props.maxGuests - The maximum number of guests allowed in the listing.
- * @returns {ReactElement} The rendered `BasicInfo` component.
+ *
+ * @example
+ * return (
+ *   <BasicInfo
+ *     name={currentName}
+ *     setValue={updateValue}
+ *     description={currentDescription}
+ *     price={currentPrice}
+ *     maxGuests={currentMaxGuests}
+ *   />
+ * )
+ *
+ * @returns {ReactElement} The `BasicInfo` component, a form for entering the basic information about a listing.
  */
 function BasicInfo({ name, setValue, description, price, maxGuests }) {
   return (

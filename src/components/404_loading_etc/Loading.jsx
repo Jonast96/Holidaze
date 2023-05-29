@@ -2,6 +2,16 @@ import React from "react";
 import { Puff } from "react-loader-spinner";
 import "./loading.scss";
 
+/**
+ * `LoadingPage` is a functional component that displays a loading spinner.
+ * It makes use of the `Puff` component from `react-loader-spinner`.
+ *
+ * @component
+ * @example
+ * return (
+ *   <LoadingPage />
+ * )
+ */
 const LoadingPage = () => {
   return (
     <div className="loading-page">

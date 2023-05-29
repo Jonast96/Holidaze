@@ -6,11 +6,28 @@ import FeaturedVenues from "./FeateuredVenues";
 import Loading from "../404_loading_etc/Loading";
 import PageNotFound from "../404_loading_etc/PageNotFound";
 import { useState, useEffect } from "react";
+
+/**
+ * The `Index` functional component represents the landing page of the application.
+ * The component fetches venue data and passes it down to its child components for display and filtering.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <Index />
+ * );
+ *
+ * @returns {ReactElement} The rendered `Index` component which includes the Hero section, SecondHero section, and FeaturedVenues section.
+ */
 function Index() {
-  const { data, loading, error } = useApiCall(
-    "https://api.noroff.dev/api/v1/holidaze/venues?_owner=true&_bookings=true"
-  );
   const [filteredData, setFilteredData] = useState();
+  const [sorting, setSorting] = useState("");
+  const { data, loading, error } = useApiCall(
+    sorting
+      ? `https://api.noroff.dev/api/v1/holidaze/venues?_owner=true&_bookings=true${sorting}`
+      : "https://api.noroff.dev/api/v1/holidaze/venues?_owner=true&_bookings=true"
+  );
 
   useEffect(() => {
     setFilteredData(data);
@@ -23,7 +40,10 @@ function Index() {
     <main className="home">
       <Hero data={data} setFilteredData={setFilteredData} />
       <SecondHero />
-      <FeaturedVenues data={filteredData ? filteredData : data} />
+      <FeaturedVenues
+        setSorting={setSorting}
+        data={filteredData ? filteredData : data}
+      />
     </main>
   );
 }

@@ -1,2 +1,5 @@
-close nav on login
-fix form validation for the update form and create form
+- [x] ~~_Refresh window after logout_~~ [2023-05-23]
+- [x] ~~_check image cutting on venues_~~ [2023-05-23]
+- [x] ~~_Make calender not auto select on current day. Also change the color on taken dates in calender_~~ [2023-05-23]
+- [ ] Fix empty links
+- [ ] Look into delete not working (needs more testing)

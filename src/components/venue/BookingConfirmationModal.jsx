@@ -2,6 +2,28 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
+/**
+ * `BookingConfirmationModal` is a React component that displays a modal window with
+ * confirmation details of a booking.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {boolean} props.show - Determines whether the modal is visible or not.
+ * @param {Function} props.onHide - Function to be called when the modal is requested to be hidden.
+ * @param {Object} props.bookingData - The data of the confirmed booking.
+ * @param {Date} props.bookingData.startDate - The check-in date.
+ * @param {Date} props.bookingData.endDate - The check-out date.
+ * @param {string} props.bookingData.venue - The name of the booked venue.
+ * @param {number} props.bookingData.price - The price per night.
+ * @param {number} props.bookingData.guests - The number of guests.
+ *
+ * @example
+ * return (
+ *   <BookingConfirmationModal show={modalVisibility} onHide={hideModal} bookingData={confirmedBookingData} />
+ * );
+ *
+ * @returns {ReactElement} The BookingConfirmationModal component.
+ */
 function BookingConfirmationModal({ show, onHide, bookingData }) {
   const { startDate, endDate, venue, price, guests } = bookingData;
 

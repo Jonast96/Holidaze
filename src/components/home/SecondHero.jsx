@@ -6,6 +6,19 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+/**
+ * The `SecondHero` functional component represents a section of a webpage that features two types of destinations: beach (Tropical Escapes) and mountain (Mountain Adventures).
+ * This component is meant to inspire users to explore these types of destinations.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <SecondHero />
+ * );
+ *
+ * @returns {ReactElement} The `SecondHero` component to showcase two types of destinations.
+ */
 export default function SecondHero() {
   return (
     <section className="secondHero">

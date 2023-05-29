@@ -63,6 +63,9 @@
   .price {
     font-weight: 500;
   }
+  .react-datepicker__day--disabled {
+    color: red;
+  }
 }
 .dates {
   margin: 0 auto;

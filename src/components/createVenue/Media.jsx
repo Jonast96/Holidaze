@@ -6,6 +6,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faRemove } from "@fortawesome/free-solid-svg-icons";
 import "./createVenue.scss";
 
+/**
+ * The `Media` functional component allows users to handle media upload through URLs.
+ *
+ * @component
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {Array} props.media - An array of media URLs.
+ * @param {Function} props.setMedia - A function to set the media array.
+ *
+ * @example
+ * const media = ["https://example.com/image1.jpg", "https://example.com/image2.jpg"];
+ * const setMedia = newMedia => console.log(newMedia);
+ * return (
+ *   <Media media={media} setMedia={setMedia} />
+ * );
+ *
+ * @returns {ReactElement} The `Media` component, a form for handling media upload through URLs.
+ */
 function Media({ media, setMedia }) {
   const [urlInput, setUrlInput] = useState("");
 

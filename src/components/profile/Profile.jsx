@@ -6,10 +6,25 @@ import Guest from "./guest/Guest";
 import Loading from "../404_loading_etc/Loading";
 import PageNotFound from "../404_loading_etc/PageNotFound";
 import "./profile.scss";
+
+/**
+ * `Profile` component represents the profile of a user.
+ * It includes details of the user and his/her bookings, and also allows a user to edit their information.
+ * The profile view changes based on the role of the user i.e. either a VenueHost or a Guest.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   <Profile />
+ * );
+ *
+ * @returns {ReactElement} The Profile component representing a user's profile.
+ */
 export default function Profile() {
   let user = JSON.parse(localStorage.getItem("user"));
 
-  async function editInfo(updatedMedia) {
+  async function editInfo() {
     try {
       const response = await fetch(
         `https://api.noroff.dev/api/v1/holidaze/profiles/${user?.name}/media`,
@@ -37,7 +52,7 @@ export default function Profile() {
   }
 
   const { data, loading, error } = useApiCall(
-    `https://api.noroff.dev/api/v1/holidaze/profiles/${user?.name}?_bookings=true`,
+    `https://api.noroff.dev/api/v1/holidaze/profiles/${user?.name}?_bookings=true&_venues=true`,
     { Authorization: "Bearer " + user?.token }
   );
   if (loading) return <Loading />;
@@ -46,7 +61,12 @@ export default function Profile() {
   return (
     <Container className="mt-5">
       {user?.isVenueManager ? (
-        <VenueHost data={data} />
+        <VenueHost
+          venues={data.venues}
+          data={data}
+          editInfo={editInfo}
+          bookings={data.bookings}
+        />
       ) : data.bookings.length > 0 ? (
         <Guest data={data} editInfo={editInfo} bookings={data.bookings} />
       ) : (

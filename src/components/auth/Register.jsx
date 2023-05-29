@@ -5,7 +5,12 @@ This file defines the Register component, which is responsible for rendering the
 */
 // External dependencies
 import React, { useState } from "react";
-import { Col, Row, Form, Container, Button, Alert } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
 
 // Internal dependencies
@@ -14,12 +19,22 @@ import { registerSchema } from "./validation/registerSchema";
 import "./register.scss";
 
 /**
- * `Register` is a functional React component that displays the registration form and handles form submission.
+ * The `Register` functional component displays a user registration form within a modal.
  *
- * @param {object} props - The properties passed to the component.
- * @param {boolean} props.show - Indicates whether the modal should be shown or hidden. Pass `true` to show the modal, and `false` to hide it.
- * @param {function} props.onHide - A function that is called when the modal needs to be hidden. Typically, this function should update the parent component's state to change the `show` prop value to `false`.
- * @returns {ReactElement} The rendered `Register` component.
+ * @component
+ * @param {Object} props - The properties passed down from the parent component.
+ * @param {boolean} props.show - A boolean indicating whether the modal should be visible. Pass `true` to show the modal and `false` to hide it.
+ * @param {function} props.onHide - A function to be called when the modal needs to be hidden. Typically, this function should update the parent component's state to change the `show` prop value to `false`.
+ *
+ * @example
+ * return (
+ *   <Register
+ *     show={showRegisterModal}
+ *     onHide={() => setShowRegisterModal(false)}
+ *   />
+ * )
+ *
+ * @returns {ReactElement} The `Register` component, containing a form for user registration, rendered in a modal.
  */
 function Register(props) {
   const [errorMessage, setErrorMessage] = useState("");

@@ -4,6 +4,32 @@ import Col from "react-bootstrap/Col";
 import { getNames } from "country-list";
 import useDebounce from "../../hooks/useDebounce";
 
+/**
+ * The `Location` functional component is a form to gather and handle location information about a venue.
+ *
+ * @component
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} props.location - An object containing the location information.
+ * @param {Function} props.setLocation - A function to set the location.
+ *
+ * @example
+ * const location = {
+ *    address: "123 Main Street",
+ *    city: "Anytown",
+ *    zip: "12345",
+ *    country: "USA",
+ *    continent: "North America",
+ *    lat: 38.8977,
+ *    lng: 77.0365
+ * };
+ * const setLocation = newLocation => console.log(newLocation);
+ * return (
+ *   <Location location={location} setLocation={setLocation} />
+ * );
+ *
+ * @returns {ReactElement} The `Location` component, a form for inputting and handling location information.
+ */
 function Location({ location, setLocation }) {
   const countries = getNames();
   const continents = [

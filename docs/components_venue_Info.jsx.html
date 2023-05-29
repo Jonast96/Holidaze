@@ -1,4 +1,32 @@
-import React, { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/venue/Info.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/venue/Info.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from "react";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faEdit, faGlobe } from "@fortawesome/free-solid-svg-icons";
@@ -30,7 +58,7 @@ import { useEffect } from "react";
  *
  * @example
  * return (
- *   <Info
+ *   &lt;Info
  *     location={locationData}
  *     payload={propertyData}
  *     owner={ownerData}
@@ -71,205 +99,205 @@ function Info(props) {
   }, []);
 
   return (
-    <>
-      <Col sm={12} lg={7} className="">
-        <Modal
+    &lt;>
+      &lt;Col sm={12} lg={7} className="">
+        &lt;Modal
           show={showInfoModal}
           handleClose={handleInfoClose}
           body={
-            <Form>
-              <h4>Update info</h4>
+            &lt;Form>
+              &lt;h4>Update info&lt;/h4>
 
-              <Form.Group as={Col} controlId="name">
-                <Form.Label>Name</Form.Label>
+              &lt;Form.Group as={Col} controlId="name">
+                &lt;Form.Label>Name&lt;/Form.Label>
 
-                <Form.Control
+                &lt;Form.Control
                   type="text"
                   name="name"
                   value={props.payload.name}
                   onChange={(e) => props.handleInfoChange(e, "name")}
                 />
-              </Form.Group>
+              &lt;/Form.Group>
 
-              <Form.Group as={Col} controlId="description">
-                <Form.Label>Description</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="description">
+                &lt;Form.Label>Description&lt;/Form.Label>
+                &lt;Form.Control
                   type="text"
                   as="textarea"
                   value={props.payload.description}
                   onChange={(e) => props.handleInfoChange(e, "description")}
                   placeholder="Enter description"
                 />
-              </Form.Group>
+              &lt;/Form.Group>
 
-              <Form.Group as={Col} controlId="maxGuests">
-                <Form.Label>Max Guests</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="maxGuests">
+                &lt;Form.Label>Max Guests&lt;/Form.Label>
+                &lt;Form.Control
                   type="number"
                   name="maxGuests"
                   value={props.payload.maxGuests}
                   onChange={(e) => props.handleInfoChange(e, "maxGuests")}
                 />
-              </Form.Group>
+              &lt;/Form.Group>
 
-              <Form.Group as={Col} controlId="price">
-                <Form.Label>Price</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="price">
+                &lt;Form.Label>Price&lt;/Form.Label>
+                &lt;Form.Control
                   type="number"
                   name="price"
                   value={props.payload.price}
                   onChange={(e) => props.handleInfoChange(e, "price")}
                 />
-              </Form.Group>
-            </Form>
+              &lt;/Form.Group>
+            &lt;/Form>
           }
         />
-        <Modal
+        &lt;Modal
           show={showLocationModal}
           handleClose={handleLocationClose}
           body={
-            <Form>
-              <h4>Update location</h4>
+            &lt;Form>
+              &lt;h4>Update location&lt;/h4>
 
-              <Form.Group as={Col} controlId="address">
-                <Form.Label>Address</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="address">
+                &lt;Form.Label>Address&lt;/Form.Label>
+                &lt;Form.Control
                   type="text"
                   name="address"
                   value={props.payload.location.address}
                   onChange={(e) => props.handleLocationChange(e, "address")}
                 />
-              </Form.Group>
+              &lt;/Form.Group>
 
-              <Form.Group as={Col} controlId="city">
-                <Form.Label>City</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="city">
+                &lt;Form.Label>City&lt;/Form.Label>
+                &lt;Form.Control
                   type="text"
                   name="city"
                   value={props.payload.location.city}
                   onChange={(e) => props.handleLocationChange(e, "city")}
                 />
-              </Form.Group>
+              &lt;/Form.Group>
 
-              <Form.Group as={Col} controlId="continent">
-                <Form.Label>Continent</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="continent">
+                &lt;Form.Label>Continent&lt;/Form.Label>
+                &lt;Form.Control
                   type="text"
                   name="continent"
                   value={props.payload.location.continent}
                   onChange={(e) => props.handleLocationChange(e, "continent")}
                 />
-              </Form.Group>
+              &lt;/Form.Group>
 
-              <Form.Group as={Col} controlId="country">
-                <Form.Label>Country</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="country">
+                &lt;Form.Label>Country&lt;/Form.Label>
+                &lt;Form.Control
                   type="text"
                   name="country"
                   value={props.payload.location.country}
                   onChange={(e) => props.handleLocationChange(e, "country")}
                 />
-              </Form.Group>
+              &lt;/Form.Group>
 
-              <Form.Group as={Col} controlId="lat">
-                <Form.Label>Latitude</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="lat">
+                &lt;Form.Label>Latitude&lt;/Form.Label>
+                &lt;Form.Control
                   type="number"
                   name="lat"
                   step="0.000001"
                   value={props.payload.location.lat}
                   onChange={(e) => props.handleLocationChange(e, "lat")}
                 />
-              </Form.Group>
+              &lt;/Form.Group>
 
-              <Form.Group as={Col} controlId="lng">
-                <Form.Label>Longitude</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="lng">
+                &lt;Form.Label>Longitude&lt;/Form.Label>
+                &lt;Form.Control
                   type="number"
                   name="lng"
                   step="0.000001"
                   value={props.payload.location.lng}
                   onChange={(e) => props.handleLocationChange(e, "lng")}
                 />
-              </Form.Group>
+              &lt;/Form.Group>
 
-              <Form.Group as={Col} controlId="zip">
-                <Form.Label>Zip Code</Form.Label>
-                <Form.Control
+              &lt;Form.Group as={Col} controlId="zip">
+                &lt;Form.Label>Zip Code&lt;/Form.Label>
+                &lt;Form.Control
                   type="text"
                   name="zip"
                   value={props.payload.location.zip}
                   onChange={(e) => props.handleLocationChange(e, "zip")}
                 />
-              </Form.Group>
-            </Form>
+              &lt;/Form.Group>
+            &lt;/Form>
           }
         />
-        <h1 className="fw-semibold fs-3 mt-4">{props.name}</h1>
-        <FontAwesomeIcon icon={faBed} /> {props.maxGuests} Beds
-        {user && user.name === props.owner.name && props.showEdit ? (
-          <div className="my-2 	">
-            <div
+        &lt;h1 className="fw-semibold fs-3 mt-4">{props.name}&lt;/h1>
+        &lt;FontAwesomeIcon icon={faBed} /> {props.maxGuests} Beds
+        {user &amp;&amp; user.name === props.owner.name &amp;&amp; props.showEdit ? (
+          &lt;div className="my-2 	">
+            &lt;div
               className="border d-inline p-2 cursor-pointer"
               onClick={handleInfoShow}
             >
-              <FontAwesomeIcon className="fs-4 text-secondary" icon={faEdit} />{" "}
+              &lt;FontAwesomeIcon className="fs-4 text-secondary" icon={faEdit} />{" "}
               Edit Info details
-            </div>
-            <div
+            &lt;/div>
+            &lt;div
               className="border d-inline p-2 cursor-pointer"
               onClick={handleLocationShow}
             >
-              <FontAwesomeIcon className="fs-4 text-secondary" icon={faGlobe} />{" "}
+              &lt;FontAwesomeIcon className="fs-4 text-secondary" icon={faGlobe} />{" "}
               Edit location details
-            </div>
-          </div>
+            &lt;/div>
+          &lt;/div>
         ) : null}
-        <div className="d-flex">
-          <div>
+        &lt;div className="d-flex">
+          &lt;div>
             {props.location.city}, {props.location.country}
-          </div>
-        </div>{" "}
-        <a className="bookingLink btn btn-secondary mb-3" href="#booking">
+          &lt;/div>
+        &lt;/div>{" "}
+        &lt;a className="bookingLink btn btn-secondary mb-3" href="#booking">
           Take me to booking
-        </a>
-        <div className="d-flex flex-wrap gap-2 ">
+        &lt;/a>
+        &lt;div className="d-flex flex-wrap gap-2 ">
           {amenities.map((amenity) => (
-            <p
+            &lt;p
               key={amenity.key}
               className={`metaValues ${
                 props.meta[amenity.key] ? "included" : "notIncluded"
               }`}
             >
               {amenity.label}
-            </p>
+            &lt;/p>
           ))}
-        </div>
-        <p>{props.description}</p>
-        {props.location.lat && props.location.lng ? (
-          <div className="mb-4">
-            <h3>Explore the location</h3>
-            <MapContainer className="mapContainer" center={position} zoom={13}>
-              <TileLayer
-                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        &lt;/div>
+        &lt;p>{props.description}&lt;/p>
+        {props.location.lat &amp;&amp; props.location.lng ? (
+          &lt;div className="mb-4">
+            &lt;h3>Explore the location&lt;/h3>
+            &lt;MapContainer className="mapContainer" center={position} zoom={13}>
+              &lt;TileLayer
+                attribution='&amp;amp;copy &lt;a href="http://osm.org/copyright">OpenStreetMap&lt;/a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker position={position}>
-                <Popup>{props.name}</Popup>
-              </Marker>
-            </MapContainer>
-          </div>
+              &lt;Marker position={position}>
+                &lt;Popup>{props.name}&lt;/Popup>
+              &lt;/Marker>
+            &lt;/MapContainer>
+          &lt;/div>
         ) : null}
-        <div className="host bg-light p-2 rounded">
-          <div className="d-flex align-items-center gap-2 mb-3">
-            <img className="img-fluid" src={props.owner.avatar} alt="" />
-            <h4>
+        &lt;div className="host bg-light p-2 rounded">
+          &lt;div className="d-flex align-items-center gap-2 mb-3">
+            &lt;img className="img-fluid" src={props.owner.avatar} alt="" />
+            &lt;h4>
               Meet your host,{" "}
               {props.owner.name.charAt(0).toUpperCase() +
                 props.owner.name.slice(1)}
-            </h4>
-          </div>
-          <p>
+            &lt;/h4>
+          &lt;/div>
+          &lt;p>
             Your host,{" "}
             {props.owner.name.charAt(0).toUpperCase() +
               props.owner.name.slice(1)}
@@ -277,16 +305,39 @@ function Info(props) {
             at {props.name}. Feel free to reach out to them via email at{" "}
             {props.owner.email} with any questions or concerns you may have
             during your stay.
-          </p>
-          <p>
-            {props.location.city !== "Unknown" &&
+          &lt;/p>
+          &lt;p>
+            {props.location.city !== "Unknown" &amp;&amp;
             props.location.country !== "Unknown"
               ? `Book your stay at ${props.name} today and enjoy a memorable experience in ${props.city}, ${props.country}.`
               : `Book your stay at ${props.name} today and enjoy a memorable experience at our one-of-a-kind venue.`}
-          </p>
-        </div>
-      </Col>
-    </>
+          &lt;/p>
+        &lt;/div>
+      &lt;/Col>
+    &lt;/>
   );
 }
 export default Info;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Amenities">Amenities</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#BasicInfo">BasicInfo</a></li><li><a href="global.html#Booking">Booking</a></li><li><a href="global.html#BookingConfirmationModal">BookingConfirmationModal</a></li><li><a href="global.html#CreateVenue">CreateVenue</a></li><li><a href="global.html#EditModal">EditModal</a></li><li><a href="global.html#HOTJAR_ID">HOTJAR_ID</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Images">Images</a></li><li><a href="global.html#Index">Index</a></li><li><a href="global.html#Info">Info</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Media">Media</a></li><li><a href="global.html#PageNotFound">PageNotFound</a></li><li><a href="global.html#Preview">Preview</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#emailRegex">emailRegex</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 28 2023 18:44:20 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

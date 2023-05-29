@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/createVenue/CreateVenue.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/createVenue/CreateVenue.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// External imports
+import React, { useState } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import ProgressBar from "react-bootstrap/ProgressBar";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
+// Internal imports
+import "./createVenue.scss";
+import Media from "./Media";
+import BasicInfo from "./BasicInfo";
+import Amenities from "./Amenities";
+import Location from "./Location";
+import Preview from "./Preview";
+import PageNotFound from "../404_loading_etc/PageNotFound";
+
+/**
+ * The `CreateVenue` functional component displays a form for creating a new venue.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   &lt;CreateVenue />
+ * )
+ *
+ * @returns {ReactElement} The `CreateVenue` component, a multi-step form for creating a new venue.
+ */
+function CreateVenue() {
+  const [step, setStep] = useState(1);
+  const progress = (step / 5) * 100;
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [error, setError] = useState("");
+  const [showSubmit, setShowSubmit] = useState(true);
+
+  function handleClose() {
+    setShowSuccessModal(false);
+    setShowErrorModal(false);
+  }
+
+  const [venueData, setVenueData] = useState({
+    name: "",
+    description: "",
+    media: [],
+    price: 0,
+    maxGuests: 0,
+    meta: {
+      wifi: false,
+      parking: false,
+      breakfast: false,
+      pets: false,
+    },
+    location: {
+      address: "",
+      city: "",
+      zip: "",
+      country: "",
+      continent: "",
+      lat: 0,
+      lng: 0,
+    },
+  });
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  function setValue(name, value) {
+    setVenueData((prevState) => ({ ...prevState, [name]: value }));
+  }
+
+  function setMedia(value) {
+    setVenueData({ ...venueData, media: value });
+  }
+
+  function setMeta(value) {
+    setVenueData({ ...venueData, meta: value });
+  }
+
+  function setLocation(value) {
+    setVenueData((prevState) => ({
+      ...prevState,
+      location: {
+        ...prevState.location,
+        ...value,
+      },
+    }));
+  }
+
+  function handleNext() {
+    if (step &lt; 5) {
+      setStep(step + 1);
+    }
+    console.log(venueData);
+  }
+
+  function handleBack() {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  }
+
+  async function handleSubmit() {
+    const response = "https://api.noroff.dev/api/v1/holidaze/venues";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + user.token,
+      },
+      body: JSON.stringify(venueData),
+    };
+    try {
+      const result = await fetch(response, options);
+      const json = await result.json();
+      if (result.ok) {
+        setShowSuccessModal(true);
+        setShowSubmit(false);
+        console.log(json);
+      } else {
+        setError(
+          json.errors.map((error) => {
+            return (
+              &lt;div className="d-flex">
+                &lt;p className="me-2">{error.message}&lt;/p>
+              &lt;/div>
+            );
+          })
+        );
+        setShowErrorModal(true);
+        console.log(json);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return user &amp;&amp; user.isVenueManager ? (
+    &lt;Container className="my-5 mainContent">
+      &lt;Row>
+        &lt;Col>
+          &lt;h1 className="fs-3">Add new venue&lt;/h1>
+          &lt;ProgressBar now={progress} label={`${progress}%`} />
+        &lt;/Col>
+      &lt;/Row>
+      &lt;Row className="mt-2">
+        &lt;Col>{step === 1 &amp;&amp; &lt;BasicInfo setValue={setValue} />}&lt;/Col>
+      &lt;/Row>
+      &lt;Row>
+        &lt;Col>
+          {step === 2 &amp;&amp; &lt;Media media={venueData.media} setMedia={setMedia} />}
+        &lt;/Col>
+      &lt;/Row>
+      &lt;Row>
+        &lt;Col>
+          {step === 3 &amp;&amp; &lt;Amenities meta={venueData.meta} setMeta={setMeta} />}
+        &lt;/Col>
+      &lt;/Row>
+      &lt;Row>
+        &lt;Col>
+          {step === 4 &amp;&amp; (
+            &lt;Location location={venueData.location} setLocation={setLocation} />
+          )}
+        &lt;/Col>
+      &lt;/Row>
+      &lt;Row>
+        &lt;Col>
+          {step === 5 &amp;&amp; (
+            &lt;Preview
+              media={venueData.media}
+              payload={venueData}
+              name={venueData.name}
+              maxGuests={venueData.maxGuests}
+              description={venueData.description}
+              owner={user.username}
+              meta={venueData.meta}
+              location={venueData.location}
+            />
+          )}
+        &lt;/Col>
+      &lt;/Row>
+
+      &lt;Row>
+        &lt;Col className="d-flex justify-content-between mt-3">
+          &lt;Button onClick={handleBack} disabled={step === 1}>
+            &lt;FontAwesomeIcon icon={faArrowLeft} />
+          &lt;/Button>
+          {step &lt; 5 ? (
+            &lt;Button onClick={handleNext}>
+              &lt;FontAwesomeIcon icon={faArrowRight} />
+            &lt;/Button>
+          ) : showSubmit ? (
+            &lt;Button onClick={handleSubmit}>Submit&lt;/Button>
+          ) : (
+            &lt;Button disabled>Submit&lt;/Button>
+          )}
+        &lt;/Col>
+      &lt;/Row>
+      &lt;Modal show={showSuccessModal} onHide={handleClose}>
+        &lt;Modal.Header closeButton>
+          &lt;Modal.Title>Success&lt;/Modal.Title>
+        &lt;/Modal.Header>
+        &lt;Modal.Body>Your venue has been successfully added!&lt;/Modal.Body>
+        &lt;Modal.Footer>
+          &lt;Button variant="secondary" onClick={handleClose}>
+            Close
+          &lt;/Button>
+        &lt;/Modal.Footer>
+      &lt;/Modal>
+
+      &lt;Modal show={showErrorModal} onHide={handleClose}>
+        &lt;Modal.Header closeButton className="error-modal-header">
+          &lt;Modal.Title>Error!&lt;/Modal.Title>
+        &lt;/Modal.Header>
+        &lt;Modal.Body className="error-modal-body">{error}&lt;/Modal.Body>
+        &lt;Modal.Footer className="error-modal-footer">
+          &lt;Button
+            style={{ backgroundColor: "#f2994a", borderColor: "#f2994a" }}
+            onClick={handleClose}
+          >
+            Close
+          &lt;/Button>
+        &lt;/Modal.Footer>
+      &lt;/Modal>
+    &lt;/Container>
+  ) : (
+    &lt;PageNotFound />
+  );
+}
+
+export default CreateVenue;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Amenities">Amenities</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#BasicInfo">BasicInfo</a></li><li><a href="global.html#Booking">Booking</a></li><li><a href="global.html#BookingConfirmationModal">BookingConfirmationModal</a></li><li><a href="global.html#CreateVenue">CreateVenue</a></li><li><a href="global.html#EditModal">EditModal</a></li><li><a href="global.html#HOTJAR_ID">HOTJAR_ID</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Images">Images</a></li><li><a href="global.html#Index">Index</a></li><li><a href="global.html#Info">Info</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Media">Media</a></li><li><a href="global.html#PageNotFound">PageNotFound</a></li><li><a href="global.html#Preview">Preview</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#emailRegex">emailRegex</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 28 2023 18:44:20 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

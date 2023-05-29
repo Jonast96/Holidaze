@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/home/FeateuredVenues.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/home/FeateuredVenues.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import VenueCard from "../VenueCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
+import noImg from "../../assets/media/no-photo.png";
+import Dropdown from "react-bootstrap/Dropdown";
+import Button from "react-bootstrap/Button";
+
+/**
+ * The `FeaturedVenues` functional component displays a list of featured venues and provides sorting functionality.
+ * The venues are presented in a 'VenueCard' format, and can be sorted by price (low to high or high to low) or name (A-Z or Z-A).
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   &lt;FeaturedVenues data={venueData} setSorting={updateSortingFunction} />
+ * );
+ *
+ * @param {Object} props - The component's props.
+ * @param {Array} props.data - An array of venue objects. Each object should contain information about the venue, such as name, id, media, price, and location.
+ * @param {function} props.setSorting - The function to call when a user selects a sorting option. This function should accept a string that specifies the new sorting order.
+ *
+ * @returns {ReactElement} The `FeaturedVenues` component presenting the list of featured venues and sorting options.
+ */
+export default function FeaturedVenues({ data, setSorting }) {
+  return (
+    &lt;section id="featuredVenues" className="featuredVenues">
+      &lt;Container>
+        &lt;h4 className="fs-2 text-center mt-4 fw-light text-secondary">
+          Featured Venues
+        &lt;/h4>
+        &lt;Dropdown className="mb-2">
+          &lt;a href="#search">
+            &lt;Button className="me-1">
+              &lt;FontAwesomeIcon icon={faSearch} className="me-2" />
+            &lt;/Button>
+          &lt;/a>
+          &lt;Dropdown.Toggle variant="primary" id="dropdown-basic">
+            &lt;FontAwesomeIcon icon={faFilter} className="me-2" />
+          &lt;/Dropdown.Toggle>
+
+          &lt;Dropdown.Menu>
+            &lt;Dropdown.Item
+              onClick={() => {
+                setSorting("&amp;sort=price&amp;sortOrder=asc");
+              }}
+            >
+              Price low-high
+            &lt;/Dropdown.Item>
+            &lt;Dropdown.Item
+              onClick={() => {
+                setSorting("&amp;sort=price&amp;sortOrder=desc");
+              }}
+            >
+              Price high-low
+            &lt;/Dropdown.Item>
+            &lt;Dropdown.Item
+              onClick={() => {
+                setSorting("&amp;sort=name&amp;sortOrder=asc");
+              }}
+            >
+              Name A-Z
+            &lt;/Dropdown.Item>
+            &lt;Dropdown.Item
+              onClick={() => {
+                setSorting("&amp;sort=name&amp;sortOrder=desc");
+              }}
+            >
+              Name Z-A
+            &lt;/Dropdown.Item>
+          &lt;/Dropdown.Menu>
+        &lt;/Dropdown>
+        &lt;Row>
+          {data.map((venue) => {
+            return (
+              &lt;VenueCard
+                name={venue.name}
+                key={venue.id}
+                img={venue.media}
+                placeholder={noImg}
+                price={venue.price}
+                id={venue.id}
+                location={venue.location}
+              />
+            );
+          })}
+        &lt;/Row>
+      &lt;/Container>
+    &lt;/section>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Amenities">Amenities</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#BasicInfo">BasicInfo</a></li><li><a href="global.html#Booking">Booking</a></li><li><a href="global.html#BookingConfirmationModal">BookingConfirmationModal</a></li><li><a href="global.html#CreateVenue">CreateVenue</a></li><li><a href="global.html#EditModal">EditModal</a></li><li><a href="global.html#HOTJAR_ID">HOTJAR_ID</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Images">Images</a></li><li><a href="global.html#Index">Index</a></li><li><a href="global.html#Info">Info</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Media">Media</a></li><li><a href="global.html#PageNotFound">PageNotFound</a></li><li><a href="global.html#Preview">Preview</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#emailRegex">emailRegex</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 28 2023 18:44:20 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

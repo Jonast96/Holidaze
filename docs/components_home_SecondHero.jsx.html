@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/home/SecondHero.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/home/SecondHero.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import beach from "../../assets/media/beach.jpg";
+import mountain from "../../assets/media/mountain.jpg";
+
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+/**
+ * The `SecondHero` functional component represents a section of a webpage that features two types of destinations: beach (Tropical Escapes) and mountain (Mountain Adventures).
+ * This component is meant to inspire users to explore these types of destinations.
+ *
+ * @component
+ *
+ * @example
+ * return (
+ *   &lt;SecondHero />
+ * );
+ *
+ * @returns {ReactElement} The `SecondHero` component to showcase two types of destinations.
+ */
+export default function SecondHero() {
+  return (
+    &lt;section className="secondHero">
+      &lt;Container className="info mt-5">
+        &lt;h2>Explore Our Destinations&lt;/h2>
+        &lt;p>
+          Whether you're dreaming of a serene beach vacation or an exhilarating
+          mountain adventure, Holidaze offers a diverse range of accommodations
+          to suit every traveler's taste. Discover some of our top picks and
+          start planning your next unforgettable getaway
+        &lt;/p>
+      &lt;/Container>
+      &lt;Container className="mt-4">
+        &lt;Row>
+          &lt;Col className="mb-3" lg={6} sm={12}>
+            &lt;div className="overlayContainer">
+              &lt;img className="img-fluid shadow" src={beach} alt="" />
+              &lt;div className="overlay" />
+              &lt;div className="secondHeroTextContainer">
+                &lt;h3 className="">Tropical Escapes&lt;/h3>
+                &lt;p>
+                  Discover a world of sun, sand, and relaxation at our
+                  handpicked beach destinations. Unwind by the shore, soak in
+                  the sun, and let the waves wash away your worries. Explore our
+                  curated selection of beach getaways and find your perfect
+                  seaside retreat
+                &lt;/p>
+              &lt;/div>
+            &lt;/div>
+          &lt;/Col>
+          &lt;Col lg={6} sm={12}>
+            &lt;div className="overlayContainer">
+              &lt;img className="img-fluid shadow" src={mountain} alt="" />
+              &lt;div className="overlay" />
+              &lt;div className="secondHeroTextContainer">
+                &lt;h3 className="">Mountain Adventures&lt;/h3>
+                &lt;p>
+                  Experience the breathtaking beauty of majestic mountains, lush
+                  forests, and serene landscapes. Immerse yourself in nature
+                  with our selection of mountain lodges and retreats. Whether
+                  you're seeking thrilling outdoor activities or a peaceful
+                  escape, the mountains are calling
+                &lt;/p>
+              &lt;/div>
+            &lt;/div>
+          &lt;/Col>
+        &lt;/Row>
+      &lt;/Container>
+    &lt;/section>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Amenities">Amenities</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#BasicInfo">BasicInfo</a></li><li><a href="global.html#Booking">Booking</a></li><li><a href="global.html#BookingConfirmationModal">BookingConfirmationModal</a></li><li><a href="global.html#CreateVenue">CreateVenue</a></li><li><a href="global.html#EditModal">EditModal</a></li><li><a href="global.html#HOTJAR_ID">HOTJAR_ID</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Images">Images</a></li><li><a href="global.html#Index">Index</a></li><li><a href="global.html#Info">Info</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#Location">Location</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#Media">Media</a></li><li><a href="global.html#PageNotFound">PageNotFound</a></li><li><a href="global.html#Preview">Preview</a></li><li><a href="global.html#Register">Register</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#emailRegex">emailRegex</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 28 2023 18:44:20 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
